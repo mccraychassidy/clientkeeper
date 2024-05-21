@@ -230,4 +230,4 @@ orderId // sort key, string
 - `ClientOrdersIndex` includes ALL attributes from the `orders` table
 
 # 8. Pages
-![](/Users/chassidymccray/Documents/ClientKeeper1.png)
+![img.png](img.png)
