@@ -224,7 +224,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Role: !GetAtt AccessRole.Arn
-      CodeUri: app/
+      CodeUri: app
       Handler: com.nashss.se.clientkeeper.lambda.GetClientLambda::handleRequest
       Runtime: java11
       Architectures:
