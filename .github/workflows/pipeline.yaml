@@ -9,10 +9,10 @@ on:
 env:
 
   # STUDENTS: Set these environment variables 
-  API_BASE_URL: https://48102bfd47.execute-api.us-east-2.amazonaws.com/Prod/
+  API_BASE_URL: \https://y2d0yml4sk.execute-api.us-east-2.amazonaws.com/Prod/
   COGNITO_DOMAIN: project-clientkeeper-chassidy-mccray
-  COGNITO_REDIRECT_SIGNIN: https://drknw4wnit8ju.cloudfront.net
-  COGNITO_REDIRECT_SIGNOUT: https://drknw4wnit8ju.cloudfront.net
+  COGNITO_REDIRECT_SIGNIN: https://d176uj0kidgcyo.cloudfront.net
+  COGNITO_REDIRECT_SIGNOUT: https://d176uj0kidgcyo.cloudfront.net
 
   COGNITO_USER_POOL_ID: ${{ secrets.COGNITO_USER_POOL_ID }}
   COGNITO_USER_POOL_CLIENT_ID: ${{ secrets.COGNITO_USER_POOL_CLIENT_ID }}
@@ -24,10 +24,10 @@ env:
   PIPELINE_USER_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   SAM_TEMPLATE: template.yaml
 
-  STACK_NAME: client-keeper-service
-  PIPELINE_EXECUTION_ROLE: arn:aws:iam::654654498354:role/aws-sam-cli-managed-ServiceSt-PipelineExecutionRole-td9YfxTaUZWa
-  CLOUDFORMATION_EXECUTION_ROLE: arn:aws:iam::654654498354:role/aws-sam-cli-managed-Servi-CloudFormationExecutionRo-axzSmNoAizJj
-  ARTIFACTS_BUCKET: aws-sam-cli-managed-servicestage-p-artifactsbucket-gwreir0afhkr
+  STACK_NAME: clientkeeper
+  PIPELINE_EXECUTION_ROLE: arn:aws:iam::654654498354:role/aws-sam-cli-managed-ServiceSt-PipelineExecutionRole-auZDJnZVwCKd
+  CLOUDFORMATION_EXECUTION_ROLE: arn:aws:iam::654654498354:role/aws-sam-cli-managed-Servi-CloudFormationExecutionRo-9lxeVUIpkQxR
+  ARTIFACTS_BUCKET: aws-sam-cli-managed-servicestage-p-artifactsbucket-hsu6b0an4rnz
   REGION: us-east-2
 
 jobs:
