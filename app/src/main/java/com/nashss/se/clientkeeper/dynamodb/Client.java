@@ -64,7 +64,7 @@ public class Client {
     }
 
     @DynamoDBAttribute(attributeName = "clientAddress")
-    public String getClientPAddress() {
+    public String getClientAddress() {
         return clientAddress;
     }
 
