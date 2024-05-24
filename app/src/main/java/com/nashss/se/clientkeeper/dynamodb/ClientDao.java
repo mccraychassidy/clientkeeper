@@ -83,5 +83,4 @@ public class ClientDao {
 
         //TODO: Figure out the logic to validate the time format is correct.
     }
-
 }
