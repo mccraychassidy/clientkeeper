@@ -1,12 +1,15 @@
-package com.nashss.se.clientkeeper.dynamodb;
+package com.nashss.se.clientkeeper.dynamodb.models;
+
+import com.nashss.se.clientkeeper.converters.DateTimeConverter;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConverted;
 
 /**
- * Represents a Client in the Clients table
+ * Represents a Client in the Clients table.
  */
 @DynamoDBTable(tableName = "clients")
 public class Client {
@@ -72,6 +75,7 @@ public class Client {
         this.clientAddress = clientAddress;
     }
 
+    @DynamoDBTypeConverted(converter = DateTimeConverter.class)
     @DynamoDBAttribute(attributeName = "clientMemberSince")
     public String getClientMemberSince() {
         return clientMemberSince;

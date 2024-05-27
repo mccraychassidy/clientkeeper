@@ -1,7 +1,7 @@
 package com.nashss.se.clientkeeper;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-import com.nashss.se.clientkeeper.dynamodb.Client;
+import com.nashss.se.clientkeeper.dynamodb.models.Client;
 import com.nashss.se.clientkeeper.dynamodb.ClientDao;
 import com.nashss.se.clientkeeper.exceptions.ClientNotFoundException;
 import com.nashss.se.clientkeeper.exceptions.InvalidAttributeValueException;

@@ -59,7 +59,7 @@ public class LambdaResponse extends APIGatewayProxyResponseEvent {
     }
 
     /**
-     * Create a Internal Server Error response with a given message.
+     * Create an Internal Server Error response with a given message.
      * @param message A message describing the error
      * @return A new LambdaResponse
      */
@@ -70,7 +70,7 @@ public class LambdaResponse extends APIGatewayProxyResponseEvent {
     }
 
     /**
-     * Create a Internal Server Error response with a given exception message.
+     * Create an Internal Server Error response with a given exception message.
      * @param e The exception representing the error that occurred.
      *          The exception's message is used to create the response.
      * @return A new LambdaResponse

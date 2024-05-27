@@ -1,8 +1,10 @@
 package com.nashss.se.clientkeeper.dynamodb;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.nashss.se.clientkeeper.dynamodb.models.Client;
 import com.nashss.se.clientkeeper.exceptions.ClientNotFoundException;
 import com.nashss.se.clientkeeper.exceptions.InvalidAttributeValueException;
+
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -15,7 +17,7 @@ public class ClientDao {
     private final DynamoDBMapper dynamoDbMapper;
 
     /**
-     * Instantiates a ClientDao object
+     * Instantiates a ClientDao object.
      *
      * @param dynamoDbMapper the {@link DynamoDBMapper} used to interact with the Clients table
      */
