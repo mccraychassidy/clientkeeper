@@ -220,12 +220,12 @@ Resources:
   # Lambda Functions Configuration
   #-----------------------------------------------------
 
-  GetClientLambda:
+  CreateClientLambda:
     Type: AWS::Serverless::Function
     Properties:
       Role: !GetAtt AccessRole.Arn
       CodeUri: app
-      Handler: com.nashss.se.clientkeeper.lambda.GetClientLambda::handleRequest
+      Handler: com.nashss.se.clientkeeper.lambda.CreateClientLambda::handleRequest
       Runtime: java11
       Architectures:
         - x86_64
@@ -237,14 +237,29 @@ Resources:
         ClientKeeper:
           Type: Api
           Properties:
-            Path: /clients/{clientId}
-            Method: get
+            Path: /clients
+            Method: post
             Auth:
               Authorizer: 'NONE'
 
   #-----------------------------------------------------
   # DynamoDB Configuration
   #-----------------------------------------------------
+  ClientsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "userEmail"
+          AttributeType: "S"
+        - AttributeName: "clientId"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "userEmail"
+          KeyType: "HASH"
+        - AttributeName: "clientId"
+          KeyType: "RANGE"
+      BillingMode: "PAY_PER_REQUEST"
+      TableName: "clients"
 
 #-----------------------------------------------------
 # The outputs defined below will be printed
