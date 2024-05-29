@@ -1,10 +1,14 @@
 package com.nashss.se.clientkeeper.dynamodb.models;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import com.nashss.se.clientkeeper.converters.DateConverter;
 
-import java.time.LocalDate;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConverted;
 
+import java.time.LocalDate;
 
 /**
  * Represents a Client in the Clients table.

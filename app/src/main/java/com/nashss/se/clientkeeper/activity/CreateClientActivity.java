@@ -10,17 +10,17 @@ import com.nashss.se.clientkeeper.models.ClientModel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.inject.Inject;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import javax.inject.Inject;
 
 /**
  * Handles the creation of a new client.
  */
 public class CreateClientActivity {
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("MM-dd-yyyy");
     private final Logger log = LogManager.getLogger();
     private final ClientDao clientDao;
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("MM-dd-yyyy");
 
     /**
      * Constructs a CreateClientActivity with the given ClientDao.
