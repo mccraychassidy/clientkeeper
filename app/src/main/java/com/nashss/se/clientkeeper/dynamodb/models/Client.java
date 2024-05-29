@@ -1,12 +1,10 @@
 package com.nashss.se.clientkeeper.dynamodb.models;
 
-import com.nashss.se.clientkeeper.converters.DateTimeConverter;
+import com.amazonaws.services.dynamodbv2.datamodeling.*;
+import com.nashss.se.clientkeeper.converters.DateConverter;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConverted;
+import java.time.LocalDate;
+
 
 /**
  * Represents a Client in the Clients table.
@@ -19,7 +17,7 @@ public class Client {
     private String clientEmail;
     private String clientPhone;
     private String clientAddress;
-    private String clientMemberSince;
+    private LocalDate clientMemberSince;
 
     @DynamoDBHashKey(attributeName = "userEmail")
     public String getUserEmail() {
@@ -75,13 +73,13 @@ public class Client {
         this.clientAddress = clientAddress;
     }
 
-    @DynamoDBTypeConverted(converter = DateTimeConverter.class)
+    @DynamoDBTypeConverted(converter = DateConverter.class)
     @DynamoDBAttribute(attributeName = "clientMemberSince")
-    public String getClientMemberSince() {
+    public LocalDate getClientMemberSince() {
         return clientMemberSince;
     }
 
-    public void setClientMemberSince(String clientMemberSince) {
+    public void setClientMemberSince(LocalDate clientMemberSince) {
         this.clientMemberSince = clientMemberSince;
     }
 }

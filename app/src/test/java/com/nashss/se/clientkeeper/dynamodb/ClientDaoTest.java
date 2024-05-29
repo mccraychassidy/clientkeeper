@@ -1,13 +1,15 @@
-package com.nashss.se.clientkeeper;
+package com.nashss.se.clientkeeper.dynamodb;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.nashss.se.clientkeeper.dynamodb.models.Client;
-import com.nashss.se.clientkeeper.dynamodb.ClientDao;
 import com.nashss.se.clientkeeper.exceptions.ClientNotFoundException;
 import com.nashss.se.clientkeeper.exceptions.InvalidAttributeValueException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
@@ -19,6 +21,7 @@ public class ClientDaoTest {
     private DynamoDBMapper dynamoDBMapper;
 
     private ClientDao clientDao;
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("MM-dd-yyyy");
 
     @BeforeEach
     public void setup() {
@@ -67,7 +70,7 @@ public class ClientDaoTest {
         client.setClientEmail("janedoe@example.com");
         client.setClientPhone("5786314899");
         client.setClientAddress("123 Main St Nashville, TN 37919");
-        client.setClientMemberSince("01/01/2024");
+        client.setClientMemberSince(LocalDate.parse("01-01-2024", DATE_FORMATTER));
         client.setUserEmail("user@example.com");
         client.setClientId("validClientId");
 

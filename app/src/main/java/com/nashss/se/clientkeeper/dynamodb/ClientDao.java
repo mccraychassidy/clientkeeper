@@ -1,13 +1,14 @@
 package com.nashss.se.clientkeeper.dynamodb;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.nashss.se.clientkeeper.dynamodb.models.Client;
 import com.nashss.se.clientkeeper.exceptions.ClientNotFoundException;
 import com.nashss.se.clientkeeper.exceptions.InvalidAttributeValueException;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.time.format.DateTimeFormatter;
+
 
 /**
  * Accesses data for a Client using {@link Client} to represent the model in DynamoDB.
@@ -15,6 +16,8 @@ import javax.inject.Singleton;
 @Singleton
 public class ClientDao {
     private final DynamoDBMapper dynamoDbMapper;
+    private static final String DATE_FORMAT = "MM-dd-yyyy";
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMAT);
 
     /**
      * Instantiates a ClientDao object.
@@ -83,6 +86,10 @@ public class ClientDao {
             throw new InvalidAttributeValueException("Missing required attribute(s)");
         }
 
-        //TODO: Figure out the logic to validate the time format is correct.
+        try {
+            DATE_FORMATTER.format(client.getClientMemberSince());
+        } catch (Exception e) {
+            throw new InvalidAttributeValueException("Invalid date format. Required format: " + DATE_FORMAT);
+        }
     }
 }

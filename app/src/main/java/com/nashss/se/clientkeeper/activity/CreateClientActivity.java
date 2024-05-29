@@ -11,6 +11,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Handles the creation of a new client.
@@ -18,6 +20,7 @@ import javax.inject.Inject;
 public class CreateClientActivity {
     private final Logger log = LogManager.getLogger();
     private final ClientDao clientDao;
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("MM-dd-yyyy");
 
     /**
      * Constructs a CreateClientActivity with the given ClientDao.
@@ -52,8 +55,7 @@ public class CreateClientActivity {
         newClient.setClientEmail(createClientRequest.getClientEmail());
         newClient.setClientPhone(createClientRequest.getClientPhone());
         newClient.setClientAddress(createClientRequest.getClientAddress());
-        newClient.setClientMemberSince(createClientRequest.getClientMemberSince());
-
+        newClient.setClientMemberSince(LocalDate.parse(createClientRequest.getClientMemberSince(), DATE_FORMATTER));
         clientDao.saveClient(newClient);
 
         ClientModel clientModel = ClientModel.builder()
@@ -63,7 +65,7 @@ public class CreateClientActivity {
                 .withClientEmail(newClient.getClientEmail())
                 .withClientPhone(newClient.getClientPhone())
                 .withClientAddress(newClient.getClientAddress())
-                .withClientMemberSince(newClient.getClientMemberSince())
+                .withClientMemberSince(newClient.getClientMemberSince().format(DATE_FORMATTER))
                 .build();
 
         return CreateClientResult.builder()
