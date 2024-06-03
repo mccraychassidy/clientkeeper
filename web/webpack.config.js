@@ -23,12 +23,8 @@ module.exports = {
     usedExports: true
   },
   entry: {
-    createPlaylist: path.resolve(__dirname, 'src', 'pages', 'createPlaylist.js'),
-    viewPlaylist: path.resolve(__dirname, 'src', 'pages', 'viewPlaylist.js'),
-    searchPlaylists: path.resolve(__dirname, 'src', 'pages', 'searchPlaylists.js'),
-    addBirthday: path.resolve(__dirname, 'src', 'pages', 'addBirthday.js'),
-    todaysBirthdays: path.resolve(__dirname, 'src', 'pages', 'todaysBirthdays.js'),
-    manageBirthdays: path.resolve(__dirname, 'src', 'pages', 'manageBirthdays.js')
+    homePage: path.resolve(__dirname, 'src', 'pages', 'homePage.js'),
+    currentOrders: path.resolve(__dirname, 'src', 'pages', 'currentOrders.js')
   },
   output: {
     path: path.resolve(__dirname, 'build', 'assets'),

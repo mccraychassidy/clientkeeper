@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Current Orders</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script defer src="assets/currentOrders.js"></script>
+</head>
+<body class="background">
+    <header class="header" id="header"></header>
+    <div class="main-content">
+        <nav>
+            <a href="clients.html">Clients</a>
+            <a href="completedOrders.html">Completed Orders</a>
+            <a href="#" id="signOutButton">Sign Out</a>
+        </nav>
+        <h1>Current Orders</h1>
+        <table id="ordersTable">
+            <thead>
+                <tr>
+                    <th>Client</th>
+                    <th>Order #</th>
+                    <th>Purchased</th>
+                    <th>Shipped?</th>
+                    <th>Service</th>
+                    <th>Expected Delivery</th>
+                    <th>Tracking #</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Orders will be dynamically inserted here -->
+            </tbody>
+        </table>
+        <button id="addOrderButton">Add Order</button>
+    </div>
+</body>
+</html>

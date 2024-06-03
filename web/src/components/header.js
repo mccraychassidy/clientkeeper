@@ -1,4 +1,4 @@
-import MusicPlaylistClient from '../api/musicPlaylistClient';
+import ClientKeeperClient from '../api/clientKeeperClient';
 import BindingClass from "../util/bindingClass";
 
 /**
@@ -10,11 +10,11 @@ export default class Header extends BindingClass {
 
         const methodsToBind = [
             'addHeaderToPage', 'createSiteTitle', 'createUserInfoForHeader',
-            'createLoginButton', 'createLoginButton', 'createLogoutButton'
+            'createLoginButton', 'createLoginButton', 'createLogoutButton', 'createAboutButton'
         ];
         this.bindClassMethods(methodsToBind, this);
 
-        this.client = new MusicPlaylistClient();
+        this.client = new ClientKeeperClient();
     }
 
     /**
@@ -34,19 +34,35 @@ export default class Header extends BindingClass {
     createSiteTitle() {
         const homeButton = document.createElement('a');
         homeButton.classList.add('header_home');
-        homeButton.href = 'index.html';
-        homeButton.innerText = 'Playlists';
+        homeButton.href = 'demo.html';
+        homeButton.innerText = 'Request A Demo';
+
+        const aboutButton = this.createAboutButton();
 
         const siteTitle = document.createElement('div');
         siteTitle.classList.add('site-title');
         siteTitle.appendChild(homeButton);
+        siteTitle.appendChild(aboutButton);
 
         return siteTitle;
     }
 
+    createAboutButton() {
+        const aboutButton = document.createElement('a');
+        aboutButton.classList.add('header_about');
+        aboutButton.href = 'about.html';
+        aboutButton.innerText = 'About';
+
+        const aboutContainer = document.createElement('div');
+        aboutContainer.classList.add('about-container');
+        aboutContainer.appendChild(aboutButton);
+
+        return aboutContainer;
+    }
+
     createUserInfoForHeader(currentUser) {
         const userInfo = document.createElement('div');
-        userInfo.classList.add('user');
+        userInfo.classList.add('user-info');
 
         const childContent = currentUser
             ? this.createLogoutButton(currentUser)
@@ -71,8 +87,14 @@ export default class Header extends BindingClass {
         button.href = '#';
         button.innerText = text;
 
-        button.addEventListener('click', async () => {
-            await clickHandler();
+        button.addEventListener('click', async (event) => {
+            event.preventDefault();
+            await clickHandler.call(this.client);
+            const params = new URLSearchParams(window.location.search);
+            const redirect = params.get('redirect');
+            if (redirect) {
+                window.location.href = redirect;
+            }
         });
 
         return button;
