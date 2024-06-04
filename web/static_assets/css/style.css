@@ -2,8 +2,8 @@
     /* css variables: https://developer.mozilla.org/en-US/docs/Web/CSS/var */
     --primary-color: #333333; /* text */
     --secondary-color: #ffffff; /* card background */
-    --tertiary-color: #c878e3; /* buttons */
-    --background-color: #d8c9f2;
+    --tertiary-color: #121112; /* buttons */
+    --background-color: #161517;
     --error-color: #EE3A23;
 }
 
@@ -36,11 +36,6 @@
   cursor: pointer;
 }
 
-.button-group {
-    display: flex;
-    justify-content: center;
-}
-
 .header_home {
     font-size: 28px;
     font-weight: bold;
@@ -50,128 +45,217 @@
     color: var(--primary-color);
 }
 
-.card {
-    color: var(--primary-color);
-    background-color: var(--secondary-color);
-    text-align: center;
-    margin-top: 100px;
-    margin-left: 350px;
-    margin-right: 350px;
+#header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 10px 20px;
-    border-radius: 25px;
-}
-
-.error {
-    color: var(--error-color);
-    border: 1px solid var(--error-color);
-    padding: 8px;
-}
-
-.validated-field:invalid {
-    outline: 2px solid var(--error-color);
-}
-.validated-field:focus:invalid {
-    color: var(--error-color);
-}
-
-.card-content {
-    margin: auto;
-    max-width: 300px;
-    text-align: center;
-}
-
-.card-content .form-field {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-}
-
-.tags {
-    display: flex;
-    flex-direction: row;
-}
-
-.tag {
-    font-size: 12px;
-    margin: 0 10px;
-    padding: 4px 8px;
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
+    background-color: #fff;
     position: relative;
-    border-radius: 16px;
 }
 
-.song {
-    padding: 2px;
+.site-title {
     display: flex;
+    align-items: center;
+    flex-grow: 1;
 }
 
-.song .title {
-    flex: 20%;
+.header_home {
+    margin-right: auto;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #000;
 }
 
-.song .album {
-    flex: 80%;
-}
-
-/*
-Flexbox on a lists removes the numbers. We use a counter here to add them back.
-https://stackoverflow.com/a/34316093
-https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Lists_and_Counters/Using_CSS_counters
-*/
-.song:before {
-    counter-increment: section;
-    content: counter(section) ".";
+.header_about {
     position: absolute;
-    margin-left: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 18px;
+    text-decoration: none;
+    color: #000;
 }
 
-.hidden {
-    display: none;
+.user-info {
+    display: flex;
+    align-items: center;
 }
 
-/* table styles */ 
+.main-content {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.logo {
+    width: 200px; /* Adjust the size as needed */
+    height: auto;
+}
+
+.social-media-links {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.social-icon img {
+    width: 40px; /* Adjust the size as needed */
+    height: auto;
+    margin: 0 10px;
+}
+
+.background {
+    background-color: #1c1c1c;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+.header {
+    background-color: #333;
+    padding: 10px;
+    text-align: center;
+    font-size: 24px;
+    color: white;
+}
+
+.card {
+    background-color: #2a2a2a;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.back-button-container, .button-group {
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+.back-button, .button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+}
+
+.back-button:hover, .button:hover {
+    background-color: #45a049;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.search-box {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+}
+
+.clients-table {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
 
 th, td {
-    padding: 15px;
+    padding: 12px;
     text-align: left;
+    border-bottom: 1px solid #ddd;
 }
 
 th {
-    border-bottom: 1px solid var(--primary-color);
+    background-color: #4CAF50;
 }
 
-a {
-    color: var(--tertiary-color);
-    text-decoration: none;
+tr:hover {
+    background-color: #3e3e3e;
 }
-.back-button-container {
-    margin-bottom: 15px;
-    text-align: left;
+.background {
+    background-color: #1c1c1c;
+    color: white;
+    font-family: Arial, sans-serif;
 }
 
-.back-button {
-    padding: 5px 10px;
-    background-color: var(--secondary-color); /* Using your theme color */
-    border: 1px solid var(--primary-color); /* Adding a border color from your variable */
-    color: var(--primary-color); /* Text color from your variable */
+.header {
+    background-color: #333;
+    padding: 10px;
+    text-align: center;
+    font-size: 24px;
+    color: white;
+}
+
+.card {
+    background-color: #2a2a2a;
+    margin: 20px auto;
+    padding: 20px;
     border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    width: 80%;
+    max-width: 400px;
+}
+
+.back-button-container, .button-group {
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+.back-button, .button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+}
+
+.back-button:hover, .button:hover {
+    background-color: #45a049;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-field {
+    margin-bottom: 15px;
+}
+
+.form-field label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-field input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+.error {
+    color: red;
+    display: none;
 }
 
 .message-display {
     color: green;
-    margin-top: 10px;
-    font-size: 16px;
     text-align: center;
+    margin-top: 10px;
 }
 
-.page-description-text {
-    font-style: italic;
-    margin-bottom: 50px;
-}
-
-.birthday-list {
-    padding: 50px;
-}
