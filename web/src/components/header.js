@@ -10,7 +10,7 @@ export default class Header extends BindingClass {
 
         const methodsToBind = [
             'addHeaderToPage', 'createSiteTitle', 'createUserInfoForHeader',
-            'createLoginButton', 'createLoginButton', 'createLogoutButton', 'createAboutButton'
+            'createLoginButton', 'createLoginButton', 'createLogoutButton', 'createAboutButton', 'createOrdersButton'
         ];
         this.bindClassMethods(methodsToBind, this);
 
@@ -38,11 +38,13 @@ export default class Header extends BindingClass {
         homeButton.innerText = 'Request A Demo';
 
         const aboutButton = this.createAboutButton();
+        const ordersButton = this.createOrdersButton();
 
         const siteTitle = document.createElement('div');
         siteTitle.classList.add('site-title');
         siteTitle.appendChild(homeButton);
         siteTitle.appendChild(aboutButton);
+        siteTitle.appendChild(ordersButton);
 
         return siteTitle;
     }
@@ -58,6 +60,19 @@ export default class Header extends BindingClass {
         aboutContainer.appendChild(aboutButton);
 
         return aboutContainer;
+    }
+
+    createOrdersButton() {
+        const ordersButton = document.createElement('a');
+        ordersButton.classList.add('header_orders');
+        ordersButton.href = 'currentOrders.html';
+        ordersButton.innerText = 'Current Orders';
+
+        const ordersContainer = document.createElement('div');
+        ordersContainer.classList.add('orders-container');
+        ordersContainer.appendChild(ordersButton);
+
+        return ordersContainer;
     }
 
     createUserInfoForHeader(currentUser) {
@@ -88,13 +103,7 @@ export default class Header extends BindingClass {
         button.innerText = text;
 
         button.addEventListener('click', async (event) => {
-            event.preventDefault();
-            await clickHandler.call(this.client);
-            const params = new URLSearchParams(window.location.search);
-            const redirect = params.get('redirect');
-            if (redirect) {
-                window.location.href = redirect;
-            }
+            await clickHandler();
         });
 
         return button;

@@ -9,7 +9,7 @@ export default class clientKeeperClient extends BindingClass {
 
         /* Methods that need binding. Add to this as methods are created */
 
-        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout'];
+        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'createClient'];
         this.bindClassMethods(methodsToBind, this);
 
         this.authenticator = new Authenticator();;
@@ -62,6 +62,26 @@ export default class clientKeeperClient extends BindingClass {
         }
 
         return await this.authenticator.getUserToken();
+    }
+
+    /**
+     * Creates a new client.
+     * @param clientData The client data to be created.
+     * @param errorCallback (Optional) A function to execute if the call fails.
+     * @returns The created client data.
+     */
+    async createClient(clientData, errorCallback) {
+        try {
+            const token = await this.getTokenOrThrow("You must be logged in to create a client.");
+            const response = await this.axiosClient.post("/clients", clientData, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleError(error, errorCallback);
+        }
     }
 
     /**

@@ -18,7 +18,7 @@ import javax.inject.Inject;
  * Handles the creation of a new client.
  */
 public class CreateClientActivity {
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private final Logger log = LogManager.getLogger();
     private final ClientDao clientDao;
 

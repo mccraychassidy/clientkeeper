@@ -21,7 +21,7 @@ public class CreateClientActivityTest {
     private ClientDao clientDao;
 
     private CreateClientActivity createClientActivity;
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     @BeforeEach
     public void setup() {
@@ -39,7 +39,7 @@ public class CreateClientActivityTest {
                 .withClientEmail("janedoe@example.com")
                 .withClientPhone("5786314899")
                 .withClientAddress("123 Main St Nashville, TN 37919")
-                .withClientMemberSince("01-27-2024")
+                .withClientMemberSince("2024-01-27")
                 .build();
 
         Client client = new Client();
@@ -49,7 +49,7 @@ public class CreateClientActivityTest {
         client.setClientEmail("janedoe@example.com");
         client.setClientPhone("5786314899");
         client.setClientAddress("123 Main St Nashville, TN 37919");
-        client.setClientMemberSince(LocalDate.parse("01-27-2024", DATE_FORMATTER));
+        client.setClientMemberSince(LocalDate.parse("2024-01-27", DATE_FORMATTER));
 
         when(clientDao.saveClient(any(Client.class))).thenReturn(client);
 
@@ -73,7 +73,7 @@ public class CreateClientActivityTest {
                 // Missing clientEmail
                 .withClientPhone("5786314899")
                 .withClientAddress("123 Main St Nashville, TN 37919")
-                .withClientMemberSince("01-27-2024")
+                .withClientMemberSince("2024-01-27")
                 .build();
 
         // WHEN + THEN

@@ -4,7 +4,7 @@ import BindingClass from '../util/bindingClass';
 import DataStore from '../util/DataStore';
 
 /**
- * Logic for the Today's Birthdays page of the website.
+ * Logic for the home page of the website.
  */
 class HomePage extends BindingClass {
     constructor() {
@@ -16,7 +16,7 @@ class HomePage extends BindingClass {
     }
 
     /**
-     * Mount the component, fetch today's birthdays and render them.
+     * Mount the component, fetch header.
      */
     async mount() {
         await this.header.addHeaderToPage();

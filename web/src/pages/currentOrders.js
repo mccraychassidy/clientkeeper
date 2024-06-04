@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Fetch and display orders
     async function loadOrders() {
-        const orders = await client.getOrders(); // Assuming getOrders() is a method to fetch orders
+        const orders = await client.getOrders(); // This is just a placeholder --- Assuming getOrders() is a method to fetch orders
         ordersTableBody.innerHTML = ''; // Clear any existing rows
 
         orders.forEach(order => {
