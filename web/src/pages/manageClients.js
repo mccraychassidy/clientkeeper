@@ -6,7 +6,7 @@ import DataStore from '../util/DataStore';
 class ManageClients extends BindingClass {
     constructor() {
         super();
-        this.bindClassMethods(['mount', 'displayAllClients', 'filterClients'], this);
+        this.bindClassMethods(['mount', 'displayAllClients', 'renderClientsTable', 'filterClients'], this);
         this.header = new Header(this.dataStore);
         this.clients = [];
     }
@@ -27,8 +27,12 @@ class ManageClients extends BindingClass {
     async displayAllClients() {
         try {
             const allClients = await this.client.getAllClients();
-            this.clients = allClients.clients;
-            this.renderClientsTable(this.clients);
+            if (allClients && allClients.clients) {
+                this.clients = allClients.clients;
+                this.renderClientsTable(this.clients);
+            } else {
+                console.error('No clients found or API response is malformed');
+            }
         } catch (error) {
             console.error('Error fetching clients:', error);
         }
@@ -44,11 +48,11 @@ class ManageClients extends BindingClass {
         clients.forEach(client => {
             const row = document.createElement('tr');
             row.innerHTML = `
-                <td>${client.name}</td>
-                <td>${client.email}</td>
-                <td>${client.phone}</td>
-                <td>${client.address}</td>
-                <td>${client.memberSince}</td>
+                <td>${client.clientName}</td>
+                <td>${client.clientEmail}</td>
+                <td>${client.clientPhone}</td>
+                <td>${client.clientAddress}</td>
+                <td>${client.clientMemberSince}</td>
             `;
             clientsList.appendChild(row);
         });
@@ -60,11 +64,11 @@ class ManageClients extends BindingClass {
     filterClients(event) {
         const searchTerm = event.target.value.toLowerCase();
         const filteredClients = this.clients.filter(client => {
-            return client.name.toLowerCase().includes(searchTerm) ||
-                   client.email.toLowerCase().includes(searchTerm) ||
-                   client.phone.includes(searchTerm) ||
-                   client.address.toLowerCase().includes(searchTerm) ||
-                   client.memberSince.includes(searchTerm);
+            return client.clientName.toLowerCase().includes(searchTerm) ||
+                   client.clientEmail.toLowerCase().includes(searchTerm) ||
+                   client.clientPhone.includes(searchTerm) ||
+                   client.clientAddress.toLowerCase().includes(searchTerm) ||
+                   client.clientMemberSince.includes(searchTerm);
         });
         this.renderClientsTable(filteredClients);
     }

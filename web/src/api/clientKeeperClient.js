@@ -9,7 +9,7 @@ export default class clientKeeperClient extends BindingClass {
 
         /* Methods that need binding. Add to this as methods are created */
 
-        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'createClient'];
+        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'createClient', 'getAllClients'];
         this.bindClassMethods(methodsToBind, this);
 
         this.authenticator = new Authenticator();;
@@ -81,6 +81,26 @@ export default class clientKeeperClient extends BindingClass {
             return response.data;
         } catch (error) {
             this.handleError(error, errorCallback);
+        }
+    }
+
+    async getAllClients(errorCallback) {
+        try {
+            const token = await this.getTokenOrThrow("You must be logged in to view clients.");
+            const userInfo = await this.getIdentity();
+            if (!userInfo || !userInfo.email) {
+                throw new Error("Unable to retrieve user information.");
+            }
+            const response = await this.axiosClient.get(`/clients?email=${userInfo.email}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            console.log('API response:', response.data);
+            return response.data;
+        } catch (error) {
+            this.handleError(error, errorCallback);
+            return null;
         }
     }
 
