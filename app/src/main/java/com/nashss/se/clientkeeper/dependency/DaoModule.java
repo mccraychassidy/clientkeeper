@@ -1,5 +1,6 @@
 package com.nashss.se.clientkeeper.dependency;
 
+import com.nashss.se.clientkeeper.activity.GetAllClientsActivity;
 import com.nashss.se.clientkeeper.dynamodb.ClientDao;
 import com.nashss.se.clientkeeper.dynamodb.DynamoDbClientProvider;
 
@@ -36,5 +37,17 @@ public class DaoModule {
     @Provides
     public ClientDao provideClientDao(DynamoDBMapper dynamoDbMapper) {
         return new ClientDao(dynamoDbMapper);
+    }
+
+    /**
+     * Provides a singleton instance of GetAllClientsActivity.
+     *
+     * @param clientDao used to interact with the database
+     * @return a new GetAllClientsActivity instance
+     */
+    @Singleton
+    @Provides
+    GetAllClientsActivity provideGetAllClientsActivity(ClientDao clientDao) {
+        return new GetAllClientsActivity(clientDao);
     }
 }

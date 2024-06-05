@@ -1,6 +1,7 @@
 package com.nashss.se.clientkeeper.dependency;
 
 import com.nashss.se.clientkeeper.activity.CreateClientActivity;
+import com.nashss.se.clientkeeper.activity.GetAllClientsActivity;
 import com.nashss.se.clientkeeper.activity.GetClientActivity;
 
 import dagger.Component;
@@ -27,5 +28,12 @@ public interface ServiceComponent {
      * @return GetClientActivity
      */
     GetClientActivity provideGetClientActivity();
+
+    /**
+     * Provides an instance of GetAllClientsActivity.
+     *
+     * @return GetAllClientsActivity
+     */
+    GetAllClientsActivity provideGetAllClientsActivity();
 
 }
