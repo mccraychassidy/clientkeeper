@@ -1,20 +1,18 @@
 package com.nashss.se.clientkeeper.activity.requests;
 
 /**
- * Represents a request to get a client.
+ * Represents a request to get all clients.
  */
-public class GetClientRequest {
+public class GetAllClientsRequest {
     private final String userEmail;
-    private final String clientId;
 
     /**
-     * Private constructor to create a new instance of GetClientRequest.
+     * Private constructor to create a new instance of GetAllClientsRequest.
      *
      * @param builder the Builder object containing the values to initialize the fields
      */
-    private GetClientRequest(Builder builder) {
+    private GetAllClientsRequest(Builder builder) {
         this.userEmail = builder.userEmail;
-        this.clientId = builder.clientId;
     }
 
     /**
@@ -35,18 +33,8 @@ public class GetClientRequest {
         return userEmail;
     }
 
-    /**
-     * Gets the client ID.
-     *
-     * @return the client ID
-     */
-    public String getClientId() {
-        return clientId;
-    }
-
     public static class Builder {
         private String userEmail;
-        private String clientId;
 
         /**
          * Sets the user email.
@@ -60,23 +48,12 @@ public class GetClientRequest {
         }
 
         /**
-         * Sets the client ID.
-         *
-         * @param id the client ID
-         * @return the Builder instance
-         */
-        public Builder withClientId(String id) {
-            this.clientId = id;
-            return this;
-        }
-
-        /**
-         * Builds a new GetClientRequest instance.
+         * Builds a new GetAllClientsRequest instance.
          *
          * @return a new GetClientRequest instance
          */
-        public GetClientRequest build() {
-            return new GetClientRequest(this);
+        public GetAllClientsRequest build() {
+            return new GetAllClientsRequest(this);
         }
     }
 }

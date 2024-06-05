@@ -1,12 +1,15 @@
 package com.nashss.se.clientkeeper.dynamodb;
-
 import com.nashss.se.clientkeeper.dynamodb.models.Client;
 import com.nashss.se.clientkeeper.exceptions.ClientNotFoundException;
 import com.nashss.se.clientkeeper.exceptions.InvalidAttributeValueException;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -44,6 +47,20 @@ public class ClientDao {
         }
 
         return client;
+    }
+
+    /**
+     * Returns a list of {@link Client} corresponding to the specified userEmail.
+     *
+     * @param userEmail the User's email
+     * @return a list of stored Clients for the given user email.
+     */
+    public List<Client> getAllClients(String userEmail) {
+        DynamoDBQueryExpression<Client> queryExpression = new DynamoDBQueryExpression<Client>()
+                .withKeyConditionExpression("userEmail = :userEmail")
+                .withExpressionAttributeValues(Map.of(":userEmail", new AttributeValue().withS(userEmail)));
+
+        return dynamoDbMapper.query(Client.class, queryExpression);
     }
 
     /**

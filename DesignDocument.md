@@ -149,20 +149,24 @@ ClientKeeper. Returns the new client.
 * Accepts a `clientId` and returns the client. 
   * If the given `clientId` is not found will throw a `ClientNotFoundException`.
 
-## 6.5. Update Client Endpoint 
+## 6.5 Get All Clients Endpoint 
+* Accepts `GET` requests to `/clients`
+* Returns a list of clients for the user. 
+
+## 6.6. Update Client Endpoint 
 
 * Accepts `PUT` requests to `/clients/:clientId`
 * Accepts data to update a client's information and returns the updated client. 
   * If the given `clientId` is not found will throw a `ClientNotFoundException`.
   * If the provided data contains invalid values, will throw an `InvalidAttributeValueException`.
 
-## 6.6. Delete Client Endpoint
+## 6.7. Delete Client Endpoint
 
 * Accepts `DELETE` requests to `/clients/:clientId`
 * Accepts a `clientId` and deletes. 
   * If the given `clientId` is not found will throw a `ClientNotFoundException`.
   
-## 6.7. Create Order Endpoint
+## 6.8. Create Order Endpoint
 
 * Accepts `POST` requests to `/orders`
 * Accepts a provided `clientId`, `item`, `purchaseDate`, `shippingService`, `expectedDate`, `deliveredDate`,
@@ -171,20 +175,20 @@ ClientKeeper. Returns the new client.
     If incorrect, will throw an `InvalidDateException`.
   * If the required data is missing, will throw an `InvalidAttributeValueException`.
 
-## 6.8. Get Order Endpoint
+## 6.9. Get Order Endpoint
 
 * Accepts `GET` requests to `/orders/:orderId`
 * Accepts a `orderId` and returns the order.
   * If the given `orderId` is not found will throw a `OrderNotFoundException`.
 
-## 6.9. Update Order Endpoint
+## 6.10. Update Order Endpoint
 
 * Accepts `PUT` requests to `/orders/:orderId`
 * Accepts data to update an orders information and returns the updated order.
   * If the given `orderId` is not found will throw a `OrderNotFoundException`.
   * If the provided data contains invalid values, will throw an `InvalidAttributeValueException`.
 
-## 6.10. Delete Order Endpoint 
+## 6.11. Delete Order Endpoint 
 
 * Accepts `DELETE` requests to `/orders/:orderId`
 * Accepts `orderId` and deletes.
