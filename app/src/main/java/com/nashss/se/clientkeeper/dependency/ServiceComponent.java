@@ -1,6 +1,7 @@
 package com.nashss.se.clientkeeper.dependency;
 
 import com.nashss.se.clientkeeper.activity.CreateClientActivity;
+import com.nashss.se.clientkeeper.activity.EditClientActivity;
 import com.nashss.se.clientkeeper.activity.GetAllClientsActivity;
 import com.nashss.se.clientkeeper.activity.GetClientActivity;
 
@@ -35,5 +36,12 @@ public interface ServiceComponent {
      * @return GetAllClientsActivity
      */
     GetAllClientsActivity provideGetAllClientsActivity();
+
+    /**
+     * Provides an instance of EditClientActivity.
+     *
+     * @return EditClientActivity
+     */
+    EditClientActivity provideEditClientActivity();
 
 }
