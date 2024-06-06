@@ -2,13 +2,17 @@ import ClientKeeperClient from '../api/clientKeeperClient';
 import Header from '../components/header';
 import BindingClass from '../util/bindingClass';
 import DataStore from '../util/DataStore';
+import EditClient from './editClient';
 
 class ManageClients extends BindingClass {
     constructor() {
         super();
-        this.bindClassMethods(['mount', 'displayAllClients', 'renderClientsTable', 'filterClients'], this);
+        this.dataStore = new DataStore();
+        this.bindClassMethods(['mount', 'displayAllClients', 'renderClientsTable', 'filterClients', 'refreshClients'], this);
         this.header = new Header(this.dataStore);
         this.clients = [];
+        this.dataStore.addChangeListener(this.refreshClients);
+        this.editClient = new EditClient({ dataStore: this.dataStore });
     }
 
     /**
@@ -19,6 +23,7 @@ class ManageClients extends BindingClass {
         this.client = new ClientKeeperClient();
         this.displayAllClients();
         document.getElementById('search').addEventListener('input', this.filterClients);
+        this.editClient.mount();
     }
 
     /**
@@ -54,6 +59,7 @@ class ManageClients extends BindingClass {
                 <td>${client.clientAddress}</td>
                 <td>${client.clientMemberSince}</td>
             `;
+            row.addEventListener('click', () => this.editClient.openEditModal(client));
             clientsList.appendChild(row);
         });
     }
@@ -72,6 +78,10 @@ class ManageClients extends BindingClass {
         });
         this.renderClientsTable(filteredClients);
     }
+
+    async refreshClients() {
+        await this.displayAllClients();
+    }
 }
 
 /**
@@ -83,3 +93,5 @@ const main = async () => {
 };
 
 window.addEventListener('DOMContentLoaded', main);
+
+export default ManageClients;

@@ -6,6 +6,9 @@ export default class BindingClass {
      */
     bindClassMethods(methods, classInstance) {
         methods.forEach(method => {
+            if (!classInstance[method]) {
+                throw new Error(`Method ${method} does not exist on classInstance`);
+            }
             classInstance[method] = classInstance[method].bind(classInstance);
         });
     }

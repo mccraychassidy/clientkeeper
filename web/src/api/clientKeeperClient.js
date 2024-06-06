@@ -2,14 +2,14 @@ import axios from "axios";
 import BindingClass from "../util/bindingClass";
 import Authenticator from "./authenticator";
 
-export default class clientKeeperClient extends BindingClass {
+class clientKeeperClient extends BindingClass {
 
     constructor(props = {}) {
         super();
 
         /* Methods that need binding. Add to this as methods are created */
 
-        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'createClient', 'getAllClients'];
+        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'createClient', 'getAllClients', 'updateClient'];
         this.bindClassMethods(methodsToBind, this);
 
         this.authenticator = new Authenticator();;
@@ -105,6 +105,26 @@ export default class clientKeeperClient extends BindingClass {
     }
 
     /**
+    * Updates an existing client.
+    * @param clientData The client data to be updated.
+    * @param errorCallback (Optional) A function to execute if the call fails.
+    * @returns The updated client data.
+    */
+    async updateClient(clientData, errorCallback) {
+        try {
+            const token = await this.getTokenOrThrow("You must be logged in to update a client.");
+            const response = await this.axiosClient.put(`/clients/${clientData.clientId}`, clientData, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleError(error, errorCallback);
+        }
+    }
+
+    /**
      * Helper method to log the error and run any error functions.
      * @param error The error received from the server.
      * @param errorCallback (Optional) A function to execute if the call fails.
@@ -124,3 +144,4 @@ export default class clientKeeperClient extends BindingClass {
     }
 }
 
+export default clientKeeperClient;
