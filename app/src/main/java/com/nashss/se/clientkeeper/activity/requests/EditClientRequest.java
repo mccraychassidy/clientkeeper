@@ -1,8 +1,12 @@
 package com.nashss.se.clientkeeper.activity.requests;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+
 /**
  * Represents a request to edit a client.
  */
+@JsonDeserialize(builder = EditClientRequest.Builder.class)
 public class EditClientRequest {
     private final String userEmail;
     private final String clientId;
@@ -102,6 +106,7 @@ public class EditClientRequest {
     /**
      * Builder class for EditClientRequest instances.
      */
+    @JsonPOJOBuilder
     public static class Builder {
         private String userEmail;
         private String clientId;

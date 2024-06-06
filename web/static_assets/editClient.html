@@ -4,41 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <script type="text/javascript" src="assets/manageClients.js"></script>
     <script type="text/javascript" src="assets/editClient.js"></script>
-    <title>Manage Clients</title>
+    <title>Edit Client</title>
 </head>
 
 <body class="background">
-    <header class="header" id="header"></header>
-    <div class="card">
-        <a href="index.html">
-            <div class="back-button-container">
-                <button class="back-button">Back</button>
-            </div>
-        </a>
-        <h2>Clients</h2>
-        <input type="text" id="search" placeholder="Search..." class="search-box">
-        <div id="clients-table" class="clients-table">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Client</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Address</th>
-                        <th>Member Since</th>
-                    </tr>
-                </thead>
-                <tbody id="clients-list">
-                </tbody>
-            </table>
-        </div>
-        <div class="button-group">
-            <a href="addClient.html" class="button">Add Client</a>
-        </div>
-    </div>
-
+    <!-- Edit Client Modal -->
     <div id="edit-client-modal" class="modal">
         <div class="modal-content">
             <span class="close-button" id="close-modal">&times;</span>
