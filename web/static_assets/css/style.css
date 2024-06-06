@@ -1,56 +1,26 @@
 :root {
-    /* css variables: https://developer.mozilla.org/en-US/docs/Web/CSS/var */
     --primary-color: #333333; /* text */
     --secondary-color: #ffffff; /* card background */
     --tertiary-color: #121112; /* buttons */
-    --background-color: #161517;
+    --background-color: #000000; /* changed to black */
     --error-color: #EE3A23;
 }
 
-.background {
+body.background {
     background-color: var(--background-color);
     margin: 0;
     counter-reset: section;
-    font-family: "Helvetica Neue",Helvetica,sans-serif;
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
 }
 
-.header {
-    /* Flexbox: https://css-tricks.com/snippets/css/a-guide-to-flexbox/ */
+header.header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--secondary-color);
-    color: #c9c9c9;
-    padding: 4px 20px;
-    border-bottom: solid;
-}
-
-.button {
-  background-color: var(--tertiary-color);
-  border: none;
-  color: var(--secondary-color);
-  padding: 6px 8px 4px 8px;
-  text-align: center;
-  font-weight: bold;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.header_home {
-    font-size: 28px;
-    font-weight: bold;
-    line-height: 40px;
-    height: 100px;
-    text-decoration: none;
-    color: var(--primary-color);
-}
-
-#header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    background-color: var(--background-color);
+    color: var(--background-color);
     padding: 10px 20px;
-    background-color: #fff;
+    border-bottom: solid;
     position: relative;
 }
 
@@ -61,25 +31,56 @@
 }
 
 .header_home {
-    margin-right: auto;
-    font-size: 24px;
+    font-size: 28px;
     font-weight: bold;
+    line-height: 40px;
+    height: 100px;
     text-decoration: none;
-    color: #000;
+    color: var(--secondary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: auto;
 }
 
 .header_about {
+    font-size: 28px;
+    font-weight: bold;
+    line-height: 5px;
+    text-decoration: none;
+    color: var(--secondary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 18px;
-    text-decoration: none;
-    color: #000;
 }
 
 .user-info {
     display: flex;
     align-items: center;
+    margin-left: auto;
+}
+
+.button {
+    background-color: var(--background-color);
+    border: none;
+    color: var(--secondary-color);
+    padding: 10px 30px;
+    font-size: 24px;
+    text-align: center;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button:hover {
+    background-color: #45a049;
 }
 
 .main-content {
@@ -87,69 +88,55 @@
     margin-top: 50px;
 }
 
+h1 {
+    color: white;
+    text-align: center;
+    margin: 20px 0;
+    font-size: 80px;
+}
+
 .logo {
-    width: 200px; /* Adjust the size as needed */
+    width: 450px;
     height: auto;
 }
 
 .social-media-links {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 40px;
 }
 
 .social-icon img {
-    width: 40px; /* Adjust the size as needed */
+    width: 50px;
     height: auto;
     margin: 0 10px;
 }
 
-.background {
-    background-color: #1c1c1c;
-    color: white;
-    font-family: Arial, sans-serif;
-}
-
-.header {
-    background-color: #333;
-    padding: 10px;
-    text-align: center;
-    font-size: 24px;
-    color: white;
-}
-
 .card {
     background-color: #2a2a2a;
-    margin: 20px;
+    margin: 20px auto;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    width: 90%;
+    max-width: 1200px;
 }
 
-.back-button-container, .button-group {
+.back-button-container,
+.button-group {
     text-align: right;
     margin-bottom: 10px;
 }
 
-.back-button, .button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px;
-    text-decoration: none;
-    border-radius: 5px;
-    border: none;
-}
-
-.back-button:hover, .button:hover {
-    background-color: #45a049;
-}
-
 h2 {
+    color: white;
+    font-size: 36px;
     text-align: center;
     margin-bottom: 20px;
 }
 
-.search-box {
+.search-box,
+.form-field input {
     width: calc(100% - 20px);
     padding: 10px;
     margin-bottom: 20px;
@@ -163,14 +150,18 @@ h2 {
 
 table {
     width: 100%;
+    max-width: 1200px;
+    margin: 0 auto; 
     border-collapse: collapse;
     margin-bottom: 20px;
 }
 
-th, td {
+th,
+td {
     padding: 12px;
     text-align: left;
     border-bottom: 1px solid #ddd;
+    color: var(--secondary-color); 
 }
 
 th {
@@ -179,52 +170,6 @@ th {
 
 tr:hover {
     background-color: #3e3e3e;
-}
-.background {
-    background-color: #1c1c1c;
-    color: white;
-    font-family: Arial, sans-serif;
-}
-
-.header {
-    background-color: #333;
-    padding: 10px;
-    text-align: center;
-    font-size: 24px;
-    color: white;
-}
-
-.card {
-    background-color: #2a2a2a;
-    margin: 20px auto;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    width: 80%;
-    max-width: 400px;
-}
-
-.back-button-container, .button-group {
-    text-align: right;
-    margin-bottom: 10px;
-}
-
-.back-button, .button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px;
-    text-decoration: none;
-    border-radius: 5px;
-    border: none;
-}
-
-.back-button:hover, .button:hover {
-    background-color: #45a049;
-}
-
-h2 {
-    text-align: center;
-    margin-bottom: 20px;
 }
 
 .form-field {
@@ -236,20 +181,14 @@ h2 {
     margin-bottom: 5px;
 }
 
-.form-field input {
-    width: calc(100% - 20px);
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-}
-
 .button-group {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    margin-bottom: 10px;
 }
 
 .error {
-    color: red;
+    color: var(--error-color);
     display: none;
 }
 
@@ -269,9 +208,9 @@ h2 {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgba(0, 0, 0, 0.4);
 }
+
 .modal-content {
     background-color: #fefefe;
     margin: auto;
@@ -279,12 +218,14 @@ h2 {
     border: 1px solid #888;
     width: 80%;
 }
+
 .close-button {
     color: #aaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
 }
+
 .close-button:hover,
 .close-button:focus {
     color: black;
