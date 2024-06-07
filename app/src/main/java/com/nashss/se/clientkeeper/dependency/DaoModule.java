@@ -50,17 +50,5 @@ public class DaoModule {
     public OrderDao provideOrderDao(DynamoDBMapper dynamoDbMapper) {
         return new OrderDao(dynamoDbMapper);
     }
-
-    /**
-     * Provides a singleton instance of DeleteClientActivity.
-     *
-     * @param clientDao used to interact with the database
-     * @return a new DeleteClientActivity instance
-     */
-    @Singleton
-    @Provides
-    public DeleteClientActivity provideDeleteClientActivity(ClientDao clientDao) {
-        return new DeleteClientActivity(clientDao);
-    }
 }
 

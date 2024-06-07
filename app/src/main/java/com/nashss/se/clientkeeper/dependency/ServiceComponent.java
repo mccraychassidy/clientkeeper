@@ -1,9 +1,5 @@
 package com.nashss.se.clientkeeper.dependency;
-import com.nashss.se.clientkeeper.activity.CreateClientActivity;
-import com.nashss.se.clientkeeper.activity.CreateOrderActivity;
-import com.nashss.se.clientkeeper.activity.EditClientActivity;
-import com.nashss.se.clientkeeper.activity.GetAllClientsActivity;
-import com.nashss.se.clientkeeper.activity.GetClientActivity;
+import com.nashss.se.clientkeeper.activity.*;
 
 import dagger.Component;
 
@@ -43,6 +39,8 @@ public interface ServiceComponent {
      * @return EditClientActivity
      */
     EditClientActivity provideEditClientActivity();
+
+    DeleteClientActivity provideDeleteClientActivity();
 
     /**
      * Provides an instance of CreateOrderActivity.
