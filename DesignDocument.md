@@ -228,7 +228,6 @@ reference // string
 
 ```
 clientId // partition key, string
-orderId // sort key, string
 ```
 
 - `ClientOrdersIndex` includes ALL attributes from the `orders` table
