@@ -45,13 +45,6 @@ public interface ServiceComponent {
     EditClientActivity provideEditClientActivity();
 
     /**
-     * Provides an instance of DeleteClientActivity.
-     *
-     * @return DeleteClientActivity
-     */
-    //DeleteClientActivity provideDeleteClientActivity();
-
-    /**
      * Provides an instance of CreateOrderActivity.
      *
      * @return CreateOrderActivity
@@ -78,11 +71,4 @@ public interface ServiceComponent {
      * @return EditOrderActivity
      */
     //EditOrderActivity provideEditOrderActivity();
-
-    /**
-     * Provides an instance of DeleteOrderActivity.
-     *
-     * @return DeleteOrderActivity
-     */
-    //DeleteOrderActivity provideDeleteOrderActivity();
 }
