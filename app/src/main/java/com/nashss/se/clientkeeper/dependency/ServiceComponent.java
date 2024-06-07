@@ -1,7 +1,6 @@
 package com.nashss.se.clientkeeper.dependency;
-
-
 import com.nashss.se.clientkeeper.activity.CreateClientActivity;
+import com.nashss.se.clientkeeper.activity.CreateOrderActivity;
 import com.nashss.se.clientkeeper.activity.DeleteClientActivity;
 import com.nashss.se.clientkeeper.activity.EditClientActivity;
 import com.nashss.se.clientkeeper.activity.GetAllClientsActivity;
@@ -53,4 +52,38 @@ public interface ServiceComponent {
      */
     DeleteClientActivity provideDeleteClientActivity();
 
+    /**
+     * Provides an instance of CreateOrderActivity.
+     *
+     * @return CreateOrderActivity
+     */
+    CreateOrderActivity provideCreateOrderActivity();
+
+    /**
+     * Provides an instance of GetOrderActivity.
+     *
+     * @return GetOrderActivity
+     */
+    //GetOrderActivity provideGetOrderActivity();
+
+    /**
+     * Provides an instance of GetAllOrdersActivity.
+     *
+     * @return GetAllOrdersActivity
+     */
+    //GetAllOrdersActivity provideGetAllOrdersActivity();
+
+    /**
+     * Provides an instance of EditOrderActivity.
+     *
+     * @return EditOrderActivity
+     */
+    //EditOrderActivity provideEditOrderActivity();
+
+    /**
+     * Provides an instance of DeleteOrderActivity.
+     *
+     * @return DeleteOrderActivity
+     */
+    //DeleteOrderActivity provideDeleteOrderActivity();
 }

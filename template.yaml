@@ -351,6 +351,46 @@ Resources:
       BillingMode: "PAY_PER_REQUEST"
       TableName: "clients"
 
+  OrdersTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "userEmail"
+          AttributeType: "S"
+        - AttributeName: "orderId"
+          AttributeType: "S"
+        - AttributeName: "clientId"
+          AttributeType: "S"
+        - AttributeName: "item"
+          AttributeType: "S"
+        - AttributeName: "shipped"
+          AttributeType: "BOOL"
+        - AttributeName: "purchaseDate"
+          AttributeType: "S"
+        - AttributeName: "shippingService"
+          AttributeType: "S"
+        - AttributeName: "expectedDate"
+          AttributeType: "S"
+        - AttributeName: "deliveredDate"
+          AttributeType: "S"
+        - AttributeName: "trackingNumber"
+          AttributeType: "S"
+        - AttributeName: "reference"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "userEmail"
+          KeyType: "HASH"
+        - AttributeName: "orderId"
+          KeyType: "RANGE"
+      BillingMode: "PAY_PER_REQUEST"
+      TableName: "orders"
+      GlobalSecondaryIndexes:
+        - IndexName: "ClientOrdersIndex"
+          KeySchema:
+            - AttributeName: "clientId"
+              KeyType: "HASH"
+          Projection:
+            ProjectionType: "ALL"
 #-----------------------------------------------------
 # The outputs defined below will be printed
 #  to the screen after a successful deploy
