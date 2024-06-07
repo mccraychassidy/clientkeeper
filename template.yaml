@@ -308,12 +308,12 @@ Resources:
             Auth:
               Authorizer: 'NONE'
 
-  DeleteClientLambda:
+  CreateOrderLambda:
     Type: AWS::Serverless::Function
     Properties:
       Role: !GetAtt AccessRole.Arn
       CodeUri: app
-      Handler: com.nashss.se.clientkeeper.lambda.DeleteClientLambda::handleRequest
+      Handler: com.nashss.se.clientkeeper.lambda.CreateOrderLambda::handleRequest
       Runtime: java11
       Architectures:
         - x86_64
@@ -322,15 +322,13 @@ Resources:
         Variables:
           JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
       Events:
-        DeleteClient:
+        CreateOrder:
           Type: Api
           Properties:
-            Path: /clients/{clientId}
-            Method: delete
+            Path: /orders
+            Method: post
             Auth:
               Authorizer: 'NONE'
-
-
 
   #-----------------------------------------------------
   # DynamoDB Configuration
