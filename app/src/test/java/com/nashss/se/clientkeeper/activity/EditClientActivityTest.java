@@ -79,8 +79,7 @@ public class EditClientActivityTest {
                 .withClientMemberSince("2024-01-27")
                 .build();
 
-        when(clientDao.getClient("user@example.com", "invalidClientId"))
-                .thenThrow(new ClientNotFoundException("Client not found with clientId: invalidClientId"));
+        when(clientDao.getClient("user@example.com", "invalidClientId")).thenThrow(new ClientNotFoundException("Client not found with clientId: invalidClientId"));
 
         // WHEN + THEN
         assertThrows(ClientNotFoundException.class, () -> editClientActivity.handleRequest(request));
