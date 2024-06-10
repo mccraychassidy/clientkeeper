@@ -329,7 +329,7 @@ Resources:
             Method: delete
             Auth:
               Authorizer: 'NONE'
-
+              
   CreateOrderLambda:
     Type: AWS::Serverless::Function
     Properties:
@@ -351,7 +351,7 @@ Resources:
             Method: post
             Auth:
               Authorizer: 'NONE'
-
+              
   #-----------------------------------------------------
   # DynamoDB Configuration
   #-----------------------------------------------------
