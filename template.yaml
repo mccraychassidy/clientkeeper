@@ -308,6 +308,28 @@ Resources:
             Auth:
               Authorizer: 'NONE'
 
+  CreateOrderLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: app
+      Handler: com.nashss.se.clientkeeper.lambda.CreateOrderLambda::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        CreateOrder:
+          Type: Api
+          Properties:
+            Path: /orders
+            Method: post
+            Auth:
+              Authorizer: 'NONE'
+
 
   #-----------------------------------------------------
   # DynamoDB Configuration
@@ -327,6 +349,33 @@ Resources:
           KeyType: "RANGE"
       BillingMode: "PAY_PER_REQUEST"
       TableName: "clients"
+
+  OrdersTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "userEmail"
+          AttributeType: "S"
+        - AttributeName: "orderId"
+          AttributeType: "S"
+        - AttributeName: "clientId"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "userEmail"
+          KeyType: "HASH"
+        - AttributeName: "orderId"
+          KeyType: "RANGE"
+      BillingMode: "PAY_PER_REQUEST"
+      GlobalSecondaryIndexes:
+        - IndexName: "ClientOrdersIndex"
+          KeySchema:
+            - AttributeName: "clientId"
+              KeyType: "HASH"
+            - AttributeName: "orderId"
+              KeyType: "RANGE"
+          Projection:
+            ProjectionType: ALL
+      TableName: "orders"
 
 #-----------------------------------------------------
 # The outputs defined below will be printed
