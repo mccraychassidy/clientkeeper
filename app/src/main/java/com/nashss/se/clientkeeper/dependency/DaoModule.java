@@ -1,12 +1,11 @@
 package com.nashss.se.clientkeeper.dependency;
-
-import com.nashss.se.clientkeeper.activity.EditClientActivity;
-import com.nashss.se.clientkeeper.activity.GetAllClientsActivity;
 import com.nashss.se.clientkeeper.dynamodb.ClientDao;
 import com.nashss.se.clientkeeper.dynamodb.DynamoDbClientProvider;
+import com.nashss.se.clientkeeper.dynamodb.OrderDao;
 
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -41,26 +40,14 @@ public class DaoModule {
     }
 
     /**
-     * Provides a singleton instance of GetAllClientsActivity.
+     * Provides a singleton instance of OrderDao.
      *
-     * @param clientDao used to interact with the database
-     * @return a new GetAllClientsActivity instance
+     * @param dynamoDbMapper used for data access
+     * @return a new OrderDao instance
      */
     @Singleton
     @Provides
-    GetAllClientsActivity provideGetAllClientsActivity(ClientDao clientDao) {
-        return new GetAllClientsActivity(clientDao);
-    }
-
-    /**
-     * Provides a singleton instance of EditClientActivity.
-     *
-     * @param clientDao used to interact with the database
-     * @return a new EditClientActivity instance
-     */
-    @Singleton
-    @Provides
-    public EditClientActivity provideEditClientActivity(ClientDao clientDao) {
-        return new EditClientActivity(clientDao);
+    public OrderDao provideOrderDao(DynamoDBMapper dynamoDbMapper) {
+        return new OrderDao(dynamoDbMapper);
     }
 }
