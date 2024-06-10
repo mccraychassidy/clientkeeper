@@ -24,22 +24,23 @@ public class CreateOrderLambda extends LambdaActivityRunner<CreateOrderRequest, 
             () -> {
                 CreateOrderRequest unauthenticatedRequest = input.fromBody(CreateOrderRequest.class);
                 return input.fromUserClaims(claims ->
-                        CreateOrderRequest.builder()
-                                .withUserEmail(claims.get("email"))
-                                .withOrderId(unauthenticatedRequest.getOrderId())
-                                .withClientId(unauthenticatedRequest.getClientId())
-                                .withItem(unauthenticatedRequest.getItem())
-                                .withShipped(unauthenticatedRequest.getShipped())
-                                .withPurchaseDate(unauthenticatedRequest.getPurchaseDate())
-                                .withShippingService(unauthenticatedRequest.getShippingService())
-                                .withExpectedDate(unauthenticatedRequest.getExpectedDate())
-                                .withDeliveredDate(unauthenticatedRequest.getDeliveredDate())
-                                .withTrackingNumber(unauthenticatedRequest.getTrackingNumber())
-                                .withReference(unauthenticatedRequest.getReference())
-                                .build());
+                            CreateOrderRequest.builder()
+                                    .withUserEmail(claims.get("email"))
+                                    .withOrderId(unauthenticatedRequest.getOrderId())
+                                    .withClientId(unauthenticatedRequest.getClientId())
+                                    .withItem(unauthenticatedRequest.getItem())
+                                    .withShipped(unauthenticatedRequest.getShipped())
+                                    .withPurchaseDate(unauthenticatedRequest.getPurchaseDate())
+                                    .withShippingService(unauthenticatedRequest.getShippingService())
+                                    .withExpectedDate(unauthenticatedRequest.getExpectedDate())
+                                    .withDeliveredDate(unauthenticatedRequest.getDeliveredDate())
+                                    .withTrackingNumber(unauthenticatedRequest.getTrackingNumber())
+                                    .withReference(unauthenticatedRequest.getReference())
+                                    .build());
             },
             (request, serviceComponent) ->
-                    serviceComponent.provideCreateOrderActivity().handleRequest(request)
+                        serviceComponent.provideCreateOrderActivity().handleRequest(request)
         );
     }
 }
+

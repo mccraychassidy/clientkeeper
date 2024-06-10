@@ -3,8 +3,6 @@ package com.nashss.se.clientkeeper.activity.requests;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
-import java.time.LocalDate;
-
 /**
  * Represents a request to create a new order.
  */
@@ -15,10 +13,10 @@ public class CreateOrderRequest {
     private final String clientId;
     private final String item;
     private final Boolean shipped;
-    private final LocalDate purchaseDate;
+    private final String purchaseDate;
     private final String shippingService;
-    private final LocalDate expectedDate;
-    private final LocalDate deliveredDate;
+    private final String expectedDate;
+    private final String deliveredDate;
     private final String trackingNumber;
     private final String reference;
 
@@ -100,7 +98,7 @@ public class CreateOrderRequest {
      *
      * @return the purchase date
      */
-    public LocalDate getPurchaseDate() {
+    public String getPurchaseDate() {
         return purchaseDate;
     }
 
@@ -118,7 +116,7 @@ public class CreateOrderRequest {
      *
      * @return the expected delivery date
      */
-    public LocalDate getExpectedDate() {
+    public String getExpectedDate() {
         return expectedDate;
     }
 
@@ -127,7 +125,7 @@ public class CreateOrderRequest {
      *
      * @return the delivered date
      */
-    public LocalDate getDeliveredDate() {
+    public String getDeliveredDate() {
         return deliveredDate;
     }
 
@@ -181,10 +179,10 @@ public class CreateOrderRequest {
         private String clientId;
         private String item;
         private Boolean shipped;
-        private LocalDate purchaseDate;
+        private String purchaseDate;
         private String shippingService;
-        private LocalDate expectedDate;
-        private LocalDate deliveredDate;
+        private String expectedDate;
+        private String deliveredDate;
         private String trackingNumber;
         private String reference;
 
@@ -249,7 +247,7 @@ public class CreateOrderRequest {
          * @param purchaseDateValue the purchase date
          * @return the Builder instance
          */
-        public Builder withPurchaseDate(LocalDate purchaseDateValue) {
+        public Builder withPurchaseDate(String purchaseDateValue) {
             this.purchaseDate = purchaseDateValue;
             return this;
         }
@@ -271,7 +269,7 @@ public class CreateOrderRequest {
          * @param expectedDeliveryDate the expected delivery date
          * @return the Builder instance
          */
-        public Builder withExpectedDate(LocalDate expectedDeliveryDate) {
+        public Builder withExpectedDate(String expectedDeliveryDate) {
             this.expectedDate = expectedDeliveryDate;
             return this;
         }
@@ -282,7 +280,7 @@ public class CreateOrderRequest {
          * @param deliveredDateValue the delivered date
          * @return the Builder instance
          */
-        public Builder withDeliveredDate(LocalDate deliveredDateValue) {
+        public Builder withDeliveredDate(String deliveredDateValue) {
             this.deliveredDate = deliveredDateValue;
             return this;
         }

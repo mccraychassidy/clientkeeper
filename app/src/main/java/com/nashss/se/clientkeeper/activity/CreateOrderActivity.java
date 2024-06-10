@@ -10,12 +10,18 @@ import com.nashss.se.clientkeeper.models.OrderModel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.UUID;
 import javax.inject.Inject;
+
 
 /**
  * Handles the creation of a new order.
  */
 public class CreateOrderActivity {
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private final Logger log = LogManager.getLogger();
     private final OrderDao orderDao;
 
@@ -45,16 +51,31 @@ public class CreateOrderActivity {
             throw new InvalidAttributeValueException("Missing required attribute(s)");
         }
 
+        LocalDate purchaseDate;
+        LocalDate expectedDate;
+        LocalDate deliveredDate;
+
+        try {
+            purchaseDate = LocalDate.parse(createOrderRequest.getPurchaseDate(), DATE_FORMATTER);
+            expectedDate = LocalDate.parse(createOrderRequest.getExpectedDate(), DATE_FORMATTER);
+            deliveredDate = LocalDate.parse(createOrderRequest.getDeliveredDate(), DATE_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new InvalidAttributeValueException("Invalid date format. Required format: yyyy-MM-dd");
+        }
+
+        String orderId = createOrderRequest.getOrderId() != null ?
+                createOrderRequest.getOrderId() : UUID.randomUUID().toString();
+
         Order newOrder = new Order();
         newOrder.setUserEmail(createOrderRequest.getUserEmail());
-        newOrder.setOrderId(createOrderRequest.getOrderId());
+        newOrder.setOrderId(orderId);
         newOrder.setClientId(createOrderRequest.getClientId());
         newOrder.setItem(createOrderRequest.getItem());
         newOrder.setShipped(createOrderRequest.getShipped());
-        newOrder.setPurchaseDate(createOrderRequest.getPurchaseDate());
+        newOrder.setPurchaseDate(purchaseDate);
         newOrder.setShippingService(createOrderRequest.getShippingService());
-        newOrder.setExpectedDate(createOrderRequest.getExpectedDate());
-        newOrder.setDeliveredDate(createOrderRequest.getDeliveredDate());
+        newOrder.setExpectedDate(expectedDate);
+        newOrder.setDeliveredDate(deliveredDate);
         newOrder.setTrackingNumber(createOrderRequest.getTrackingNumber());
         newOrder.setReference(createOrderRequest.getReference());
         orderDao.saveOrder(newOrder);
@@ -65,10 +86,10 @@ public class CreateOrderActivity {
                 .withClientId(newOrder.getClientId())
                 .withItem(newOrder.getItem())
                 .withShipped(newOrder.getShipped())
-                .withPurchaseDate(newOrder.getPurchaseDate())
+                .withPurchaseDate(newOrder.getPurchaseDate().format(DATE_FORMATTER))
                 .withShippingService(newOrder.getShippingService())
-                .withExpectedDate(newOrder.getExpectedDate())
-                .withDeliveredDate(newOrder.getDeliveredDate())
+                .withExpectedDate(newOrder.getExpectedDate().format(DATE_FORMATTER))
+                .withDeliveredDate(newOrder.getDeliveredDate().format(DATE_FORMATTER))
                 .withTrackingNumber(newOrder.getTrackingNumber())
                 .withReference(newOrder.getReference())
                 .build();

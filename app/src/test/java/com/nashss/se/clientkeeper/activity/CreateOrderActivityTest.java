@@ -38,10 +38,10 @@ public class CreateOrderActivityTest {
                 .withClientId("validClientId")
                 .withItem("Sample Item")
                 .withShipped(false)
-                .withPurchaseDate(LocalDate.parse("2024-06-01"))
+                .withPurchaseDate("2024-06-01")
                 .withShippingService("FedEx")
-                .withExpectedDate(LocalDate.parse("2024-06-10"))
-                .withDeliveredDate(LocalDate.parse("2024-06-12"))
+                .withExpectedDate("2024-06-10")
+                .withDeliveredDate("2024-06-12")
                 .withTrackingNumber("1234567890")
                 .withReference("REF12345")
                 .build();
@@ -80,10 +80,10 @@ public class CreateOrderActivityTest {
                 .withClientId("validClientId")
                 // Missing item
                 .withShipped(false)
-                .withPurchaseDate(LocalDate.parse("2024-06-01"))
+                .withPurchaseDate("2024-06-01")
                 .withShippingService("FedEx")
-                .withExpectedDate(LocalDate.parse("2024-06-10"))
-                .withDeliveredDate(LocalDate.parse("2024-06-12"))
+                .withExpectedDate("2024-06-10")
+                .withDeliveredDate("2024-06-12")
                 .withTrackingNumber("1234567890")
                 .withReference("REF12345")
                 .build();
