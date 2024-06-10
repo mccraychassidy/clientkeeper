@@ -1,6 +1,5 @@
 package com.nashss.se.clientkeeper.models;
 
-import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -12,10 +11,10 @@ public class OrderModel {
     private final String clientId;
     private final String item;
     private final Boolean shipped;
-    private final LocalDate purchaseDate;
+    private final String purchaseDate;
     private final String shippingService;
-    private final LocalDate expectedDate;
-    private final LocalDate deliveredDate;
+    private final String expectedDate;
+    private final String deliveredDate;
     private final String trackingNumber;
     private final String reference;
 
@@ -35,8 +34,8 @@ public class OrderModel {
      * @param reference the reference
      */
     private OrderModel(String userEmail, String orderId, String clientId, String item, Boolean shipped,
-                       LocalDate purchaseDate, String shippingService, LocalDate expectedDate,
-                       LocalDate deliveredDate, String trackingNumber, String reference) {
+                       String purchaseDate, String shippingService, String expectedDate,
+                       String deliveredDate, String trackingNumber, String reference) {
         this.userEmail = userEmail;
         this.orderId = orderId;
         this.clientId = clientId;
@@ -100,7 +99,7 @@ public class OrderModel {
      *
      * @return the purchase date
      */
-    public LocalDate getPurchaseDate() {
+    public String getPurchaseDate() {
         return purchaseDate;
     }
 
@@ -118,7 +117,7 @@ public class OrderModel {
      *
      * @return the expected delivery date
      */
-    public LocalDate getExpectedDate() {
+    public String getExpectedDate() {
         return expectedDate;
     }
 
@@ -127,7 +126,7 @@ public class OrderModel {
      *
      * @return the delivered date
      */
-    public LocalDate getDeliveredDate() {
+    public String getDeliveredDate() {
         return deliveredDate;
     }
 
@@ -208,10 +207,10 @@ public class OrderModel {
         private String clientId;
         private String item;
         private Boolean shipped;
-        private LocalDate purchaseDate;
+        private String purchaseDate;
         private String shippingService;
-        private LocalDate expectedDate;
-        private LocalDate deliveredDate;
+        private String expectedDate;
+        private String deliveredDate;
         private String trackingNumber;
         private String reference;
 
@@ -276,7 +275,7 @@ public class OrderModel {
          * @param date the purchase date
          * @return the Builder instance
          */
-        public Builder withPurchaseDate(LocalDate date) {
+        public Builder withPurchaseDate(String date) {
             this.purchaseDate = date;
             return this;
         }
@@ -298,7 +297,7 @@ public class OrderModel {
          * @param date the expected delivery date
          * @return the Builder instance
          */
-        public Builder withExpectedDate(LocalDate date) {
+        public Builder withExpectedDate(String date) {
             this.expectedDate = date;
             return this;
         }
@@ -309,7 +308,7 @@ public class OrderModel {
          * @param date the delivered date
          * @return the Builder instance
          */
-        public Builder withDeliveredDate(LocalDate date) {
+        public Builder withDeliveredDate(String date) {
             this.deliveredDate = date;
             return this;
         }
