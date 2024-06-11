@@ -72,6 +72,7 @@ public class CreateOrderActivity {
         newOrder.setUserEmail(createOrderRequest.getUserEmail());
         newOrder.setOrderId(orderId);
         newOrder.setClientId(createOrderRequest.getClientId());
+        newOrder.setClientName(createOrderRequest.getClientName());
         newOrder.setItem(createOrderRequest.getItem());
         newOrder.setShipped(createOrderRequest.getShipped());
         newOrder.setPurchaseDate(purchaseDate);
@@ -86,6 +87,7 @@ public class CreateOrderActivity {
                 .withUserEmail(newOrder.getUserEmail())
                 .withOrderId(newOrder.getOrderId())
                 .withClientId(newOrder.getClientId())
+                .withClientName(newOrder.getClientName())
                 .withItem(newOrder.getItem())
                 .withShipped(newOrder.getShipped())
                 .withPurchaseDate(newOrder.getPurchaseDate().format(DATE_FORMATTER))
