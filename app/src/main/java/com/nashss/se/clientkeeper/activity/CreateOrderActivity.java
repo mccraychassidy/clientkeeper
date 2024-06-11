@@ -45,20 +45,22 @@ public class CreateOrderActivity {
     public CreateOrderResult handleRequest(final CreateOrderRequest createOrderRequest) {
         log.info("Received CreateOrderRequest {}", createOrderRequest);
 
-        if (createOrderRequest.getItem() == null || createOrderRequest.getPurchaseDate() == null ||
-                createOrderRequest.getShippingService() == null || createOrderRequest.getExpectedDate() == null ||
-                createOrderRequest.getDeliveredDate() == null) {
+        if (createOrderRequest.getItem() == null || createOrderRequest.getPurchaseDate() == null) {
             throw new InvalidAttributeValueException("Missing required attribute(s)");
         }
 
         LocalDate purchaseDate;
-        LocalDate expectedDate;
-        LocalDate deliveredDate;
+        LocalDate expectedDate = null;
+        LocalDate deliveredDate = null;
 
         try {
             purchaseDate = LocalDate.parse(createOrderRequest.getPurchaseDate(), DATE_FORMATTER);
-            expectedDate = LocalDate.parse(createOrderRequest.getExpectedDate(), DATE_FORMATTER);
-            deliveredDate = LocalDate.parse(createOrderRequest.getDeliveredDate(), DATE_FORMATTER);
+            if (createOrderRequest.getExpectedDate() != null && !createOrderRequest.getExpectedDate().isEmpty()) {
+                expectedDate = LocalDate.parse(createOrderRequest.getExpectedDate(), DATE_FORMATTER);
+            }
+            if (createOrderRequest.getDeliveredDate() != null && !createOrderRequest.getDeliveredDate().isEmpty()) {
+                deliveredDate = LocalDate.parse(createOrderRequest.getDeliveredDate(), DATE_FORMATTER);
+            }
         } catch (DateTimeParseException e) {
             throw new InvalidAttributeValueException("Invalid date format. Required format: yyyy-MM-dd");
         }
@@ -88,8 +90,10 @@ public class CreateOrderActivity {
                 .withShipped(newOrder.getShipped())
                 .withPurchaseDate(newOrder.getPurchaseDate().format(DATE_FORMATTER))
                 .withShippingService(newOrder.getShippingService())
-                .withExpectedDate(newOrder.getExpectedDate().format(DATE_FORMATTER))
-                .withDeliveredDate(newOrder.getDeliveredDate().format(DATE_FORMATTER))
+                .withExpectedDate(newOrder.getExpectedDate() != null ?
+                        newOrder.getExpectedDate().format(DATE_FORMATTER) : null)
+                .withDeliveredDate(newOrder.getDeliveredDate() != null ?
+                        newOrder.getDeliveredDate().format(DATE_FORMATTER) : null)
                 .withTrackingNumber(newOrder.getTrackingNumber())
                 .withReference(newOrder.getReference())
                 .build();
