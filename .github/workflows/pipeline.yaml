@@ -11,7 +11,7 @@ env:
   # STUDENTS: Set these environment variables 
   API_BASE_URL: \https://y2d0yml4sk.execute-api.us-east-2.amazonaws.com/Prod/
   COGNITO_DOMAIN: project-clientkeeper-chassidy-mccray
-  COGNITO_REDIRECT_SIGNIN: https://d176uj0kidgcyo.cloudfront.net
+  COGNITO_REDIRECT_SIGNIN: https://d176uj0kidgcyo.cloudfront.net/currentOrders.html
   COGNITO_REDIRECT_SIGNOUT: https://d176uj0kidgcyo.cloudfront.net
 
   COGNITO_USER_POOL_ID: ${{ secrets.COGNITO_USER_POOL_ID }}
