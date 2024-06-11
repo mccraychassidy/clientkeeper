@@ -17,6 +17,7 @@ import java.time.LocalDate;
 public class Order {
     private String userEmail;
     private String orderId;
+    private String clientName;
     private String clientId;
     private String item;
     private Boolean shipped;
@@ -52,6 +53,15 @@ public class Order {
 
     public void setClientId(String clientId) {
         this.clientId = clientId;
+    }
+
+    @DynamoDBAttribute(attributeName = "clientName")
+    public String getClientName() {
+        return clientName;
+    }
+
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
     }
 
     @DynamoDBAttribute(attributeName = "item")

@@ -9,6 +9,7 @@ public class OrderModel {
     private final String userEmail;
     private final String orderId;
     private final String clientId;
+    private final String clientName;
     private final String item;
     private final Boolean shipped;
     private final String purchaseDate;
@@ -33,12 +34,13 @@ public class OrderModel {
      * @param trackingNumber the tracking number
      * @param reference the reference
      */
-    private OrderModel(String userEmail, String orderId, String clientId, String item, Boolean shipped,
+    private OrderModel(String userEmail, String orderId, String clientId, String clientName, String item, Boolean shipped,
                        String purchaseDate, String shippingService, String expectedDate,
                        String deliveredDate, String trackingNumber, String reference) {
         this.userEmail = userEmail;
         this.orderId = orderId;
         this.clientId = clientId;
+        this.clientName = clientName;
         this.item = item;
         this.shipped = shipped;
         this.purchaseDate = purchaseDate;
@@ -74,6 +76,15 @@ public class OrderModel {
      */
     public String getClientId() {
         return clientId;
+    }
+
+    /**
+     * Gets the client's name.
+     *
+     * @return the client's name
+     */
+    public String getClientName() {
+        return clientName;
     }
 
     /**
@@ -168,6 +179,7 @@ public class OrderModel {
         return Objects.equals(userEmail, that.userEmail) &&
                 Objects.equals(orderId, that.orderId) &&
                 Objects.equals(clientId, that.clientId) &&
+                Objects.equals(clientName, that.clientName) &&
                 Objects.equals(item, that.item) &&
                 Objects.equals(shipped, that.shipped) &&
                 Objects.equals(purchaseDate, that.purchaseDate) &&
@@ -185,7 +197,7 @@ public class OrderModel {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(userEmail, orderId, clientId, item, shipped, purchaseDate, shippingService,
+        return Objects.hash(userEmail, orderId, clientId, clientName, item, shipped, purchaseDate, shippingService,
                 expectedDate, deliveredDate, trackingNumber, reference);
     }
 
@@ -205,6 +217,7 @@ public class OrderModel {
         private String userEmail;
         private String orderId;
         private String clientId;
+        private String clientName;
         private String item;
         private Boolean shipped;
         private String purchaseDate;
@@ -244,6 +257,17 @@ public class OrderModel {
          */
         public Builder withClientId(String id) {
             this.clientId = id;
+            return this;
+        }
+
+        /**
+         * Sets the client's name.
+         *
+         * @param id the client's name
+         * @return the Builder instance
+         */
+        public Builder withClientName(String name) {
+            this.clientName = name;
             return this;
         }
 
@@ -341,7 +365,7 @@ public class OrderModel {
          * @return a new OrderModel instance
          */
         public OrderModel build() {
-            return new OrderModel(userEmail, orderId, clientId, item, shipped, purchaseDate, shippingService,
+            return new OrderModel(userEmail, orderId, clientId, clientName, item, shipped, purchaseDate, shippingService,
                     expectedDate, deliveredDate, trackingNumber, reference);
         }
     }
