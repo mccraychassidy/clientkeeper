@@ -50,6 +50,21 @@ public class OrderDao {
     }
 
     /**
+     * Returns a list of {@link Order} corresponding to the specified userEmail that do not have a delivered date.
+     *
+     * @param userEmail the User's email
+     * @return a list of stored Orders for the given user email that do not have a delivered date.
+     */
+    public List<Order> getOrdersWithoutDeliveredDate(String userEmail) {
+        DynamoDBQueryExpression<Order> queryExpression = new DynamoDBQueryExpression<Order>()
+                .withKeyConditionExpression("userEmail = :userEmail")
+                .withFilterExpression("attribute_not_exists(deliveredDate)")
+                .withExpressionAttributeValues(Map.of(":userEmail", new AttributeValue().withS(userEmail)));
+
+        return dynamoDbMapper.query(Order.class, queryExpression);
+    }
+
+    /**
      * Returns a list of {@link Order} corresponding to the specified userEmail.
      *
      * @param userEmail the User's email
