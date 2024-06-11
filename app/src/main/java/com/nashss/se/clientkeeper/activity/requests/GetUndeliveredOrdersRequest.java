@@ -22,6 +22,9 @@ public class GetUndeliveredOrdersRequest {
         return new Builder();
     }
 
+    /**
+     * Builder class for GetUndeliveredOrdersRequest instances.
+     */
     @JsonPOJOBuilder
     public static class Builder {
         private String userEmail;
