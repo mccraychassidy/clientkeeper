@@ -40,6 +40,7 @@ public class GetUndeliveredOrdersActivityTest {
         order1.setUserEmail("user@example.com");
         order1.setOrderId("order1");
         order1.setClientId("client1");
+        order1.setClientName("Client One");
         order1.setItem("Item1");
         order1.setShipped(false);
         order1.setPurchaseDate(LocalDate.of(2024, 6, 1));
@@ -52,6 +53,7 @@ public class GetUndeliveredOrdersActivityTest {
         order2.setUserEmail("user@example.com");
         order2.setOrderId("order2");
         order2.setClientId("client2");
+        order2.setClientName("Client Two");
         order2.setItem("Item2");
         order2.setShipped(true);
         order2.setPurchaseDate(LocalDate.of(2024, 6, 2));
@@ -73,6 +75,8 @@ public class GetUndeliveredOrdersActivityTest {
         OrderModel orderModel1 = result.getOrders().get(0);
         OrderModel orderModel2 = result.getOrders().get(1);
 
+        assertEquals("Client One", orderModel1.getClientName());
+        assertEquals("Client Two", orderModel2.getClientName());
         assertEquals("Item1", orderModel1.getItem());
         assertEquals("Item2", orderModel2.getItem());
         verify(orderDao).getOrdersWithoutDeliveredDate("user@example.com");

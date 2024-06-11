@@ -36,6 +36,7 @@ public class CreateOrderActivityTest {
                 .withUserEmail("user@example.com")
                 .withOrderId("validOrderId")
                 .withClientId("validClientId")
+                .withClientName("Client Name")
                 .withItem("Sample Item")
                 .withShipped(false)
                 .withPurchaseDate("2024-06-01")
@@ -50,6 +51,7 @@ public class CreateOrderActivityTest {
         order.setUserEmail("user@example.com");
         order.setOrderId("validOrderId");
         order.setClientId("validClientId");
+        order.setClientName("Client Name");
         order.setItem("Sample Item");
         order.setShipped(false);
         order.setPurchaseDate(LocalDate.parse("2024-06-01", DATE_FORMATTER));
@@ -67,6 +69,7 @@ public class CreateOrderActivityTest {
         // THEN
         assertNotNull(result);
         assertNotNull(result.getOrder());
+        assertEquals("Client Name", result.getOrder().getClientName());
         assertEquals("Sample Item", result.getOrder().getItem());
         verify(orderDao).saveOrder(any(Order.class));
     }

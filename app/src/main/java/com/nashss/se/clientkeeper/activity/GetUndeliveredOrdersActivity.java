@@ -29,6 +29,7 @@ public class GetUndeliveredOrdersActivity {
                         .withUserEmail(order.getUserEmail())
                         .withOrderId(order.getOrderId())
                         .withClientId(order.getClientId())
+                        .withClientName(order.getClientName())
                         .withItem(order.getItem())
                         .withShipped(order.getShipped())
                         .withPurchaseDate(order.getPurchaseDate().toString())
