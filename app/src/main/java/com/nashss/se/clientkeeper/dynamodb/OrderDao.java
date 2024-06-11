@@ -114,15 +114,18 @@ public class OrderDao {
      */
     private void validateOrder(Order order) {
         if (order.getClientId() == null || order.getItem() == null ||
-                order.getPurchaseDate() == null || order.getShippingService() == null ||
-                order.getExpectedDate() == null || order.getDeliveredDate() == null) {
+                order.getPurchaseDate() == null) {
             throw new InvalidAttributeValueException("Missing required attribute(s)");
         }
 
         try {
             DATE_FORMATTER.format(order.getPurchaseDate());
-            DATE_FORMATTER.format(order.getExpectedDate());
-            DATE_FORMATTER.format(order.getDeliveredDate());
+            if (order.getExpectedDate() != null) {
+                DATE_FORMATTER.format(order.getExpectedDate());
+            }
+            if (order.getDeliveredDate() != null) {
+                DATE_FORMATTER.format(order.getDeliveredDate());
+            }
         } catch (Exception e) {
             throw new InvalidAttributeValueException("Invalid date format. Required format: " + DATE_FORMAT);
         }
