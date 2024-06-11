@@ -11,6 +11,7 @@ public class CreateOrderRequest {
     private final String userEmail;
     private final String orderId;
     private final String clientId;
+    private final String clientName;
     private final String item;
     private final Boolean shipped;
     private final String purchaseDate;
@@ -29,6 +30,7 @@ public class CreateOrderRequest {
         this.userEmail = builder.userEmail;
         this.orderId = builder.orderId;
         this.clientId = builder.clientId;
+        this.clientName = builder.clientName;
         this.item = builder.item;
         this.shipped = builder.shipped;
         this.purchaseDate = builder.purchaseDate;
@@ -73,6 +75,15 @@ public class CreateOrderRequest {
      */
     public String getClientId() {
         return clientId;
+    }
+
+    /**
+     * Gets the client name.
+     *
+     * @return the client name
+     */
+    public String getClientName() {
+        return clientName;
     }
 
     /**
@@ -158,6 +169,7 @@ public class CreateOrderRequest {
                 "userEmail='" + userEmail + '\'' +
                 ", orderId='" + orderId + '\'' +
                 ", clientId='" + clientId + '\'' +
+                ", clientName='" + clientName + '\'' +
                 ", item='" + item + '\'' +
                 ", shipped=" + shipped +
                 ", purchaseDate=" + purchaseDate +
@@ -177,6 +189,7 @@ public class CreateOrderRequest {
         private String userEmail;
         private String orderId;
         private String clientId;
+        private String clientName;
         private String item;
         private Boolean shipped;
         private String purchaseDate;
@@ -216,6 +229,17 @@ public class CreateOrderRequest {
          */
         public Builder withClientId(String id) {
             this.clientId = id;
+            return this;
+        }
+
+        /**
+         * Sets the client name.
+         *
+         * @param id the client name
+         * @return the Builder instance
+         */
+        public Builder withClientName(String name) {
+            this.clientName = name;
             return this;
         }
 
