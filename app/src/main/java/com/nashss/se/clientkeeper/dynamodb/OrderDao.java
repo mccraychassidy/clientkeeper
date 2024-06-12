@@ -145,4 +145,19 @@ public class OrderDao {
             throw new InvalidAttributeValueException("Invalid date format. Required format: " + DATE_FORMAT);
         }
     }
+
+    /**
+     * Returns a list of {@link Order} corresponding to the specified userEmail that have a delivered date.
+     *
+     * @param userEmail the User's email
+     * @return a list of stored Orders for the given user email that have a delivered date.
+     */
+    public List<Order> getOrdersWithDeliveredDate(String userEmail) {
+        DynamoDBQueryExpression<Order> queryExpression = new DynamoDBQueryExpression<Order>()
+                .withKeyConditionExpression("userEmail = :userEmail")
+                .withFilterExpression("attribute_exists(deliveredDate)")
+                .withExpressionAttributeValues(Map.of(":userEmail", new AttributeValue().withS(userEmail)));
+
+        return dynamoDbMapper.query(Order.class, queryExpression);
+    }
 }
