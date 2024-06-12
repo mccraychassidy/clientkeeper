@@ -9,7 +9,7 @@ class clientKeeperClient extends BindingClass {
 
         /* Methods that need binding. Add to this as methods are created */
 
-        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'createClient', 'getAllClients', 'updateClient', 'getUndeliveredOrders', 'createOrder'];
+        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'createClient', 'getAllClients', 'updateClient', 'getUndeliveredOrders', 'createOrder', 'updateOrder', 'getOrder'];
         this.bindClassMethods(methodsToBind, this);
 
         this.authenticator = new Authenticator();;
@@ -153,6 +153,50 @@ class clientKeeperClient extends BindingClass {
             this.handleError(error, errorCallback);
         }
     }
+
+    /**
+     * Fetches an order by ID.
+     * @param userEmail The email of the user.
+     * @param orderId The ID of the order to fetch.
+     * @param errorCallback (Optional) A function to execute if the call fails.
+     * @returns The order data.
+     */
+    async getOrder(userEmail, orderId, errorCallback) {
+        try {
+            const token = await this.getTokenOrThrow("You must be logged in to view an order.");
+            const response = await this.axiosClient.get(`/orders/${orderId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+                params: {
+                    userEmail: userEmail
+                }
+            });
+            return response.data.order;
+        } catch (error) {
+            this.handleError(error, errorCallback);
+        }
+    }
+
+    /**
+     * Updates an existing order.
+     * @param orderData The order data to be updated.
+     * @param errorCallback (Optional) A function to execute if the call fails.
+     * @returns The updated order data.
+     */
+    async updateOrder(orderData, errorCallback) {
+        try {
+            const token = await this.getTokenOrThrow("You must be logged in to update an order.");
+            const response = await this.axiosClient.put(`/orders/${orderData.orderId}`, orderData, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+            } catch (error) {
+                this.handleError(error, errorCallback);
+            }
+        }
 
     /**
      * Helper method to log the error and run any error functions.

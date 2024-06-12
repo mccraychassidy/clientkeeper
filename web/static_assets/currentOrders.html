@@ -5,6 +5,8 @@
     <title>Current Orders</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <script defer src="assets/currentOrders.js"></script>
+    <script defer src="assets/editOrder.js"></script>
+    <script defer src="assets/addOrder.js"></script>
 </head>
 <body class="background">
     <header class="header" id="header"></header>
@@ -37,37 +39,75 @@
     </div>
     <div id="addOrderModal" class="modal">
         <div class="modal-content">
-            <span class="close" id="closeModal">&times;</span>
-            <h2>Add New Order</h2>
+            <span class="close" id="closeAddOrderModal">&times;</span>
+            <h2>Add Order</h2>
             <form id="addOrderForm">
                 <label for="clientName">Client Name:</label>
                 <input type="text" id="clientName" name="clientName" required>
-                
+
                 <label for="clientId">Client ID:</label>
                 <input type="text" id="clientId" name="clientId" required>
-                
-                <label for="purchaseDate">Date Purchased:</label>
+
+                <label for="purchaseDate">Purchase Date:</label>
                 <input type="date" id="purchaseDate" name="purchaseDate" required>
-                
+
                 <label for="shipped">Shipped:</label>
                 <input type="checkbox" id="shipped" name="shipped">
-                
+
                 <label for="shippingService">Shipping Service:</label>
                 <input type="text" id="shippingService" name="shippingService">
-                
-                <label for="expectedDate">Expected Delivery Date:</label>
+
+                <label for="expectedDate">Expected Date:</label>
                 <input type="date" id="expectedDate" name="expectedDate">
-                
+
                 <label for="trackingNumber">Tracking Number:</label>
                 <input type="text" id="trackingNumber" name="trackingNumber">
-                
+
                 <label for="item">Item:</label>
                 <input type="text" id="item" name="item" required>
 
                 <label for="reference">Reference:</label>
                 <input type="text" id="reference" name="reference">
 
-                <button type="submit">Add Order</button>
+                <button type="submit">Save</button>
+            </form>
+        </div>
+    </div>
+    <div id="edit-order-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="close-order-modal">&times;</span>
+            <h2>Edit Order</h2>
+            <form id="edit-order-form">
+                <input type="hidden" id="edit-order-id">
+                <label for="edit-client-id">Client ID:</label>
+                <input type="text" id="edit-client-id" required>
+                
+                <label for="edit-client-name">Client Name:</label>
+                <input type="text" id="edit-client-name" required>
+                
+                <label for="edit-item">Item:</label>
+                <input type="text" id="edit-item" required>
+                
+                <label for="edit-shipped">Shipped:</label>
+                <input type="checkbox" id="edit-shipped">
+                
+                <label for="edit-purchase-date">Purchase Date:</label>
+                <input type="date" id="edit-purchase-date" required>
+                
+                <label for="edit-shipping-service">Shipping Service:</label>
+                <input type="text" id="edit-shipping-service">
+                
+                <label for="edit-expected-date">Expected Date:</label>
+                <input type="date" id="edit-expected-date">
+                
+                <label for="edit-tracking-number">Tracking Number:</label>
+                <input type="text" id="edit-tracking-number">
+                
+                <label for="edit-reference">Reference:</label>
+                <input type="text" id="edit-reference">
+
+                <button type="button" id="save-order-button">Save</button>
+                <button type="button" id="cancel-order-button">Cancel</button>
             </form>
         </div>
     </div>
