@@ -27,7 +27,8 @@ module.exports = {
     currentOrders: path.resolve(__dirname, 'src', 'pages', 'currentOrders.js'),
     manageClients: path.resolve(__dirname, 'src', 'pages', 'manageClients.js'),
     addClient: path.resolve(__dirname, 'src', 'pages', 'addClient.js'),
-    editClient: path.resolve(__dirname, 'src', 'pages', 'editClient.js')
+    editClient: path.resolve(__dirname, 'src', 'pages', 'editClient.js'),
+    editOrder: path.resolve(__dirname, 'src', 'pages', 'editOrder.js'),
   },
   output: {
     path: path.resolve(__dirname, 'build', 'assets'),
