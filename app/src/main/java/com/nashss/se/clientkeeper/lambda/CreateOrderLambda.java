@@ -29,6 +29,7 @@ public class CreateOrderLambda extends LambdaActivityRunner<CreateOrderRequest, 
                                     .withOrderId(unauthenticatedRequest.getOrderId())
                                     .withClientId(unauthenticatedRequest.getClientId())
                                     .withItem(unauthenticatedRequest.getItem())
+                                    .withClientName(unauthenticatedRequest.getClientName())
                                     .withShipped(unauthenticatedRequest.getShipped())
                                     .withPurchaseDate(unauthenticatedRequest.getPurchaseDate())
                                     .withShippingService(unauthenticatedRequest.getShippingService())

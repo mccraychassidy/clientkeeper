@@ -18,19 +18,58 @@
         <table id="ordersTable">
             <thead>
                 <tr>
-                    <th>Client</th>
+                    <th>Client Name</th>
+                    <th>Client ID</th>
                     <th>Order #</th>
                     <th>Purchased</th>
                     <th>Shipped?</th>
                     <th>Service</th>
                     <th>Expected Delivery</th>
                     <th>Tracking #</th>
+                    <th>Item</th>
+                    <th>Reference</th>
                 </tr>
             </thead>
             <tbody>
             </tbody>
         </table>
         <button id="addOrderButton">Add Order</button>
+    </div>
+    <div id="addOrderModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h2>Add New Order</h2>
+            <form id="addOrderForm">
+                <label for="clientName">Client Name:</label>
+                <input type="text" id="clientName" name="clientName" required>
+                
+                <label for="clientId">Client ID:</label>
+                <input type="text" id="clientId" name="clientId" required>
+                
+                <label for="purchaseDate">Date Purchased:</label>
+                <input type="date" id="purchaseDate" name="purchaseDate" required>
+                
+                <label for="shipped">Shipped:</label>
+                <input type="checkbox" id="shipped" name="shipped">
+                
+                <label for="shippingService">Shipping Service:</label>
+                <input type="text" id="shippingService" name="shippingService">
+                
+                <label for="expectedDate">Expected Delivery Date:</label>
+                <input type="date" id="expectedDate" name="expectedDate">
+                
+                <label for="trackingNumber">Tracking Number:</label>
+                <input type="text" id="trackingNumber" name="trackingNumber">
+                
+                <label for="item">Item:</label>
+                <input type="text" id="item" name="item" required>
+
+                <label for="reference">Reference:</label>
+                <input type="text" id="reference" name="reference">
+
+                <button type="submit">Add Order</button>
+            </form>
+        </div>
     </div>
 </body>
 </html>

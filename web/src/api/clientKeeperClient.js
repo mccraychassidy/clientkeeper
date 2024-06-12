@@ -9,7 +9,7 @@ class clientKeeperClient extends BindingClass {
 
         /* Methods that need binding. Add to this as methods are created */
 
-        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'createClient', 'getAllClients', 'updateClient', 'getUndeliveredOrders'];
+        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'createClient', 'getAllClients', 'updateClient', 'getUndeliveredOrders', 'createOrder'];
         this.bindClassMethods(methodsToBind, this);
 
         this.authenticator = new Authenticator();;
@@ -137,6 +137,20 @@ class clientKeeperClient extends BindingClass {
         } catch (error) {
             this.handleError(error, errorCallback);
             return null;
+        }
+    }
+
+    async createOrder(orderData, errorCallback) {
+        try {
+            const token = await this.getTokenOrThrow("You must be logged in to create an order.");
+            const response = await this.axiosClient.post("/orders", orderData, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleError(error, errorCallback);
         }
     }
 
