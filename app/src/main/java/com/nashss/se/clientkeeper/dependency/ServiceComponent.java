@@ -68,4 +68,11 @@ public interface ServiceComponent {
      * @return EditOrderActivity
      */
     EditOrderActivity provideEditOrderActivity();
+
+    /**
+     * Provides an instance of GetDeliveredOrdersActivity.
+     *
+     * @return GetDeliveredOrdersActivity
+     */
+    GetDeliveredOrdersActivity provideGetDeliveredOrdersActivity();
 }
