@@ -5,7 +5,7 @@ import DataStore from '../util/DataStore';
 class EditOrder extends BindingClass {
     constructor(props = {}) {
         super();
-        this.bindClassMethods(['mount', 'openEditModal', 'closeEditModal', 'saveOrder'], this);
+        this.bindClassMethods(['mount', 'openEditModal', 'closeEditModal', 'saveOrder', 'deleteOrder'], this);
         this.client = new ClientKeeperClient();
         this.dataStore = props.dataStore || new DataStore();
         this.reloadOrdersCallback = props.reloadOrdersCallback;
@@ -15,6 +15,7 @@ class EditOrder extends BindingClass {
         document.getElementById('close-order-modal').addEventListener('click', this.closeEditModal);
         document.getElementById('save-order-button').addEventListener('click', this.saveOrder);
         document.getElementById('cancel-order-button').addEventListener('click', this.closeEditModal);
+        document.getElementById('delete-order-button').addEventListener('click', this.deleteOrder);
 
         const userIdentity = await this.client.getIdentity();
         this.userEmail = userIdentity.email;
@@ -75,6 +76,20 @@ class EditOrder extends BindingClass {
             }
         } catch (error) {
             console.error('Error saving order:', error);
+        }
+    }
+
+    async deleteOrder() {
+        const orderId = document.getElementById('edit-order-id').value;
+
+        try {
+            await this.client.deleteOrder(this.userEmail, orderId);
+            this.closeEditModal();
+            if (this.reloadOrdersCallback) {
+                this.reloadOrdersCallback();
+            }
+        } catch (error) {
+            console.error('Error deleting order:', error);
         }
     }
 }
