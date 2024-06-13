@@ -479,8 +479,6 @@ Resources:
           KeySchema:
             - AttributeName: "clientId"
               KeyType: "HASH"
-            - AttributeName: "orderId"
-              KeyType: "RANGE"
           Projection:
             ProjectionType: ALL
       TableName: "orders"
