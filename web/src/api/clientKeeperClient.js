@@ -251,6 +251,26 @@ class clientKeeperClient extends BindingClass {
     }
 
     /**
+     * Fetches orders by Client ID using GSI.
+     * @param clientId The Client ID to search for orders.
+     * @param errorCallback (Optional) A function to execute if the call fails.
+     * @returns A list of orders for the specified Client ID.
+     */
+    async getOrdersByClientId(clientId, errorCallback) {
+        try {
+            const token = await this.getTokenOrThrow("You must be logged in to search orders.");
+            const response = await this.axiosClient.get(`/orders/byClientId/${clientId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data.orders;
+        } catch (error) {
+            this.handleError(error, errorCallback);
+        }
+    }
+
+    /**
      * Helper method to log the error and run any error functions.
      * @param error The error received from the server.
      * @param errorCallback (Optional) A function to execute if the call fails.
