@@ -463,6 +463,7 @@ Resources:
   OrdersTable:
     Type: AWS::DynamoDB::Table
     Properties:
+      TableName: "orders"
       AttributeDefinitions:
         - AttributeName: "userEmail"
           AttributeType: "S"
@@ -480,13 +481,11 @@ Resources:
         WriteCapacityUnits: 5
       GlobalSecondaryIndexes:
         - IndexName: "ClientOrdersIndex"
-          KeySchema:
+          KeySchema: 
             - AttributeName: "clientId"
               KeyType: "HASH"
           Projection:
-            ProjectionType: ALL
-      TableName: "orders"
-
+            ProjectionType: "ALL"
 
 #-----------------------------------------------------
 # The outputs defined below will be printed
