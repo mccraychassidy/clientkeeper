@@ -234,6 +234,22 @@ class clientKeeperClient extends BindingClass {
         }
     }
 
+    async getDeliveredOrders(errorCallback) {
+        try {
+            const token = await this.getTokenOrThrow("You must be logged in to view delivered orders.");
+            const response = await this.axiosClient.get('/orders/delivered', {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            console.log('Delivered Orders API response:', response.data);
+            return response.data;
+        } catch (error) {
+            this.handleError(error, errorCallback);
+            return null;
+        }
+    }
+
     /**
      * Helper method to log the error and run any error functions.
      * @param error The error received from the server.

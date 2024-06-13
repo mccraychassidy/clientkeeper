@@ -476,7 +476,9 @@ Resources:
           KeyType: "HASH"
         - AttributeName: "orderId"
           KeyType: "RANGE"
-      BillingMode: "PAY_PER_REQUEST"
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
       GlobalSecondaryIndexes:
         - IndexName: "ClientOrdersIndex"
           KeySchema: 

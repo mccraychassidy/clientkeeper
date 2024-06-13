@@ -3,7 +3,6 @@ import ClientKeeperClient from '../api/clientKeeperClient';
 document.addEventListener('DOMContentLoaded', async () => {
     const client = new ClientKeeperClient();
     const ordersTableBody = document.getElementById('ordersTable').getElementsByTagName('tbody')[0];
-    const searchBar = document.getElementById('searchBar');
     const signOutButton = document.getElementById('signOutButton');
 
     // Fetch and display orders
@@ -39,18 +38,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.log('Delivered Orders response:', response);
         loadOrders(response.orders);
     }
-
-    // Search by client ID
-    searchBar.addEventListener('input', async (event) => {
-        const clientId = event.target.value.trim();
-        if (clientId) {
-            const response = await client.getOrdersByClientId(clientId);
-            console.log('Orders by Client ID response:', response);
-            loadOrders(response);
-        } else {
-            loadAllDeliveredOrders();
-        }
-    });
 
     // Sign out button click handler
     signOutButton.addEventListener('click', async () => {
