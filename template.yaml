@@ -468,8 +468,6 @@ Resources:
           AttributeType: "S"
         - AttributeName: "orderId"
           AttributeType: "S"
-        - AttributeName: "clientId"
-          AttributeType: "S"
       KeySchema:
         - AttributeName: "userEmail"
           KeyType: "HASH"
