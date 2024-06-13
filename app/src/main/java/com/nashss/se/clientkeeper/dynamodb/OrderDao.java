@@ -86,7 +86,7 @@ public class OrderDao {
      */
     public List<Order> getOrdersByClientId(String clientId) {
         DynamoDBQueryExpression<Order> queryExpression = new DynamoDBQueryExpression<Order>()
-                .withIndexName("ClientOrdersIndex")
+                .withIndexName("NewClientOrdersIndex")
                 .withConsistentRead(false)
                 .withKeyConditionExpression("clientId = :clientId")
                 .withExpressionAttributeValues(Map.of(":clientId", new AttributeValue().withS(clientId)));
