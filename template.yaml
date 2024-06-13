@@ -475,7 +475,9 @@ Resources:
           KeyType: "HASH"
         - AttributeName: "orderId"
           KeyType: "RANGE"
-      BillingMode: "PAY_PER_REQUEST"
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
       GlobalSecondaryIndexes:
         - IndexName: "ClientOrdersIndex"
           KeySchema:
@@ -484,6 +486,7 @@ Resources:
           Projection:
             ProjectionType: ALL
       TableName: "orders"
+
 
 #-----------------------------------------------------
 # The outputs defined below will be printed
