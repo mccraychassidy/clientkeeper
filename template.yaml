@@ -419,6 +419,27 @@ Resources:
             Auth:
               Authorizer: 'NONE'
 
+  GetOrdersByClientIdLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: app
+      Handler: com.nashss.se.clientkeeper.lambda.GetOrdersByClientIdLambda::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        GetOrdersByClientId:
+          Type: Api
+          Properties:
+            Path: /orders/byClientId/{clientId}
+            Method: get
+            Auth:
+              Authorizer: 'NONE'
 
   #-----------------------------------------------------
   # DynamoDB Configuration
@@ -442,6 +463,7 @@ Resources:
   OrdersTable:
     Type: AWS::DynamoDB::Table
     Properties:
+      TableName: "orders"
       AttributeDefinitions:
         - AttributeName: "userEmail"
           AttributeType: "S"
@@ -454,10 +476,12 @@ Resources:
           KeyType: "HASH"
         - AttributeName: "orderId"
           KeyType: "RANGE"
-      BillingMode: "PAY_PER_REQUEST"
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
       GlobalSecondaryIndexes:
         - IndexName: "ClientOrdersIndex"
-          KeySchema:
+          KeySchema: 
             - AttributeName: "clientId"
               KeyType: "HASH"
             - AttributeName: "orderId"
