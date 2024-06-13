@@ -484,8 +484,14 @@ Resources:
           KeySchema: 
             - AttributeName: "clientId"
               KeyType: "HASH"
+            - AttributeName: "orderId"
+              KeyType: "RANGE"
+          ProvisionedThroughput:
+            ReadCapacityUnits: 1
+            WriteCapacityUnits: 1
           Projection:
             ProjectionType: "ALL"
+      TableName: "orders"
 
 #-----------------------------------------------------
 # The outputs defined below will be printed
