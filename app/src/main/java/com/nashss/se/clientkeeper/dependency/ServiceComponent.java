@@ -84,9 +84,16 @@ public interface ServiceComponent {
     GetOrdersByClientIdActivity provideGetOrdersByClientIdActivity();
 
     /**
-     * Provides an instance of GetDeleteOrderActivity.
+     * Provides an instance of DeleteOrderActivity.
      *
-     * @return GetDeleteOrderActivity
+     * @return DeleteOrderActivity
      */
     DeleteOrderActivity provideDeleteOrderActivity();
+
+    /**
+     * Provides an instance of DeleteClientActivity.
+     *
+     * @return DeleteClientActivity
+     */
+    DeleteClientActivity provideDeleteClientActivity();
 }
