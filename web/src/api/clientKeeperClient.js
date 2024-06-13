@@ -9,7 +9,7 @@ class clientKeeperClient extends BindingClass {
 
         /* Methods that need binding. Add to this as methods are created */
 
-        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'createClient', 'getAllClients', 'updateClient', 'getUndeliveredOrders', 'createOrder', 'updateOrder', 'getOrder'];
+        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'createClient', 'getAllClients', 'updateClient', 'getUndeliveredOrders', 'createOrder', 'updateOrder', 'getOrder', 'getOrdersByClientId'];
         this.bindClassMethods(methodsToBind, this);
 
         this.authenticator = new Authenticator();;
@@ -196,7 +196,43 @@ class clientKeeperClient extends BindingClass {
             } catch (error) {
                 this.handleError(error, errorCallback);
             }
+    }
+    
+    async getDeliveredOrders(errorCallback) {
+        try {
+            const token = await this.getTokenOrThrow("You must be logged in to view delivered orders.");
+            const response = await this.axiosClient.get('/orders/delivered', {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            console.log('Delivered Orders API response:', response.data);
+            return response.data;
+        } catch (error) {
+            this.handleError(error, errorCallback);
+            return null;
         }
+    }
+
+    /**
+     * Fetches orders by Client ID using GSI.
+     * @param clientId The Client ID to search for orders.
+     * @param errorCallback (Optional) A function to execute if the call fails.
+     * @returns A list of orders for the specified Client ID.
+     */
+    async getOrdersByClientId(clientId, errorCallback) {
+        try {
+            const token = await this.getTokenOrThrow("You must be logged in to search orders.");
+            const response = await this.axiosClient.get(`/orders/byClientId/${clientId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data.orders;
+        } catch (error) {
+            this.handleError(error, errorCallback);
+        }
+    }
 
     async getDeliveredOrders(errorCallback) {
         try {
