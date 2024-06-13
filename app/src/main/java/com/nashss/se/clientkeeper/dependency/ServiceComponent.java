@@ -82,4 +82,11 @@ public interface ServiceComponent {
      * @return GetOrdersByClientIdActivity
      */
     GetOrdersByClientIdActivity provideGetOrdersByClientIdActivity();
+
+    /**
+     * Provides an instance of GetDeleteOrderActivity.
+     *
+     * @return GetDeleteOrderActivity
+     */
+    DeleteOrderActivity provideDeleteOrderActivity();
 }
