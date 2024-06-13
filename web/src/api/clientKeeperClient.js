@@ -271,6 +271,30 @@ class clientKeeperClient extends BindingClass {
     }
 
     /**
+     * Deletes an existing order.
+     * @param userEmail The email of the user.
+     * @param orderId The ID of the order to delete.
+     * @param errorCallback (Optional) A function to execute if the call fails.
+     */
+    async deleteOrder(userEmail, orderId, errorCallback) {
+        try {
+            const token = await this.getTokenOrThrow("You must be logged in to delete an order.");
+            await this.axiosClient.delete('/orders', {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                data: {
+                    userEmail,
+                    orderId
+                }
+            });
+        } catch (error) {
+            this.handleError(error, errorCallback);
+        }
+    }
+
+    /**
      * Helper method to log the error and run any error functions.
      * @param error The error received from the server.
      * @param errorCallback (Optional) A function to execute if the call fails.
