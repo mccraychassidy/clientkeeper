@@ -9,8 +9,7 @@ export default class Header extends BindingClass {
         super();
 
         const methodsToBind = [
-            'addHeaderToPage', 'createSiteTitle', 'createUserInfoForHeader',
-            'createLoginButton', 'createLogoutButton', 'createAboutButton'
+            'addHeaderToPage', 'createSiteHeader', 'createButton', 'createUserInfoForHeader'
         ];
         this.bindClassMethods(methodsToBind, this);
 
@@ -23,73 +22,68 @@ export default class Header extends BindingClass {
     async addHeaderToPage() {
         const currentUser = await this.client.getIdentity();
 
-        const siteTitle = this.createSiteTitle();
-        const userInfo = this.createUserInfoForHeader(currentUser);
+        const siteHeader = this.createSiteHeader(currentUser);
 
         const header = document.getElementById('header');
-        header.appendChild(siteTitle);
-        header.appendChild(userInfo);
+        header.appendChild(siteHeader);
     }
 
-    createSiteTitle() {
-        const homeButton = document.createElement('a');
-        homeButton.classList.add('header_home');
-        homeButton.href = 'demo.html';
-        homeButton.innerText = 'Request A Demo';
+    createSiteHeader(currentUser) {
+        const headerContainer = document.createElement('div');
+        headerContainer.classList.add('header-container');
 
-        const aboutButton = this.createAboutButton();
+        const leftContainer = document.createElement('div');
+        leftContainer.classList.add('left-container');
+        const homeButton = this.createButton('Request A Demo', 'demo.html', 'button');
+        leftContainer.appendChild(homeButton);
 
-        const siteTitle = document.createElement('div');
-        siteTitle.classList.add('site-title');
-        siteTitle.appendChild(homeButton);
-        siteTitle.appendChild(aboutButton);
+        const centerContainer = document.createElement('div');
+        centerContainer.classList.add('center-container');
+        const aboutButton = this.createButton('About', 'about.html', 'button');
+        centerContainer.appendChild(aboutButton);
 
-        return siteTitle;
-    }
+        const rightContainer = this.createUserInfoForHeader(currentUser);
 
-    createAboutButton() {
-        const aboutButton = document.createElement('a');
-        aboutButton.classList.add('header_about');
-        aboutButton.href = 'about.html';
-        aboutButton.innerText = 'About';
+        headerContainer.appendChild(leftContainer);
+        headerContainer.appendChild(centerContainer);
+        headerContainer.appendChild(rightContainer);
 
-        const aboutContainer = document.createElement('div');
-        aboutContainer.classList.add('about-container');
-        aboutContainer.appendChild(aboutButton);
-
-        return aboutContainer;
+        return headerContainer;
     }
 
     createUserInfoForHeader(currentUser) {
-        const userInfo = document.createElement('div');
-        userInfo.classList.add('user-info');
+        const rightContainer = document.createElement('div');
+        rightContainer.classList.add('right-container');
 
         const childContent = currentUser
             ? this.createLogoutButton(currentUser)
             : this.createLoginButton();
 
-        userInfo.appendChild(childContent);
+        rightContainer.appendChild(childContent);
 
-        return userInfo;
+        return rightContainer;
     }
 
     createLoginButton() {
-        return this.createButton('Login / Sign Up', this.client.login);
+        return this.createButton('Login / Sign Up', '#', 'button', this.client.login.bind(this.client));
     }
 
     createLogoutButton(currentUser) {
-        return this.createButton(`Logout: ${currentUser.name}`, this.client.logout);
+        return this.createButton(`Logout: ${currentUser.name}`, '#', 'button', this.client.logout.bind(this.client));
     }
 
-    createButton(text, clickHandler) {
+    createButton(text, href, className, clickHandler) {
         const button = document.createElement('a');
-        button.classList.add('button');
-        button.href = '#';
+        button.classList.add(className);
+        button.href = href;
         button.innerText = text;
 
-        button.addEventListener('click', async (event) => {
-            await clickHandler();
-        });
+        if (clickHandler) {
+            button.addEventListener('click', async (event) => {
+                event.preventDefault();
+                await clickHandler();
+            });
+        }
 
         return button;
     }

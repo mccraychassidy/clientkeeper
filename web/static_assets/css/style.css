@@ -24,43 +24,29 @@ header.header {
     position: relative;
 }
 
-.site-title {
+.header-container {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    flex-grow: 1;
+    width: 100%;
 }
 
-.header_home {
-    font-size: 28px;
-    font-weight: bold;
-    line-height: 40px;
-    height: 100px;
-    text-decoration: none;
-    color: var(--secondary-color);
+.left-container {
+    flex: 1;
     display: flex;
-    align-items: center;
+    justify-content: flex-start;
+}
+
+.center-container {
+    flex: 1;
+    display: flex;
     justify-content: center;
-    margin-right: auto;
 }
 
-.header_about {
-    font-size: 28px;
-    font-weight: bold;
-    line-height: 5px;
-    text-decoration: none;
-    color: var(--secondary-color);
+.right-container {
+    flex: 1;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.user-info {
-    display: flex;
-    align-items: center;
-    margin-left: auto;
+    justify-content: flex-end;
 }
 
 .button {
@@ -80,7 +66,7 @@ header.header {
 }
 
 .button:hover {
-    background-color: #45a049;
+    background-color: #00c826;
 }
 
 .main-content {
@@ -278,7 +264,7 @@ tr:hover {
 }
 
 .about-page .content .button:hover {
-    background-color: #45a049; /* Darker button color on hover */
+    background-color: #00c826; /* Darker button color on hover */
     transform: translateY(-3px); /* Subtle lift effect on hover */
 }
 
@@ -299,4 +285,3 @@ tr:hover {
     font-weight: bold;
     color: white;
 }
-
