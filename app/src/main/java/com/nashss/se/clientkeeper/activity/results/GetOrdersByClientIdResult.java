@@ -14,6 +14,11 @@ public class GetOrdersByClientIdResult {
         this.orders = builder.orders;
     }
 
+    /**
+     * Returns a new Builder instance.
+     *
+     * @return a new Builder
+     */
     public static Builder builder() {
         return new Builder();
     }
@@ -25,11 +30,22 @@ public class GetOrdersByClientIdResult {
     public static class Builder {
         private List<OrderModel> orders;
 
-        public Builder withOrders(List<OrderModel> orders) {
-            this.orders = orders;
+        /**
+         * Sets the list of orders by clientId.
+         *
+         * @param orderModels the list of orders
+         * @return the Builder instance
+         */
+        public Builder withOrders(List<OrderModel> orderModels) {
+            this.orders = orderModels;
             return this;
         }
 
+        /**
+         * Builds a new GetOrdersByClientIdResult instance with the specified list of orders.
+         *
+         * @return a new GetOrdersByClientIdResult instance
+         */
         public GetOrdersByClientIdResult build() {
             return new GetOrdersByClientIdResult(this);
         }

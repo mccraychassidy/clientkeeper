@@ -8,29 +8,14 @@ import com.nashss.se.clientkeeper.models.OrderModel;
 public class GetOrderResult {
     private final OrderModel order;
 
-    /**
-     * Private constructor to create a new instance of GetOrderResult.
-     *
-     * @param order the order that was retrieved
-     */
     private GetOrderResult(OrderModel order) {
         this.order = order;
     }
 
-    /**
-     * Gets the order that was retrieved.
-     *
-     * @return the retrieved order
-     */
     public OrderModel getOrder() {
         return order;
     }
 
-    /**
-     * Returns a string representation of the GetOrderResult object.
-     *
-     * @return a string representation of the object
-     */
     @Override
     public String toString() {
         return "GetOrderResult{" +
@@ -47,14 +32,11 @@ public class GetOrderResult {
         return new Builder();
     }
 
-    /**
-     * Builder class for constructing GetOrderResult instances.
-     */
     public static class Builder {
         private OrderModel order;
 
         /**
-         * Sets the order that was retrieved.
+         * Sets the retrieved order.
          *
          * @param retrievedOrder the retrieved order
          * @return the Builder instance
@@ -65,7 +47,7 @@ public class GetOrderResult {
         }
 
         /**
-         * Builds a new GetOrderResult instance with the specified order.
+         * Builds a new GetOrderResult instance with the specified retrieved order.
          *
          * @return a new GetOrderResult instance
          */

@@ -1,9 +1,10 @@
 package com.nashss.se.clientkeeper.lambda;
 
-import com.amazonaws.services.lambda.runtime.Context;
-import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.nashss.se.clientkeeper.activity.requests.GetDeliveredOrdersRequest;
 import com.nashss.se.clientkeeper.activity.results.GetDeliveredOrdersResult;
+
+import com.amazonaws.services.lambda.runtime.Context;
+import com.amazonaws.services.lambda.runtime.RequestHandler;
 
 /**
  * AWS Lambda function handler for getting orders with a delivered date.
@@ -21,14 +22,14 @@ public class GetDeliveredOrdersLambda extends LambdaActivityRunner<GetDeliveredO
     @Override
     public LambdaResponse handleRequest(AuthenticatedLambdaRequest<GetDeliveredOrdersRequest> input, Context context) {
         return super.runActivity(
-                () -> input.fromUserClaims(claims -> {
-                    String userEmail = claims.get("email");
-                    return GetDeliveredOrdersRequest.builder()
-                            .withUserEmail(userEmail)
-                            .build();
-                }),
-                (request, serviceComponent) ->
-                        serviceComponent.provideGetDeliveredOrdersActivity().handleRequest(request)
+            () -> input.fromUserClaims(claims -> {
+                String userEmail = claims.get("email");
+                return GetDeliveredOrdersRequest.builder()
+                        .withUserEmail(userEmail)
+                        .build();
+            }),
+            (request, serviceComponent) ->
+                    serviceComponent.provideGetDeliveredOrdersActivity().handleRequest(request)
         );
     }
 }

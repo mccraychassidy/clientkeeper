@@ -2,6 +2,7 @@ package com.nashss.se.clientkeeper.activity;
 
 import com.nashss.se.clientkeeper.activity.requests.CreateOrderRequest;
 import com.nashss.se.clientkeeper.activity.results.CreateOrderResult;
+import com.nashss.se.clientkeeper.converters.ModelConverter;
 import com.nashss.se.clientkeeper.dynamodb.OrderDao;
 import com.nashss.se.clientkeeper.dynamodb.models.Order;
 import com.nashss.se.clientkeeper.exceptions.InvalidAttributeValueException;
@@ -81,24 +82,10 @@ public class CreateOrderActivity {
         newOrder.setDeliveredDate(deliveredDate);
         newOrder.setTrackingNumber(createOrderRequest.getTrackingNumber());
         newOrder.setReference(createOrderRequest.getReference());
+
         orderDao.saveOrder(newOrder);
 
-        OrderModel orderModel = OrderModel.builder()
-                .withUserEmail(newOrder.getUserEmail())
-                .withOrderId(newOrder.getOrderId())
-                .withClientId(newOrder.getClientId())
-                .withClientName(newOrder.getClientName())
-                .withItem(newOrder.getItem())
-                .withShipped(newOrder.getShipped())
-                .withPurchaseDate(newOrder.getPurchaseDate().format(DATE_FORMATTER))
-                .withShippingService(newOrder.getShippingService())
-                .withExpectedDate(newOrder.getExpectedDate() != null ?
-                        newOrder.getExpectedDate().format(DATE_FORMATTER) : null)
-                .withDeliveredDate(newOrder.getDeliveredDate() != null ?
-                        newOrder.getDeliveredDate().format(DATE_FORMATTER) : null)
-                .withTrackingNumber(newOrder.getTrackingNumber())
-                .withReference(newOrder.getReference())
-                .build();
+        OrderModel orderModel = new ModelConverter().toOrderModel(newOrder);
 
         return CreateOrderResult.builder()
                 .withOrder(orderModel)

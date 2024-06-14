@@ -2,6 +2,7 @@ package com.nashss.se.clientkeeper.activity;
 
 import com.nashss.se.clientkeeper.activity.requests.EditClientRequest;
 import com.nashss.se.clientkeeper.activity.results.EditClientResult;
+import com.nashss.se.clientkeeper.converters.ModelConverter;
 import com.nashss.se.clientkeeper.dynamodb.ClientDao;
 import com.nashss.se.clientkeeper.dynamodb.models.Client;
 import com.nashss.se.clientkeeper.exceptions.ClientNotFoundException;
@@ -54,15 +55,7 @@ public class EditClientActivity {
 
         clientDao.saveClient(existingClient);
 
-        ClientModel updatedClientModel = ClientModel.builder()
-                .withUserEmail(existingClient.getUserEmail())
-                .withClientId(existingClient.getClientId())
-                .withClientName(existingClient.getClientName())
-                .withClientEmail(existingClient.getClientEmail())
-                .withClientPhone(existingClient.getClientPhone())
-                .withClientAddress(existingClient.getClientAddress())
-                .withClientMemberSince(existingClient.getClientMemberSince().toString())
-                .build();
+        ClientModel updatedClientModel = new ModelConverter().toClientModel(existingClient);
 
         return EditClientResult.builder()
                 .withClient(updatedClientModel)

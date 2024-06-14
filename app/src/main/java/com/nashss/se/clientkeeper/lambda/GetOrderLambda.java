@@ -22,13 +22,13 @@ public class GetOrderLambda extends LambdaActivityRunner<GetOrderRequest, GetOrd
     @Override
     public LambdaResponse handleRequest(AuthenticatedLambdaRequest<GetOrderRequest> input, Context context) {
         return super.runActivity(
-                () -> input.fromPathAndQuery((path, query) ->
-                        GetOrderRequest.builder()
-                                .withUserEmail(query.get("email"))
-                                .withOrderId(path.get("orderId"))
-                                .build()),
-                (request, serviceComponent) ->
-                        serviceComponent.provideGetOrderActivity().handleRequest(request)
+            () -> input.fromPathAndQuery((path, query) ->
+                    GetOrderRequest.builder()
+                            .withUserEmail(query.get("email"))
+                            .withOrderId(path.get("orderId"))
+                            .build()),
+            (request, serviceComponent) ->
+                    serviceComponent.provideGetOrderActivity().handleRequest(request)
         );
     }
 }

@@ -1,6 +1,17 @@
 package com.nashss.se.clientkeeper.dependency;
 
-import com.nashss.se.clientkeeper.activity.*;
+import com.nashss.se.clientkeeper.activity.CreateClientActivity;
+import com.nashss.se.clientkeeper.activity.CreateOrderActivity;
+import com.nashss.se.clientkeeper.activity.DeleteClientActivity;
+import com.nashss.se.clientkeeper.activity.DeleteOrderActivity;
+import com.nashss.se.clientkeeper.activity.EditClientActivity;
+import com.nashss.se.clientkeeper.activity.EditOrderActivity;
+import com.nashss.se.clientkeeper.activity.GetAllClientsActivity;
+import com.nashss.se.clientkeeper.activity.GetClientActivity;
+import com.nashss.se.clientkeeper.activity.GetDeliveredOrdersActivity;
+import com.nashss.se.clientkeeper.activity.GetOrderActivity;
+import com.nashss.se.clientkeeper.activity.GetOrdersByClientIdActivity;
+import com.nashss.se.clientkeeper.activity.GetUndeliveredOrdersActivity;
 
 import dagger.Component;
 

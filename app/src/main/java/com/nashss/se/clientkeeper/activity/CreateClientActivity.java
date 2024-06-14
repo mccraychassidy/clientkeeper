@@ -2,6 +2,7 @@ package com.nashss.se.clientkeeper.activity;
 
 import com.nashss.se.clientkeeper.activity.requests.CreateClientRequest;
 import com.nashss.se.clientkeeper.activity.results.CreateClientResult;
+import com.nashss.se.clientkeeper.converters.ModelConverter;
 import com.nashss.se.clientkeeper.dynamodb.ClientDao;
 import com.nashss.se.clientkeeper.dynamodb.models.Client;
 import com.nashss.se.clientkeeper.exceptions.InvalidAttributeValueException;
@@ -13,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.inject.Inject;
+
 
 /**
  * Handles the creation of a new client.
@@ -56,17 +58,10 @@ public class CreateClientActivity {
         newClient.setClientPhone(createClientRequest.getClientPhone());
         newClient.setClientAddress(createClientRequest.getClientAddress());
         newClient.setClientMemberSince(LocalDate.parse(createClientRequest.getClientMemberSince(), DATE_FORMATTER));
+
         clientDao.saveClient(newClient);
 
-        ClientModel clientModel = ClientModel.builder()
-                .withUserEmail(newClient.getUserEmail())
-                .withClientId(newClient.getClientId())
-                .withClientName(newClient.getClientName())
-                .withClientEmail(newClient.getClientEmail())
-                .withClientPhone(newClient.getClientPhone())
-                .withClientAddress(newClient.getClientAddress())
-                .withClientMemberSince(newClient.getClientMemberSince().format(DATE_FORMATTER))
-                .build();
+        ClientModel clientModel = new ModelConverter().toClientModel(newClient);
 
         return CreateClientResult.builder()
                 .withClient(clientModel)

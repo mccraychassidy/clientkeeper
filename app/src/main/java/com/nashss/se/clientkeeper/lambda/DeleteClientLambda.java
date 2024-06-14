@@ -22,16 +22,16 @@ public class DeleteClientLambda extends LambdaActivityRunner<DeleteClientRequest
     @Override
     public LambdaResponse handleRequest(AuthenticatedLambdaRequest<DeleteClientRequest> input, Context context) {
         return super.runActivity(
-                () -> {
-                    DeleteClientRequest unauthenticatedRequest = input.fromBody(DeleteClientRequest.class);
-                    return input.fromUserClaims(claims ->
-                            DeleteClientRequest.builder()
-                                    .withUserEmail(claims.get("email"))
-                                    .withClientId(unauthenticatedRequest.getClientId())
-                                    .build());
-                },
-                (request, serviceComponent) ->
-                        serviceComponent.provideDeleteClientActivity().handleRequest(request)
+            () -> {
+                DeleteClientRequest unauthenticatedRequest = input.fromBody(DeleteClientRequest.class);
+                return input.fromUserClaims(claims ->
+                        DeleteClientRequest.builder()
+                                .withUserEmail(claims.get("email"))
+                                .withClientId(unauthenticatedRequest.getClientId())
+                                .build());
+            },
+            (request, serviceComponent) ->
+                    serviceComponent.provideDeleteClientActivity().handleRequest(request)
         );
     }
 }

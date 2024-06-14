@@ -8,29 +8,14 @@ import com.nashss.se.clientkeeper.models.ClientModel;
 public class GetClientResult {
     private final ClientModel client;
 
-    /**
-     * Private constructor to create a new instance of GetClientResult.
-     *
-     * @param client the client that was retrieved
-     */
     private GetClientResult(ClientModel client) {
         this.client = client;
     }
 
-    /**
-     * Gets the client that was retrieved.
-     *
-     * @return the retrieved client
-     */
     public ClientModel getClient() {
         return client;
     }
 
-    /**
-     * Returns a string representation of the GetClientResult object.
-     *
-     * @return a string representation of the object
-     */
     @Override
     public String toString() {
         return "GetClientResult{" +
@@ -47,9 +32,6 @@ public class GetClientResult {
         return new Builder();
     }
 
-    /**
-     * Builder class for constructing GetClientResult instances.
-     */
     public static class Builder {
         private ClientModel client;
 

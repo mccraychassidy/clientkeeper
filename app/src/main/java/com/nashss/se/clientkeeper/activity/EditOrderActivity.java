@@ -2,6 +2,7 @@ package com.nashss.se.clientkeeper.activity;
 
 import com.nashss.se.clientkeeper.activity.requests.EditOrderRequest;
 import com.nashss.se.clientkeeper.activity.results.EditOrderResult;
+import com.nashss.se.clientkeeper.converters.ModelConverter;
 import com.nashss.se.clientkeeper.dynamodb.OrderDao;
 import com.nashss.se.clientkeeper.dynamodb.models.Order;
 import com.nashss.se.clientkeeper.exceptions.OrderNotFoundException;
@@ -10,8 +11,8 @@ import com.nashss.se.clientkeeper.models.OrderModel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.inject.Inject;
 import java.time.LocalDate;
+import javax.inject.Inject;
 
 /**
  * Handles the editing of an order.
@@ -20,11 +21,23 @@ public class EditOrderActivity {
     private final Logger log = LogManager.getLogger();
     private final OrderDao orderDao;
 
+    /**
+     * Constructs an EditOrderActivity with the given OrderDao.
+     *
+     * @param orderDao interacts with the database
+     */
     @Inject
     public EditOrderActivity(OrderDao orderDao) {
         this.orderDao = orderDao;
     }
 
+    /**
+     * Handles the request to edit an order.
+     *
+     * @param request the request containing the order information to be edited
+     * @return the result of the order edit
+     * @throws OrderNotFoundException if the order is not found
+     */
     public EditOrderResult handleRequest(final EditOrderRequest request) {
         log.info("Received EditOrderRequest for orderId: {}", request.getOrderId());
 
@@ -39,7 +52,8 @@ public class EditOrderActivity {
         existingOrder.setShipped(request.getShipped());
         existingOrder.setPurchaseDate(LocalDate.parse(request.getPurchaseDate()));
         existingOrder.setShippingService(request.getShippingService());
-        existingOrder.setExpectedDate(request.getExpectedDate() != null ? LocalDate.parse(request.getExpectedDate()) : null);
+        existingOrder.setExpectedDate(request.getExpectedDate() != null ?
+                LocalDate.parse(request.getExpectedDate()) : null);
 
         if (request.getDeliveredDate() != null && !request.getDeliveredDate().isEmpty()) {
             existingOrder.setDeliveredDate(LocalDate.parse(request.getDeliveredDate()));
@@ -52,20 +66,7 @@ public class EditOrderActivity {
 
         orderDao.saveOrder(existingOrder);
 
-        OrderModel updatedOrderModel = OrderModel.builder()
-                .withUserEmail(existingOrder.getUserEmail())
-                .withOrderId(existingOrder.getOrderId())
-                .withClientId(existingOrder.getClientId())
-                .withClientName(existingOrder.getClientName())
-                .withItem(existingOrder.getItem())
-                .withShipped(existingOrder.getShipped())
-                .withPurchaseDate(existingOrder.getPurchaseDate().toString())
-                .withShippingService(existingOrder.getShippingService())
-                .withExpectedDate(existingOrder.getExpectedDate() != null ? existingOrder.getExpectedDate().toString() : null)
-                .withDeliveredDate(existingOrder.getDeliveredDate() != null ? existingOrder.getDeliveredDate().toString() : null)
-                .withTrackingNumber(existingOrder.getTrackingNumber())
-                .withReference(existingOrder.getReference())
-                .build();
+        OrderModel updatedOrderModel = new ModelConverter().toOrderModel(existingOrder);
 
         return EditOrderResult.builder()
                 .withOrder(updatedOrderModel)

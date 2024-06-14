@@ -10,20 +10,10 @@ import java.util.List;
 public class GetAllClientsResult {
     private final List<ClientModel> clients;
 
-    /**
-     * Private constructor to create a new instance of GetAllClientsResult.
-     *
-     * @param clients the list of clients that were retrieved
-     */
     private GetAllClientsResult(List<ClientModel> clients) {
         this.clients = clients;
     }
 
-    /**
-     * Gets the clients that were retrieved.
-     *
-     * @return the list of retrieved clients
-     */
     public List<ClientModel> getClients() {
         return clients;
     }
@@ -37,9 +27,6 @@ public class GetAllClientsResult {
         return new Builder();
     }
 
-    /**
-     * Builder class for constructing GetAllClientsResult instances.
-     */
     public static class Builder {
         private List<ClientModel> clients;
 

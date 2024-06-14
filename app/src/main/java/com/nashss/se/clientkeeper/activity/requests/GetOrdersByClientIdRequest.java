@@ -10,6 +10,11 @@ public class GetOrdersByClientIdRequest {
         this.clientId = builder.clientId;
     }
 
+    /**
+     * Returns a new Builder instance.
+     *
+     * @return a new Builder
+     */
     public static Builder builder() {
         return new Builder();
     }
@@ -21,11 +26,22 @@ public class GetOrdersByClientIdRequest {
     public static class Builder {
         private String clientId;
 
-        public Builder withClientId(String clientId) {
-            this.clientId = clientId;
+        /**
+         * Sets the clientId.
+         *
+         * @param id the clientId
+         * @return the Builder instance
+         */
+        public Builder withClientId(String id) {
+            this.clientId = id;
             return this;
         }
 
+        /**
+         * Builds a new GetOrdersByClientIdRequest instance with the specified clientId.
+         *
+         * @return a new GetOrdersByClientIdRequest instance
+         */
         public GetOrdersByClientIdRequest build() {
             return new GetOrdersByClientIdRequest(this);
         }

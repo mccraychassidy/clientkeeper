@@ -9,9 +9,9 @@ import com.nashss.se.clientkeeper.models.OrderModel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.inject.Inject;
 
 /**
  * Handles the retrieval of orders by clientId.
@@ -20,11 +20,22 @@ public class GetOrdersByClientIdActivity {
     private final Logger log = LogManager.getLogger();
     private final OrderDao orderDao;
 
+    /**
+     * Constructs a GetOrdersByClientIdActivity with the given OrderDao.
+     *
+     * @param orderDao interacts with the database
+     */
     @Inject
     public GetOrdersByClientIdActivity(OrderDao orderDao) {
         this.orderDao = orderDao;
     }
 
+    /**
+     * Handles the request to get orders by clientId.
+     *
+     * @param request the request containing the clientId
+     * @return the result of the orders retrieval
+     */
     public GetOrdersByClientIdResult handleRequest(final GetOrdersByClientIdRequest request) {
         log.info("Received GetOrdersByClientIdRequest {}", request);
 

@@ -40,74 +40,34 @@ public class CreateClientRequest {
         return new Builder();
     }
 
-    /**
-     * Gets the user email.
-     *
-     * @return the user email
-     */
     public String getUserEmail() {
         return userEmail;
     }
 
-    /**
-     * Gets the client ID.
-     *
-     * @return the client ID
-     */
     public String getClientId() {
         return clientId;
     }
 
-    /**
-     * Gets the client name.
-     *
-     * @return the client name
-     */
     public String getClientName() {
         return clientName;
     }
 
-    /**
-     * Gets the client email.
-     *
-     * @return the client email
-     */
     public String getClientEmail() {
         return clientEmail;
     }
 
-    /**
-     * Gets the client phone number.
-     *
-     * @return the client phone number
-     */
     public String getClientPhone() {
         return clientPhone;
     }
 
-    /**
-     * Gets the client address.
-     *
-     * @return the client address
-     */
     public String getClientAddress() {
         return clientAddress;
     }
 
-    /**
-     * Gets the date when the client became a member.
-     *
-     * @return the date the client became a member
-     */
     public String getClientMemberSince() {
         return clientMemberSince;
     }
 
-    /**
-     * Returns a string representation of the CreateClientRequest object.
-     *
-     * @return a string representation of the object
-     */
     @Override
     public String toString() {
         return "CreateClientRequest{" +
@@ -121,9 +81,6 @@ public class CreateClientRequest {
                 '}';
     }
 
-    /**
-     * Builder class for CreateClientRequest instances.
-     */
     @JsonPOJOBuilder
     public static class Builder {
         private String userEmail;

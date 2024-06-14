@@ -8,11 +8,6 @@ import com.nashss.se.clientkeeper.models.OrderModel;
 public class EditOrderResult {
     private final OrderModel order;
 
-    /**
-     * Private constructor to create a new instance of EditOrderResult.
-     *
-     * @param order the order that was edited
-     */
     private EditOrderResult(OrderModel order) {
         this.order = order;
     }
@@ -21,6 +16,11 @@ public class EditOrderResult {
         return order;
     }
 
+    /**
+     * Returns a new Builder instance.
+     *
+     * @return a new Builder
+     */
     public static Builder builder() {
         return new Builder();
     }
@@ -28,11 +28,22 @@ public class EditOrderResult {
     public static class Builder {
         private OrderModel order;
 
+        /**
+         * Sets the edited order.
+         *
+         * @param editedOrder the edited order
+         * @return the Builder instance
+         */
         public Builder withOrder(OrderModel editedOrder) {
             this.order = editedOrder;
             return this;
         }
 
+        /**
+         * Builds a new EditOrderResult instance with the specified edited order.
+         *
+         * @return a new EditOrderResult instance
+         */
         public EditOrderResult build() {
             return new EditOrderResult(order);
         }

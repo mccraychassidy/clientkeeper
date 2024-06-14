@@ -1,4 +1,5 @@
 package com.nashss.se.clientkeeper.dynamodb;
+import com.nashss.se.clientkeeper.converters.DateConverter;
 import com.nashss.se.clientkeeper.dynamodb.models.Client;
 import com.nashss.se.clientkeeper.exceptions.ClientNotFoundException;
 import com.nashss.se.clientkeeper.exceptions.InvalidAttributeValueException;
@@ -7,7 +8,6 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
@@ -18,8 +18,7 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class ClientDao {
-    private static final String DATE_FORMAT = "MM-dd-yyyy";
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMAT);
+    private final DateConverter dateConverter = new DateConverter();
     private final DynamoDBMapper dynamoDbMapper;
 
     /**
@@ -104,9 +103,9 @@ public class ClientDao {
         }
 
         try {
-            DATE_FORMATTER.format(client.getClientMemberSince());
+            dateConverter.convert(client.getClientMemberSince());
         } catch (Exception e) {
-            throw new InvalidAttributeValueException("Invalid date format. Required format: " + DATE_FORMAT);
+            throw new InvalidAttributeValueException("Invalid date format. Required format: yyyy-MM-dd");
         }
     }
 }

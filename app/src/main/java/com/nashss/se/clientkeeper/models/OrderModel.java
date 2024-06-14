@@ -34,7 +34,8 @@ public class OrderModel {
      * @param trackingNumber the tracking number
      * @param reference the reference
      */
-    private OrderModel(String userEmail, String orderId, String clientId, String clientName, String item, Boolean shipped,
+    private OrderModel(String userEmail, String orderId, String clientId, String clientName,
+                       String item, Boolean shipped,
                        String purchaseDate, String shippingService, String expectedDate,
                        String deliveredDate, String trackingNumber, String reference) {
         this.userEmail = userEmail;
@@ -263,7 +264,7 @@ public class OrderModel {
         /**
          * Sets the client's name.
          *
-         * @param id the client's name
+         * @param name the client's name
          * @return the Builder instance
          */
         public Builder withClientName(String name) {
@@ -365,7 +366,8 @@ public class OrderModel {
          * @return a new OrderModel instance
          */
         public OrderModel build() {
-            return new OrderModel(userEmail, orderId, clientId, clientName, item, shipped, purchaseDate, shippingService,
+            return new OrderModel(userEmail, orderId, clientId, clientName,
+                    item, shipped, purchaseDate, shippingService,
                     expectedDate, deliveredDate, trackingNumber, reference);
         }
     }

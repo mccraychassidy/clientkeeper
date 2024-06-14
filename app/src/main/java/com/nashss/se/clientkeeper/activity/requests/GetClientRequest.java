@@ -26,20 +26,10 @@ public class GetClientRequest {
         return new Builder();
     }
 
-    /**
-     * Gets the user email.
-     *
-     * @return the user email
-     */
     public String getUserEmail() {
         return userEmail;
     }
 
-    /**
-     * Gets the client ID.
-     *
-     * @return the client ID
-     */
     public String getClientId() {
         return clientId;
     }
