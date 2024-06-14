@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 import javax.inject.Inject;
 
 
@@ -52,7 +53,10 @@ public class CreateClientActivity {
 
         Client newClient = new Client();
         newClient.setUserEmail(createClientRequest.getUserEmail());
-        newClient.setClientId(createClientRequest.getClientId());
+
+        String clientId = UUID.randomUUID().toString();
+        newClient.setClientId(clientId);
+
         newClient.setClientName(createClientRequest.getClientName());
         newClient.setClientEmail(createClientRequest.getClientEmail());
         newClient.setClientPhone(createClientRequest.getClientPhone());

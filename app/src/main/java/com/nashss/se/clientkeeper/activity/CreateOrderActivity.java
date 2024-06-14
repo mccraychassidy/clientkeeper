@@ -66,8 +66,7 @@ public class CreateOrderActivity {
             throw new InvalidAttributeValueException("Invalid date format. Required format: yyyy-MM-dd");
         }
 
-        String orderId = createOrderRequest.getOrderId() != null ?
-                createOrderRequest.getOrderId() : UUID.randomUUID().toString();
+        String orderId = UUID.randomUUID().toString();
 
         Order newOrder = new Order();
         newOrder.setUserEmail(createOrderRequest.getUserEmail());

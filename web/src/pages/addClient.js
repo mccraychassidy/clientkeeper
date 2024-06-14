@@ -3,7 +3,6 @@ import Header from '../components/header';
 import BindingClass from '../util/bindingClass';
 import DataStore from '../util/DataStore';
 import Authenticator from '../api/authenticator';
-import { v4 as uuidv4 } from 'uuid';
 
 /**
  * Logic needed for the add client page of the website.
@@ -45,7 +44,6 @@ class AddClient extends BindingClass {
         const origButtonText = addButton.innerText;
         addButton.innerText = 'Adding...';
 
-        const clientId = generateUUID();
         const userEmail = this.userInfo.email;
         const clientName = document.getElementById('client-name').value;
         const clientEmail = document.getElementById('client-email').value;
@@ -56,7 +54,6 @@ class AddClient extends BindingClass {
         try {
             const client = await this.client.createClient({
                 userEmail,
-                clientId,
                 clientName,
                 clientEmail,
                 clientPhone,
