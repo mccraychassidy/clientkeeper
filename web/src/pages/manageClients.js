@@ -12,7 +12,7 @@ class ManageClients extends BindingClass {
         this.header = new Header(this.dataStore);
         this.clients = [];
         this.dataStore.addChangeListener(this.refreshClients);
-        this.editClient = new EditClient({ dataStore: this.dataStore });
+        this.editClient = new EditClient({ dataStore: this.dataStore, manageClients: this });
     }
 
     /**
