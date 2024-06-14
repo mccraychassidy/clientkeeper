@@ -1,19 +1,60 @@
 import ClientKeeperClient from '../api/clientKeeperClient';
+import Header from '../components/header';
+import BindingClass from '../util/bindingClass';
+import DataStore from '../util/DataStore';
 
-document.addEventListener('DOMContentLoaded', async () => {
-    const client = new ClientKeeperClient();
-    const ordersTableBody = document.getElementById('ordersTable').getElementsByTagName('tbody')[0];
-    const searchBar = document.getElementById('searchBar');
-    const signOutButton = document.getElementById('signOutButton');
+class CompletedOrders extends BindingClass {
+    constructor() {
+        super();
+        this.dataStore = new DataStore();
+        this.bindClassMethods(['mount', 'loadAllDeliveredOrders', 'renderOrdersTable', 'searchOrdersByClientId', 'refreshOrders'], this);
+        this.header = new Header(this.dataStore);
+        this.orders = [];
+        this.dataStore.addChangeListener(this.refreshOrders);
+    }
 
-    // Fetch and display orders
-    async function loadOrders(orders) {
+    mount() {
+        this.header.addHeaderToPage();
+        this.client = new ClientKeeperClient();
+        document.getElementById('searchBar').addEventListener('input', this.searchOrdersByClientId);
+        document.getElementById('signOutButton').addEventListener('click', async () => {
+            await this.client.logout();
+            window.location.href = 'index.html';
+        });
+        this.loadAllDeliveredOrders();
+    }
+
+    async loadAllDeliveredOrders() {
+        try {
+            const response = await this.client.getDeliveredOrders();
+            this.orders = response.orders || [];
+            this.renderOrdersTable(this.orders);
+        } catch (error) {
+            console.error('Error loading delivered orders:', error);
+        }
+    }
+
+    async searchOrdersByClientId(event) {
+        const clientId = event.target.value.trim();
+        if (clientId) {
+            try {
+                const response = await this.client.getOrdersByClientId(clientId);
+                this.renderOrdersTable(response.orders || []);
+            } catch (error) {
+                console.error('Error searching orders by client ID:', error);
+            }
+        } else {
+            this.loadAllDeliveredOrders();
+        }
+    }
+
+    renderOrdersTable(orders) {
+        const ordersTableBody = document.getElementById('ordersTable').getElementsByTagName('tbody')[0];
         ordersTableBody.innerHTML = '';
 
         if (Array.isArray(orders)) {
             orders.forEach(order => {
                 const row = document.createElement('tr');
-
                 row.innerHTML = `
                     <td>${order.clientName}</td>
                     <td>${order.clientId}</td>
@@ -25,7 +66,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <td>${order.item}</td>
                     <td>${order.reference}</td>
                 `;
-
                 ordersTableBody.appendChild(row);
             });
         } else {
@@ -33,31 +73,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    // Load all delivered orders on page load
-    async function loadAllDeliveredOrders() {
-        const response = await client.getDeliveredOrders();
-        console.log('Delivered Orders response:', response);
-        loadOrders(response.orders);
+    async refreshOrders() {
+        await this.loadAllDeliveredOrders();
     }
+}
 
-   // Search by client ID
-    searchBar.addEventListener('input', async (event) => {
-    const clientId = event.target.value.trim();
-    if (clientId) {
-        const response = await client.getOrdersByClientId(clientId);
-        console.log('Orders by Client ID response:', response);
-        loadOrders(response);
-    } else {
-        loadAllDeliveredOrders();
-    }
-    });
+const main = async () => {
+    const completedOrders = new CompletedOrders();
+    completedOrders.mount();
+};
 
-    // Sign out button click handler
-    signOutButton.addEventListener('click', async () => {
-        await client.logout();
-        window.location.href = 'index.html';
-    });
+window.addEventListener('DOMContentLoaded', main);
 
-    // Load orders on page load
-    loadAllDeliveredOrders();
-});
+export default CompletedOrders;

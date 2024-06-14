@@ -1,76 +1,84 @@
 import ClientKeeperClient from '../api/clientKeeperClient';
+import Header from '../components/header';
+import BindingClass from '../util/bindingClass';
+import DataStore from '../util/DataStore';
 import EditOrder from './editOrder';
 
-document.addEventListener('DOMContentLoaded', async () => {
-    const client = new ClientKeeperClient();
-    const ordersTableBody = document.getElementById('ordersTable').getElementsByTagName('tbody')[0];
-    const addOrderButton = document.getElementById('addOrderButton');
-    const signOutButton = document.getElementById('signOutButton');
-    const addOrderModal = document.getElementById('addOrderModal');
-    const closeAddOrderModal = document.getElementById('closeAddOrderModal');
-    const addOrderForm = document.getElementById('addOrderForm');
+class CurrentOrders extends BindingClass {
+    constructor() {
+        super();
+        this.dataStore = new DataStore();
+        this.bindClassMethods(['mount', 'loadOrders', 'renderOrdersTable', 'openAddOrderModal', 'closeAddOrderModal', 'addOrder', 'refreshOrders'], this);
+        this.header = new Header(this.dataStore);
+        this.orders = [];
+        this.dataStore.addChangeListener(this.refreshOrders);
+        this.editOrder = new EditOrder({ dataStore: this.dataStore, currentOrders: this });
+    }
 
-    // Fetch and display orders
-    async function loadOrders() {
-        const response = await client.getUndeliveredOrders();
-        console.log('Orders response:', response);
+    mount() {
+        this.header.addHeaderToPage();
+        this.client = new ClientKeeperClient();
+        document.getElementById('addOrderButton').addEventListener('click', this.openAddOrderModal);
+        document.getElementById('closeAddOrderModal').addEventListener('click', this.closeAddOrderModal);
+        document.getElementById('addOrderForm').addEventListener('submit', this.addOrder);
+        document.getElementById('signOutButton').addEventListener('click', async () => {
+            await this.client.logout();
+            window.location.href = 'index.html';
+        });
+        window.addEventListener('click', (event) => {
+            if (event.target == document.getElementById('addOrderModal')) {
+                this.closeAddOrderModal();
+            }
+        });
+        this.loadOrders();
+        this.editOrder.mount();
+    }
 
-        const orders = response.orders;
-        console.log('Orders:', orders);
-
-        ordersTableBody.innerHTML = '';
-
-        if (Array.isArray(orders)) {
-            orders.forEach(order => {
-                const row = document.createElement('tr');
-
-                row.innerHTML = `
-                    <td>${order.clientName}</td>
-                    <td>${order.clientId}</td>
-                    <td>${order.orderId}</td>
-                    <td>${order.purchaseDate}</td>
-                    <td>${order.shipped ? '✅' : '❌'}</td>
-                    <td>${order.shippingService}</td>
-                    <td>${order.expectedDate}</td>
-                    <td>${order.trackingNumber}</td>
-                    <td>${order.item}</td>
-                    <td>${order.reference}</td>
-                `;
-
-                row.addEventListener('click', () => editOrder.openEditModal(order));
-                ordersTableBody.appendChild(row);
-            });
-        } else {
-            console.error('Expected an array of orders, but got:', orders);
+    async loadOrders() {
+        try {
+            const response = await this.client.getUndeliveredOrders();
+            this.orders = response.orders || [];
+            this.renderOrdersTable(this.orders);
+        } catch (error) {
+            console.error('Error loading orders:', error);
         }
     }
 
-    const editOrder = new EditOrder({
-        reloadOrdersCallback: loadOrders
-    });
+    renderOrdersTable(orders) {
+        const ordersTableBody = document.getElementById('ordersTable').getElementsByTagName('tbody')[0];
+        ordersTableBody.innerHTML = '';
 
-    // Open modal
-    addOrderButton.addEventListener('click', () => {
-        addOrderModal.style.display = 'block';
-    });
+        orders.forEach(order => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${order.clientName}</td>
+                <td>${order.clientId}</td>
+                <td>${order.orderId}</td>
+                <td>${order.purchaseDate}</td>
+                <td>${order.shipped ? '✅' : '❌'}</td>
+                <td>${order.shippingService}</td>
+                <td>${order.expectedDate}</td>
+                <td>${order.trackingNumber}</td>
+                <td>${order.item}</td>
+                <td>${order.reference}</td>
+            `;
+            row.addEventListener('click', () => this.editOrder.openEditModal(order));
+            ordersTableBody.appendChild(row);
+        });
+    }
 
-    // Close modal
-    closeAddOrderModal.addEventListener('click', () => {
-        addOrderModal.style.display = 'none';
-    });
+    openAddOrderModal() {
+        document.getElementById('addOrderModal').style.display = 'block';
+    }
 
-    // Close modal when clicking outside of it
-    window.addEventListener('click', (event) => {
-        if (event.target == addOrderModal) {
-            addOrderModal.style.display = 'none';
-        }
-    });
+    closeAddOrderModal() {
+        document.getElementById('addOrderModal').style.display = 'none';
+    }
 
-    // Add order form submission
-    addOrderForm.addEventListener('submit', async (event) => {
+    async addOrder(event) {
         event.preventDefault();
 
-        const formData = new FormData(addOrderForm);
+        const formData = new FormData(event.target);
         const newOrder = {
             clientName: formData.get('clientName'),
             clientId: formData.get('clientId'),
@@ -83,24 +91,25 @@ document.addEventListener('DOMContentLoaded', async () => {
             reference: formData.get('reference')
         };
 
-        console.log('New Order Data:', newOrder);
-
         try {
-            await client.createOrder(newOrder);
-            addOrderModal.style.display = 'none';
-            loadOrders(); // Reload orders after adding a new one
+            await this.client.createOrder(newOrder);
+            this.closeAddOrderModal();
+            this.loadOrders();
         } catch (error) {
             console.error('Error creating order:', error);
         }
-    });
+    }
 
-    // Sign out button click handler
-    signOutButton.addEventListener('click', async () => {
-        await client.logout();
-        window.location.href = 'index.html';
-    });
+    async refreshOrders() {
+        await this.loadOrders();
+    }
+}
 
-    // Load orders on page load
-    loadOrders();
-    editOrder.mount();
-});
+const main = async () => {
+    const currentOrders = new CurrentOrders();
+    currentOrders.mount();
+};
+
+window.addEventListener('DOMContentLoaded', main);
+
+export default CurrentOrders;
