@@ -15,9 +15,9 @@ public class EditOrderLambda extends LambdaActivityRunner<EditOrderRequest, Edit
     @Override
     public LambdaResponse handleRequest(AuthenticatedLambdaRequest<EditOrderRequest> input, Context context) {
         return super.runActivity(
-                () -> input.fromBody(EditOrderRequest.class),
-                (request, serviceComponent) ->
-                        serviceComponent.provideEditOrderActivity().handleRequest(request)
+            () -> input.fromBody(EditOrderRequest.class),
+            (request, serviceComponent) ->
+                    serviceComponent.provideEditOrderActivity().handleRequest(request)
         );
     }
 }

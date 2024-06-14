@@ -30,29 +30,14 @@ public class DeleteClientRequest {
         return new Builder();
     }
 
-    /**
-     * Gets the user email.
-     *
-     * @return the user email
-     */
     public String getUserEmail() {
         return userEmail;
     }
 
-    /**
-     * Gets the client ID.
-     *
-     * @return the client ID
-     */
     public String getClientId() {
         return clientId;
     }
 
-    /**
-     * Returns a string representation of the DeleteClientRequest object.
-     *
-     * @return a string representation of the object
-     */
     @Override
     public String toString() {
         return "DeleteClientRequest{" +
@@ -61,9 +46,6 @@ public class DeleteClientRequest {
                 '}';
     }
 
-    /**
-     * Builder class for DeleteClientRequest instances.
-     */
     @JsonPOJOBuilder
     public static class Builder {
         private String userEmail;

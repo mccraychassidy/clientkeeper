@@ -18,22 +18,35 @@ public class GetDeliveredOrdersRequest {
         return userEmail;
     }
 
+    /**
+     * Returns a new Builder instance.
+     *
+     * @return a new Builder
+     */
     public static Builder builder() {
         return new Builder();
     }
 
-    /**
-     * Builder class for GetDeliveredOrdersRequest instances.
-     */
     @JsonPOJOBuilder
     public static class Builder {
         private String userEmail;
 
-        public Builder withUserEmail(String userEmail) {
-            this.userEmail = userEmail;
+        /**
+         * Sets the user email.
+         *
+         * @param email the user email
+         * @return the Builder instance
+         */
+        public Builder withUserEmail(String email) {
+            this.userEmail = email;
             return this;
         }
 
+        /**
+         * Builds a new GetDeliveredOrdersRequest instance with the specified user email.
+         *
+         * @return a new GetDeliveredOrdersRequest instance
+         */
         public GetDeliveredOrdersRequest build() {
             return new GetDeliveredOrdersRequest(this);
         }

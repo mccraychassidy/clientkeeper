@@ -1,4 +1,6 @@
 package com.nashss.se.clientkeeper.dynamodb;
+
+import com.nashss.se.clientkeeper.converters.DateConverter;
 import com.nashss.se.clientkeeper.dynamodb.models.Order;
 import com.nashss.se.clientkeeper.exceptions.InvalidAttributeValueException;
 import com.nashss.se.clientkeeper.exceptions.OrderNotFoundException;
@@ -7,7 +9,6 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
@@ -18,8 +19,7 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class OrderDao {
-    private static final String DATE_FORMAT = "MM-dd-yyyy";
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMAT);
+    private final DateConverter dateConverter = new DateConverter();
     private final DynamoDBMapper dynamoDbMapper;
 
     /**
@@ -134,15 +134,15 @@ public class OrderDao {
         }
 
         try {
-            DATE_FORMATTER.format(order.getPurchaseDate());
+            dateConverter.convert(order.getPurchaseDate());
             if (order.getExpectedDate() != null) {
-                DATE_FORMATTER.format(order.getExpectedDate());
+                dateConverter.convert(order.getExpectedDate());
             }
             if (order.getDeliveredDate() != null) {
-                DATE_FORMATTER.format(order.getDeliveredDate());
+                dateConverter.convert(order.getDeliveredDate());
             }
         } catch (Exception e) {
-            throw new InvalidAttributeValueException("Invalid date format. Required format: " + DATE_FORMAT);
+            throw new InvalidAttributeValueException("Invalid date format. Required format: yyyy-MM-dd");
         }
     }
 

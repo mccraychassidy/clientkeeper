@@ -22,16 +22,16 @@ public class DeleteOrderLambda extends LambdaActivityRunner<DeleteOrderRequest, 
     @Override
     public LambdaResponse handleRequest(AuthenticatedLambdaRequest<DeleteOrderRequest> input, Context context) {
         return super.runActivity(
-                () -> {
-                    DeleteOrderRequest unauthenticatedRequest = input.fromBody(DeleteOrderRequest.class);
-                    return input.fromUserClaims(claims ->
-                            DeleteOrderRequest.builder()
-                                    .withUserEmail(claims.get("email"))
-                                    .withOrderId(unauthenticatedRequest.getOrderId())
-                                    .build());
-                },
-                (request, serviceComponent) ->
-                        serviceComponent.provideDeleteOrderActivity().handleRequest(request)
+            () -> {
+                DeleteOrderRequest unauthenticatedRequest = input.fromBody(DeleteOrderRequest.class);
+                return input.fromUserClaims(claims ->
+                        DeleteOrderRequest.builder()
+                                .withUserEmail(claims.get("email"))
+                                .withOrderId(unauthenticatedRequest.getOrderId())
+                                .build());
+            },
+            (request, serviceComponent) ->
+                    serviceComponent.provideDeleteOrderActivity().handleRequest(request)
         );
     }
 }

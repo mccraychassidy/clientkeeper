@@ -2,6 +2,7 @@ package com.nashss.se.clientkeeper.activity;
 
 import com.nashss.se.clientkeeper.activity.requests.GetClientRequest;
 import com.nashss.se.clientkeeper.activity.results.GetClientResult;
+import com.nashss.se.clientkeeper.converters.ModelConverter;
 import com.nashss.se.clientkeeper.dynamodb.ClientDao;
 import com.nashss.se.clientkeeper.dynamodb.models.Client;
 import com.nashss.se.clientkeeper.exceptions.ClientNotFoundException;
@@ -44,15 +45,7 @@ public class GetClientActivity {
             throw new ClientNotFoundException("Client not found with clientId: " + getClientRequest.getClientId());
         }
 
-        ClientModel clientModel = ClientModel.builder()
-                .withUserEmail(client.getUserEmail())
-                .withClientId(client.getClientId())
-                .withClientName(client.getClientName())
-                .withClientEmail(client.getClientEmail())
-                .withClientPhone(client.getClientPhone())
-                .withClientAddress(client.getClientAddress())
-                .withClientMemberSince(client.getClientMemberSince().toString())
-                .build();
+        ClientModel clientModel = new ModelConverter().toClientModel(client);
 
         return GetClientResult.builder()
                 .withClient(clientModel)

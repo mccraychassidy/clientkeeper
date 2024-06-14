@@ -98,9 +98,6 @@ public class EditOrderRequest {
         return new Builder();
     }
 
-    /**
-     * Builder class for EditOrderRequest instances.
-     */
     @JsonPOJOBuilder
     public static class Builder {
         private String userEmail;
@@ -116,66 +113,143 @@ public class EditOrderRequest {
         private String trackingNumber;
         private String reference;
 
+        /**
+         * Sets the user email.
+         *
+         * @param email the user email
+         * @return the Builder instance
+         */
         public Builder withUserEmail(String email) {
             this.userEmail = email;
             return this;
         }
 
+        /**
+         * Sets the order ID.
+         *
+         * @param id the order ID
+         * @return the Builder instance
+         */
         public Builder withOrderId(String id) {
             this.orderId = id;
             return this;
         }
 
+        /**
+         * Sets the client ID.
+         *
+         * @param id the client ID
+         * @return the Builder instance
+         */
         public Builder withClientId(String id) {
             this.clientId = id;
             return this;
         }
 
+        /**
+         * Sets the client name.
+         *
+         * @param name the client name
+         * @return the Builder instance
+         */
         public Builder withClientName(String name) {
             this.clientName = name;
             return this;
         }
 
+        /**
+         * Sets the item.
+         *
+         * @param itemName the item name
+         * @return the Builder instance
+         */
         public Builder withItem(String itemName) {
             this.item = itemName;
             return this;
         }
 
+        /**
+         * Sets the shipped status.
+         *
+         * @param shippedStatus the shipped status
+         * @return the Builder instance
+         */
         public Builder withShipped(Boolean shippedStatus) {
             this.shipped = shippedStatus;
             return this;
         }
 
+        /**
+         * Sets the purchase date.
+         *
+         * @param purchaseDateValue the purchase date value
+         * @return the Builder instance
+         */
         public Builder withPurchaseDate(String purchaseDateValue) {
             this.purchaseDate = purchaseDateValue;
             return this;
         }
 
+        /**
+         * Sets the shipping service.
+         *
+         * @param shippingServiceName the shipping service name
+         * @return the Builder instance
+         */
         public Builder withShippingService(String shippingServiceName) {
             this.shippingService = shippingServiceName;
             return this;
         }
 
+        /**
+         * Sets the expected date.
+         *
+         * @param expectedDeliveryDate the expected delivery date
+         * @return the Builder instance
+         */
         public Builder withExpectedDate(String expectedDeliveryDate) {
             this.expectedDate = expectedDeliveryDate;
             return this;
         }
 
+        /**
+         * Sets the delivered date.
+         *
+         * @param deliveredDateValue the delivered date value
+         * @return the Builder instance
+         */
         public Builder withDeliveredDate(String deliveredDateValue) {
             this.deliveredDate = deliveredDateValue;
             return this;
         }
 
+        /**
+         * Sets the tracking number.
+         *
+         * @param trackingNumberValue the tracking number value
+         * @return the Builder instance
+         */
         public Builder withTrackingNumber(String trackingNumberValue) {
             this.trackingNumber = trackingNumberValue;
             return this;
         }
 
+        /**
+         * Sets the reference.
+         *
+         * @param referenceValue the reference value
+         * @return the Builder instance
+         */
         public Builder withReference(String referenceValue) {
             this.reference = referenceValue;
             return this;
         }
 
+        /**
+         * Builds a new EditOrderRequest instance with the specified values.
+         *
+         * @return a new EditOrderRequest instance
+         */
         public EditOrderRequest build() {
             return new EditOrderRequest(this);
         }

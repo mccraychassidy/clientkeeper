@@ -24,11 +24,6 @@ public class GetAllClientsRequest {
         return new Builder();
     }
 
-    /**
-     * Gets the user email.
-     *
-     * @return the user email
-     */
     public String getUserEmail() {
         return userEmail;
     }

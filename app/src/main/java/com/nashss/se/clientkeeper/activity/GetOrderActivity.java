@@ -2,6 +2,7 @@ package com.nashss.se.clientkeeper.activity;
 
 import com.nashss.se.clientkeeper.activity.requests.GetOrderRequest;
 import com.nashss.se.clientkeeper.activity.results.GetOrderResult;
+import com.nashss.se.clientkeeper.converters.ModelConverter;
 import com.nashss.se.clientkeeper.dynamodb.OrderDao;
 import com.nashss.se.clientkeeper.dynamodb.models.Order;
 import com.nashss.se.clientkeeper.exceptions.OrderNotFoundException;
@@ -44,20 +45,7 @@ public class GetOrderActivity {
             throw new OrderNotFoundException("Order not found with orderId: " + getOrderRequest.getOrderId());
         }
 
-        OrderModel orderModel = OrderModel.builder()
-                .withUserEmail(order.getUserEmail())
-                .withOrderId(order.getOrderId())
-                .withClientId(order.getClientId())
-                .withClientName(order.getClientName())
-                .withItem(order.getItem())
-                .withShipped(order.getShipped())
-                .withPurchaseDate(order.getPurchaseDate().toString())
-                .withShippingService(order.getShippingService())
-                .withExpectedDate(order.getExpectedDate() != null ? order.getExpectedDate().toString() : null)
-                .withDeliveredDate(order.getDeliveredDate() != null ? order.getDeliveredDate().toString() : null)
-                .withTrackingNumber(order.getTrackingNumber())
-                .withReference(order.getReference())
-                .build();
+        OrderModel orderModel = new ModelConverter().toOrderModel(order);
 
         return GetOrderResult.builder()
                 .withOrder(orderModel)

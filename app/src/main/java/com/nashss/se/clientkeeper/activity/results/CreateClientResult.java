@@ -8,29 +8,14 @@ import com.nashss.se.clientkeeper.models.ClientModel;
 public class CreateClientResult {
     private final ClientModel client;
 
-    /**
-     * Private constructor to create a new instance of CreateClientResult.
-     *
-     * @param client the client that was created
-     */
     private CreateClientResult(ClientModel client) {
         this.client = client;
     }
 
-    /**
-     * Gets the client that was created.
-     *
-     * @return the created client
-     */
     public ClientModel getClient() {
         return client;
     }
 
-    /**
-     * Returns a string representation of the CreateClientResult object.
-     *
-     * @return a string representation of the object
-     */
     @Override
     public String toString() {
         return "CreateClientResult{" +
@@ -47,9 +32,6 @@ public class CreateClientResult {
         return new Builder();
     }
 
-    /**
-     * Builder class for constructing CreateClientResult instances.
-     */
     public static class Builder {
         private ClientModel client;
 

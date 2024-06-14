@@ -30,29 +30,14 @@ public class DeleteOrderRequest {
         return new Builder();
     }
 
-    /**
-     * Gets the user email.
-     *
-     * @return the user email
-     */
     public String getUserEmail() {
         return userEmail;
     }
 
-    /**
-     * Gets the order ID.
-     *
-     * @return the order ID
-     */
     public String getOrderId() {
         return orderId;
     }
 
-    /**
-     * Returns a string representation of the DeleteOrderRequest object.
-     *
-     * @return a string representation of the object
-     */
     @Override
     public String toString() {
         return "DeleteOrderRequest{" +
@@ -61,9 +46,6 @@ public class DeleteOrderRequest {
                 '}';
     }
 
-    /**
-     * Builder class for DeleteOrderRequest instances.
-     */
     @JsonPOJOBuilder
     public static class Builder {
         private String userEmail;

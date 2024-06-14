@@ -26,20 +26,10 @@ public class GetOrderRequest {
         return new Builder();
     }
 
-    /**
-     * Gets the user email.
-     *
-     * @return the user email
-     */
     public String getUserEmail() {
         return userEmail;
     }
 
-    /**
-     * Gets the order ID.
-     *
-     * @return the order ID
-     */
     public String getOrderId() {
         return orderId;
     }

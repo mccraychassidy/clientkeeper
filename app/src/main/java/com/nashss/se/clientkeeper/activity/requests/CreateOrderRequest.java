@@ -50,119 +50,54 @@ public class CreateOrderRequest {
         return new Builder();
     }
 
-    /**
-     * Gets the user email.
-     *
-     * @return the user email
-     */
     public String getUserEmail() {
         return userEmail;
     }
 
-    /**
-     * Gets the order ID.
-     *
-     * @return the order ID
-     */
     public String getOrderId() {
         return orderId;
     }
 
-    /**
-     * Gets the client ID.
-     *
-     * @return the client ID
-     */
     public String getClientId() {
         return clientId;
     }
 
-    /**
-     * Gets the client name.
-     *
-     * @return the client name
-     */
     public String getClientName() {
         return clientName;
     }
 
-    /**
-     * Gets the item.
-     *
-     * @return the item
-     */
     public String getItem() {
         return item;
     }
 
-    /**
-     * Gets the shipped status.
-     *
-     * @return the shipped status
-     */
     public Boolean getShipped() {
         return shipped;
     }
 
-    /**
-     * Gets the purchase date.
-     *
-     * @return the purchase date
-     */
     public String getPurchaseDate() {
         return purchaseDate;
     }
 
-    /**
-     * Gets the shipping service.
-     *
-     * @return the shipping service
-     */
     public String getShippingService() {
         return shippingService;
     }
 
-    /**
-     * Gets the expected delivery date.
-     *
-     * @return the expected delivery date
-     */
     public String getExpectedDate() {
         return expectedDate;
     }
 
-    /**
-     * Gets the delivered date.
-     *
-     * @return the delivered date
-     */
     public String getDeliveredDate() {
         return deliveredDate;
     }
 
-    /**
-     * Gets the tracking number.
-     *
-     * @return the tracking number
-     */
     public String getTrackingNumber() {
         return trackingNumber;
     }
 
-    /**
-     * Gets the reference.
-     *
-     * @return the reference
-     */
     public String getReference() {
         return reference;
     }
 
-    /**
-     * Returns a string representation of the CreateOrderRequest object.
-     *
-     * @return a string representation of the object
-     */
     @Override
     public String toString() {
         return "CreateOrderRequest{" +
@@ -181,9 +116,6 @@ public class CreateOrderRequest {
                 '}';
     }
 
-    /**
-     * Builder class for CreateOrderRequest instances.
-     */
     @JsonPOJOBuilder
     public static class Builder {
         private String userEmail;
@@ -235,7 +167,7 @@ public class CreateOrderRequest {
         /**
          * Sets the client name.
          *
-         * @param id the client name
+         * @param name the client name
          * @return the Builder instance
          */
         public Builder withClientName(String name) {
