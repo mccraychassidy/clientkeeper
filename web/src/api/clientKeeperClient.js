@@ -9,7 +9,7 @@ class clientKeeperClient extends BindingClass {
 
         /* Methods that need binding. Add to this as methods are created */
 
-        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'createClient', 'getAllClients', 'updateClient', 'getUndeliveredOrders', 'createOrder', 'updateOrder', 'getOrder', 'getOrdersByClientId'];
+        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'createClient', 'getAllClients', 'updateClient', 'deleteClient', 'getUndeliveredOrders', 'createOrder', 'updateOrder', 'getOrder', 'getOrdersByClientId'];
         this.bindClassMethods(methodsToBind, this);
 
         this.authenticator = new Authenticator();;
@@ -123,6 +123,32 @@ class clientKeeperClient extends BindingClass {
             this.handleError(error, errorCallback);
         }
     }
+
+    /**
+    * Deletes an existing client.
+    * @param userEmail The email of the user.
+     * @param clientId The ID of the client to delete.
+    * @param errorCallback (Optional) A function to execute if the call fails.
+    */
+    async deleteClient(userEmail, clientId, errorCallback) {
+        try {
+            const token = await this.getTokenOrThrow("You must be logged in to delete a client.");
+            await this.axiosClient.delete('/clients', {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                data: {
+                    userEmail,
+                    clientId
+                }
+            });
+        } catch (error) {
+            this.handleError(error, errorCallback);
+        }
+    }
+
+        
 
     async getUndeliveredOrders(errorCallback) {
         try {

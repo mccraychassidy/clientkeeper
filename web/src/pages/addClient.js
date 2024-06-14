@@ -91,7 +91,7 @@ class AddClient extends BindingClass {
      * Cancel adding client and return to previous page
      */
     cancel() {
-        window.location.href = 'clients.html';
+        window.location.href = 'manageClients.html';
     }
 }
 

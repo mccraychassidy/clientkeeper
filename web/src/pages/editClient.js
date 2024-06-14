@@ -5,15 +5,16 @@ import DataStore from '../util/DataStore';
 class EditClient extends BindingClass {
     constructor(props = {}) {
         super();
-        this.bindClassMethods(['mount', 'openEditModal', 'closeEditModal', 'saveClient'], this);
+        this.bindClassMethods(['mount', 'openEditModal', 'closeEditModal', 'saveClient', 'deleteClient'], this);
         this.client = new ClientKeeperClient();
         this.dataStore = props.dataStore || new DataStore();
+        this.manageClients = props.manageClients;
     }
 
     async mount() {
         document.getElementById('close-modal').addEventListener('click', this.closeEditModal);
         document.getElementById('save-client-button').addEventListener('click', this.saveClient);
-        document.getElementById('cancel-button').addEventListener('click', this.closeEditModal);
+        document.getElementById('delete-client-button').addEventListener('click', this.deleteClient);
 
         this.userEmail = (await this.client.getIdentity()).email;
     }
@@ -54,8 +55,21 @@ class EditClient extends BindingClass {
             const updatedClient = await this.client.updateClient(clientData);
             this.dataStore.set('client', updatedClient);
             this.closeEditModal();
+            this.manageClients.displayAllClients();
         } catch (error) {
             console.error('Error saving client:', error);
+        }
+    }
+
+    async deleteClient() {
+        const clientId = document.getElementById('edit-client-id').value;
+
+        try {
+            await this.client.deleteClient(this.userEmail, clientId);
+            this.closeEditModal();
+            this.manageClients.displayAllClients();  // Refresh the clients list
+        } catch (error) {
+            console.error('Error deleting client:', error);
         }
     }
 }
