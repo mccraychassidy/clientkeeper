@@ -2,9 +2,9 @@ import ClientKeeperClient from '../api/clientKeeperClient';
 import BindingClass from "../util/bindingClass";
 
 /**
- * The header component for the website.
+ * The secondary header component for the website.
  */
-export default class Header extends BindingClass {
+export default class SecondaryHeader extends BindingClass {
     constructor() {
         super();
 
@@ -17,51 +17,47 @@ export default class Header extends BindingClass {
     }
 
     /**
-     * Add the header to the page.
+     * Add the secondary header to the page.
      */
     async addHeaderToPage() {
         const currentUser = await this.client.getIdentity();
 
         const siteHeader = this.createSiteHeader(currentUser);
 
-        const header = document.getElementById('header');
-        header.appendChild(siteHeader);
+        const secondaryHeader = document.getElementById('secondary-header');
+        secondaryHeader.appendChild(siteHeader);
     }
 
     createSiteHeader(currentUser) {
         const headerContainer = document.createElement('div');
         headerContainer.classList.add('header-container');
 
-        const leftContainer = document.createElement('div');
-        leftContainer.classList.add('left-container');
-        const homeButton = this.createButton('Request A Demo', 'demo.html', 'button');
-        leftContainer.appendChild(homeButton);
+        const clientsButton = this.createButton('Clients', 'manageClients.html', 'button');
+        const currentOrdersButton = this.createButton('Current Orders', 'currentOrders.html', 'button');
+        const completedOrdersButton = this.createButton('Completed Orders', 'completedOrders.html', 'button');
+        const userButton = currentUser 
+            ? this.createButton(`Logout: ${currentUser.name}`, '#', 'button', this.client.logout.bind(this.client))
+            : this.createButton('Login / Sign Up', '#', 'button', this.client.login.bind(this.client));
 
-        const centerContainer = document.createElement('div');
-        centerContainer.classList.add('center-container');
-        const aboutButton = this.createButton('About', 'about.html', 'button');
-        centerContainer.appendChild(aboutButton);
-
-        const rightContainer = this.createUserInfoForHeader(currentUser);
-
-        headerContainer.appendChild(leftContainer);
-        headerContainer.appendChild(centerContainer);
-        headerContainer.appendChild(rightContainer);
+        headerContainer.appendChild(clientsButton);
+        headerContainer.appendChild(currentOrdersButton);
+        headerContainer.appendChild(completedOrdersButton);
+        headerContainer.appendChild(userButton);
 
         return headerContainer;
     }
 
     createUserInfoForHeader(currentUser) {
-        const rightContainer = document.createElement('div');
-        rightContainer.classList.add('right-container');
+        const userInfoContainer = document.createElement('div');
+        userInfoContainer.classList.add('user-info-container');
 
         const childContent = currentUser
             ? this.createLogoutButton(currentUser)
             : this.createLoginButton();
 
-        rightContainer.appendChild(childContent);
+        userInfoContainer.appendChild(childContent);
 
-        return rightContainer;
+        return userInfoContainer;
     }
 
     createLoginButton() {

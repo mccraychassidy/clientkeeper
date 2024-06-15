@@ -24,43 +24,29 @@ header.header {
     position: relative;
 }
 
-.site-title {
+.header-container {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    flex-grow: 1;
+    width: 100%;
 }
 
-.header_home {
-    font-size: 28px;
-    font-weight: bold;
-    line-height: 40px;
-    height: 100px;
-    text-decoration: none;
-    color: var(--secondary-color);
+.left-container {
+    flex: 1;
     display: flex;
-    align-items: center;
+    justify-content: flex-start;
+}
+
+.center-container {
+    flex: 1;
+    display: flex;
     justify-content: center;
-    margin-right: auto;
 }
 
-.header_about {
-    font-size: 28px;
-    font-weight: bold;
-    line-height: 5px;
-    text-decoration: none;
-    color: var(--secondary-color);
+.right-container {
+    flex: 1;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.user-info {
-    display: flex;
-    align-items: center;
-    margin-left: auto;
+    justify-content: flex-end;
 }
 
 .button {
@@ -68,7 +54,7 @@ header.header {
     border: none;
     color: var(--secondary-color);
     padding: 10px 30px;
-    font-size: 24px;
+    font-size: 28px;
     text-align: center;
     font-weight: bold;
     text-decoration: none;
@@ -80,7 +66,7 @@ header.header {
 }
 
 .button:hover {
-    background-color: #45a049;
+    background-color: #00c826;
 }
 
 .main-content {
@@ -91,23 +77,24 @@ header.header {
 h1 {
     color: white;
     text-align: center;
-    margin: 20px 0;
+    margin: 5px 0 0;
     font-size: 80px;
 }
 
 .logo {
-    width: 450px;
+    width: 400px;
     height: auto;
+    margin-top: -30px;
 }
 
 .social-media-links {
     display: flex;
     justify-content: center;
-    margin-top: 40px;
+    margin-top: 50px;
 }
 
 .social-icon img {
-    width: 50px;
+    width: 60px;
     height: auto;
     margin: 0 10px;
 }
@@ -232,3 +219,144 @@ tr:hover {
     text-decoration: none;
     cursor: pointer;
 }
+
+.about-page {
+    font-family: 'Roboto', Arial, sans-serif;
+    background-color: #000000;
+    color: white;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+}
+
+.about-page .content {
+    font-size: 23px;
+    line-height: 1.6;
+    max-width: 900px;
+    padding: 60px 60px 90px 60px;
+    background-color: #333333;
+    border-radius: 16px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    margin-top: 90px; 
+}
+
+.about-page .content h1 {
+    font-size: 40px;
+    font-style: italic;
+    margin-bottom: 40px;
+}
+
+.about-page .content .button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: #000000; /* Button color */
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s, transform 0.3s; /* Animation */
+}
+
+.about-page .content .button:hover {
+    background-color: #00c826; /* Darker button color on hover */
+    transform: translateY(-3px); /* Subtle lift effect on hover */
+}
+
+.about-page .logo {
+    width: 100px;
+    height: auto;
+    margin-top: 30px;
+    transition: transform 0.3s;
+}
+
+.about-page .logo:hover {
+    transform: rotate(360deg);
+}
+
+.about-page .logo-text {
+    font-size: 24px;
+    margin-top: 10px;
+    font-weight: bold;
+    color: white;
+}
+
+.demo-page {
+    font-family: 'Roboto', Arial, sans-serif;
+    background-color: #000000;
+    color: white;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+}
+
+.demo-page .demo-content {
+    font-size: 30px;
+    line-height: 1.6;
+    width: 60%;
+    padding: 10px 80px 10px 60px;
+    background-color: #333333;
+    border-radius: 16px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.demo-page h1 {
+    font-size: 60px;
+    margin-bottom: 40px;
+}
+
+.demo-form .form-field input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+}
+
+.demo-page .submit-button {
+    display: inline-block;
+    background-color: #000000;
+    border: none;
+    color: white;
+    padding: 10px 30px;
+    font-size: 30px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+    text-decoration: none;
+}
+
+.demo-page .submit-button:hover {
+    background-color: #009a1f;
+    transform: translateY(-3px);
+}
+
+.demo-page .logo-container {
+    margin-top: 70px;
+    text-align: center;
+    margin-left: -20px;
+}
+
+.demo-page .logo {
+    width: 80px;
+    height: auto;
+}
+
+.demo-page .logo-text {
+    font-size: 24px;
+    margin-top: 10px;
+    font-weight: bold;
+    color: white;
+}
+
+

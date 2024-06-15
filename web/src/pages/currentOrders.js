@@ -1,5 +1,5 @@
 import ClientKeeperClient from '../api/clientKeeperClient';
-import Header from '../components/header';
+import SecondaryHeader from '../components/secondaryHeader';
 import BindingClass from '../util/bindingClass';
 import DataStore from '../util/DataStore';
 import EditOrder from './editOrder';
@@ -9,22 +9,19 @@ class CurrentOrders extends BindingClass {
         super();
         this.dataStore = new DataStore();
         this.bindClassMethods(['mount', 'loadOrders', 'renderOrdersTable', 'openAddOrderModal', 'closeAddOrderModal', 'addOrder', 'refreshOrders'], this);
-        this.header = new Header(this.dataStore);
+        this.secondaryHeader = new SecondaryHeader(this.dataStore);
         this.orders = [];
         this.dataStore.addChangeListener(this.refreshOrders);
         this.editOrder = new EditOrder({ dataStore: this.dataStore, currentOrders: this });
     }
 
-    mount() {
-        this.header.addHeaderToPage();
+    async mount() {
+        await this.secondaryHeader.addHeaderToPage();
         this.client = new ClientKeeperClient();
         document.getElementById('addOrderButton').addEventListener('click', this.openAddOrderModal);
         document.getElementById('closeAddOrderModal').addEventListener('click', this.closeAddOrderModal);
         document.getElementById('addOrderForm').addEventListener('submit', this.addOrder);
-        document.getElementById('signOutButton').addEventListener('click', async () => {
-            await this.client.logout();
-            window.location.href = 'index.html';
-        });
+        
         window.addEventListener('click', (event) => {
             if (event.target == document.getElementById('addOrderModal')) {
                 this.closeAddOrderModal();
