@@ -1,5 +1,5 @@
 import ClientKeeperClient from '../api/clientKeeperClient';
-import Header from '../components/header';
+import SecondaryHeader from '../components/secondaryHeader';
 import BindingClass from '../util/bindingClass';
 import DataStore from '../util/DataStore';
 import EditClient from './editClient';
@@ -9,7 +9,7 @@ class ManageClients extends BindingClass {
         super();
         this.dataStore = new DataStore();
         this.bindClassMethods(['mount', 'displayAllClients', 'renderClientsTable', 'filterClients', 'refreshClients'], this);
-        this.header = new Header(this.dataStore);
+        this.secondaryHeader = new SecondaryHeader();
         this.clients = [];
         this.dataStore.addChangeListener(this.refreshClients);
         this.editClient = new EditClient({ dataStore: this.dataStore, manageClients: this });
@@ -19,7 +19,7 @@ class ManageClients extends BindingClass {
      * Add the header to the page and load the ClientKeeperClient.
      */
     mount() {
-        this.header.addHeaderToPage();
+        this.secondaryHeader.addHeaderToPage();
         this.client = new ClientKeeperClient();
         this.displayAllClients();
         document.getElementById('search').addEventListener('input', this.filterClients);
