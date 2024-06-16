@@ -14,7 +14,6 @@ class EditOrder extends BindingClass {
     async mount() {
         document.getElementById('close-order-modal').addEventListener('click', this.closeEditModal);
         document.getElementById('save-order-button').addEventListener('click', this.saveOrder);
-        document.getElementById('cancel-order-button').addEventListener('click', this.closeEditModal);
         document.getElementById('delete-order-button').addEventListener('click', this.deleteOrder);
 
         const userIdentity = await this.client.getIdentity();
@@ -40,6 +39,10 @@ class EditOrder extends BindingClass {
     }
 
     async saveOrder() {
+        const saveButton = document.getElementById('save-order-button');
+        saveButton.disabled = true;
+        saveButton.textContent = 'Editing...';
+
         const orderId = document.getElementById('edit-order-id').value;
         const clientId = document.getElementById('edit-client-id').value;
         const clientName = document.getElementById('edit-client-name').value;
@@ -80,6 +83,10 @@ class EditOrder extends BindingClass {
     }
 
     async deleteOrder() {
+        const deleteButton = document.getElementById('delete-order-button');
+        deleteButton.disabled = true;
+        deleteButton.textContent = 'Deleting...';
+
         const orderId = document.getElementById('edit-order-id').value;
 
         try {
