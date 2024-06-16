@@ -157,9 +157,10 @@ h1 {
 
 h2 {
     color: white;
-    font-size: 36px;
+    font-size: 80px;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
+    margin-top: 0px;
 }
 
 .search-box,
@@ -495,13 +496,48 @@ tr:hover {
     text-align: center;
 }
 
+.logo-container-manage-clients {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.logo-manage-clients {
+    width: 45px;
+    height: auto;
+}
+
+.logo-text-manage-clients {
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-top: 10px;
+    color: white;
+    text-align: center;
+}
+
 .search-box {
     width: 300px;
     padding: 10px;
-    margin-bottom: 20px;
     border: none;
     border-radius: 5px;
     background-color: white;
     color: var(--primary-color);
     text-align: left;
+    margin: 20px auto;
+    display: block;
 }
+
+.close-button {
+    color: var(--secondary-color);
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close-button:hover {
+    color: var(--close-button-hover-color);
+}
+

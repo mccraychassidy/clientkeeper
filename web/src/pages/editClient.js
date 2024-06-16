@@ -12,7 +12,7 @@ class EditClient extends BindingClass {
     }
 
     async mount() {
-        document.getElementById('close-modal').addEventListener('click', this.closeEditModal);
+        document.getElementById('close-client-modal').addEventListener('click', this.closeEditModal);
         document.getElementById('save-client-button').addEventListener('click', this.saveClient);
         document.getElementById('delete-client-button').addEventListener('click', this.deleteClient);
 
@@ -34,6 +34,10 @@ class EditClient extends BindingClass {
     }
 
     async saveClient() {
+        const saveButton = document.getElementById('save-client-button');
+        saveButton.disabled = true;
+        saveButton.textContent = 'Saving...';
+
         const clientId = document.getElementById('edit-client-id').value;
         const clientName = document.getElementById('edit-client-name').value;
         const clientEmail = document.getElementById('edit-client-email').value;
@@ -55,30 +59,31 @@ class EditClient extends BindingClass {
             const updatedClient = await this.client.updateClient(clientData);
             this.dataStore.set('client', updatedClient);
             this.closeEditModal();
-            this.manageClients.displayAllClients();
+            if (this.manageClients) {
+                this.manageClients.displayAllClients();
+            }
         } catch (error) {
             console.error('Error saving client:', error);
         }
     }
 
     async deleteClient() {
+        const deleteButton = document.getElementById('delete-client-button');
+        deleteButton.disabled = true;
+        deleteButton.textContent = 'Deleting...';
+
         const clientId = document.getElementById('edit-client-id').value;
 
         try {
             await this.client.deleteClient(this.userEmail, clientId);
             this.closeEditModal();
-            this.manageClients.displayAllClients();  // Refresh the clients list
+            if (this.manageClients) {
+                this.manageClients.displayAllClients();
+            }
         } catch (error) {
             console.error('Error deleting client:', error);
         }
     }
 }
-
-const main = async () => {
-    const editClient = new EditClient();
-    editClient.mount();
-};
-
-window.addEventListener('DOMContentLoaded', main);
 
 export default EditClient;

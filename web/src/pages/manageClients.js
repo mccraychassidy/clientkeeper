@@ -3,6 +3,7 @@ import SecondaryHeader from '../components/secondaryHeader';
 import BindingClass from '../util/bindingClass';
 import DataStore from '../util/DataStore';
 import EditClient from './editClient';
+import AddClient from './addClient';
 
 class ManageClients extends BindingClass {
     constructor() {
@@ -13,22 +14,18 @@ class ManageClients extends BindingClass {
         this.clients = [];
         this.dataStore.addChangeListener(this.refreshClients);
         this.editClient = new EditClient({ dataStore: this.dataStore, manageClients: this });
+        this.addClient = new AddClient({ dataStore: this.dataStore, manageClients: this });
     }
 
-    /**
-     * Add the header to the page and load the ClientKeeperClient.
-     */
-    mount() {
+    async mount() {
         this.secondaryHeader.addHeaderToPage();
         this.client = new ClientKeeperClient();
         this.displayAllClients();
         document.getElementById('search').addEventListener('input', this.filterClients);
         this.editClient.mount();
+        this.addClient.mount();
     }
 
-    /**
-     * Create table of all saved clients for logged-in user
-     */
     async displayAllClients() {
         try {
             const allClients = await this.client.getAllClients();
@@ -43,9 +40,6 @@ class ManageClients extends BindingClass {
         }
     }
 
-    /**
-     * Render clients table
-     */
     renderClientsTable(clients) {
         const clientsList = document.getElementById('clients-list');
         clientsList.innerHTML = '';
@@ -53,6 +47,7 @@ class ManageClients extends BindingClass {
         clients.forEach(client => {
             const row = document.createElement('tr');
             row.innerHTML = `
+                <td>${client.clientId}</td>
                 <td>${client.clientName}</td>
                 <td>${client.clientEmail}</td>
                 <td>${client.clientPhone}</td>
@@ -64,13 +59,11 @@ class ManageClients extends BindingClass {
         });
     }
 
-    /**
-     * Filter clients based on search input
-     */
     filterClients(event) {
         const searchTerm = event.target.value.toLowerCase();
         const filteredClients = this.clients.filter(client => {
-            return client.clientName.toLowerCase().includes(searchTerm) ||
+            return client.clientId.toLowerCase().includes(searchTerm) ||
+                   client.clientName.toLowerCase().includes(searchTerm) ||
                    client.clientEmail.toLowerCase().includes(searchTerm) ||
                    client.clientPhone.includes(searchTerm) ||
                    client.clientAddress.toLowerCase().includes(searchTerm) ||
