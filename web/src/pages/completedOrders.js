@@ -1,5 +1,5 @@
 import ClientKeeperClient from '../api/clientKeeperClient';
-import Header from '../components/header';
+import SecondaryHeader from '../components/secondaryHeader';
 import BindingClass from '../util/bindingClass';
 import DataStore from '../util/DataStore';
 
@@ -8,26 +8,24 @@ class CompletedOrders extends BindingClass {
         super();
         this.dataStore = new DataStore();
         this.bindClassMethods(['mount', 'loadAllDeliveredOrders', 'renderOrdersTable', 'searchOrdersByClientId', 'refreshOrders'], this);
-        this.header = new Header(this.dataStore);
+        this.secondaryHeader = new SecondaryHeader(this.dataStore);
         this.orders = [];
         this.dataStore.addChangeListener(this.refreshOrders);
     }
 
-    mount() {
-        this.header.addHeaderToPage();
+    async mount() {
+        await this.secondaryHeader.addHeaderToPage();
         this.client = new ClientKeeperClient();
+        window.addEventListener('refreshOrders', this.refreshOrders.bind(this));
+
         document.getElementById('searchBar').addEventListener('input', this.searchOrdersByClientId);
-        document.getElementById('signOutButton').addEventListener('click', async () => {
-            await this.client.logout();
-            window.location.href = 'index.html';
-        });
         this.loadAllDeliveredOrders();
     }
 
     async loadAllDeliveredOrders() {
         try {
             const response = await this.client.getDeliveredOrders();
-            this.orders = response.orders || [];
+            this.orders = response?.orders || [];
             this.renderOrdersTable(this.orders);
         } catch (error) {
             console.error('Error loading delivered orders:', error);
@@ -52,7 +50,6 @@ class CompletedOrders extends BindingClass {
         const ordersTableBody = document.getElementById('ordersTable').getElementsByTagName('tbody')[0];
         ordersTableBody.innerHTML = '';
 
-        if (Array.isArray(orders)) {
             orders.forEach(order => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
@@ -68,9 +65,6 @@ class CompletedOrders extends BindingClass {
                 `;
                 ordersTableBody.appendChild(row);
             });
-        } else {
-            console.error('Expected an array of orders, but got:', orders);
-        }
     }
 
     async refreshOrders() {

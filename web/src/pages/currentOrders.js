@@ -20,6 +20,7 @@ class CurrentOrders extends BindingClass {
     async mount() {
         await this.secondaryHeader.addHeaderToPage();
         this.client = new ClientKeeperClient();
+        window.addEventListener('refreshOrders', this.refreshOrders.bind(this));
 
         this.loadOrders();
         this.editOrder.mount();
@@ -29,7 +30,7 @@ class CurrentOrders extends BindingClass {
     async loadOrders() {
         try {
             const response = await this.client.getUndeliveredOrders();
-            this.orders = response.orders || [];
+            this.orders = response?.orders || [];
             this.renderOrdersTable(this.orders);
         } catch (error) {
             console.error('Error loading orders:', error);

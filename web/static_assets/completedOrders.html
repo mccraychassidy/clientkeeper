@@ -5,34 +5,38 @@
     <title>Completed Orders</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <script defer src="assets/completedOrders.js"></script>
+    <script defer src="assets/secondaryHeader.js"></script>
 </head>
 <body class="background">
-    <header class="header" id="header"></header>
+    <header class="secondary-header" id="secondary-header"></header>
     <div class="main-content">
-        <nav>
-            <a href="manageClients.html">Clients</a>
-            <a href="currentOrders.html">Current Orders</a>
-            <a href="#" id="signOutButton">Sign Out</a>
-        </nav>
-        <h1>Completed Orders</h1>
-        <input type="text" id="searchBar" placeholder="Search by Client ID..." class="search-box">
-        <table id="ordersTable">
-            <thead>
-                <tr>
-                    <th>Client Name</th>
-                    <th>Client ID</th>
-                    <th>Order #</th>
-                    <th>Purchased</th>
-                    <th>Delivered</th>
-                    <th>Service</th>
-                    <th>Tracking #</th>
-                    <th>Item</th>
-                    <th>Reference</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+        <div class="orders-table-container">
+            <h1>Completed Orders</h1>
+            <input type="text" id="searchBar" placeholder="Search by Client ID..." class="search-box">
+            <div class="orders-table">
+                <table id="ordersTable">
+                    <thead>
+                        <tr>
+                            <th>Client Name</th>
+                            <th>Client ID</th>
+                            <th>Order #</th>
+                            <th>Purchased</th>
+                            <th>Delivered</th>
+                            <th>Service</th>
+                            <th>Tracking #</th>
+                            <th>Item</th>
+                            <th>Reference</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="logo-container-current-orders">
+        <img src="icons/ClientKeeper-lock-logo.svg" alt="ClientKeeper Logo" class="logo-current-orders">
+        <p class="logo-text-current-orders">ClientKeeper</p>
     </div>
 </body>
 </html>

@@ -28,7 +28,8 @@ class EditOrder extends BindingClass {
         document.getElementById('edit-shipped').checked = order.shipped;
         document.getElementById('edit-purchase-date').value = order.purchaseDate;
         document.getElementById('edit-shipping-service').value = order.shippingService;
-        document.getElementById('edit-expected-date').value = order.expectedDate;
+        document.getElementById('edit-expected-date').value = order.expectedDate || '';
+        document.getElementById('edit-delivered-date').value = order.deliveredDate || '';
         document.getElementById('edit-tracking-number').value = order.trackingNumber;
         document.getElementById('edit-reference').value = order.reference;
         document.getElementById('edit-order-modal').style.display = 'block';
@@ -50,11 +51,10 @@ class EditOrder extends BindingClass {
         const shipped = document.getElementById('edit-shipped').checked;
         const purchaseDate = document.getElementById('edit-purchase-date').value;
         const shippingService = document.getElementById('edit-shipping-service').value;
-        const expectedDateElement = document.getElementById('edit-expected-date');
+        const expectedDate = document.getElementById('edit-expected-date').value || null;
+        const deliveredDate = document.getElementById('edit-delivered-date').value || null;
         const trackingNumber = document.getElementById('edit-tracking-number').value;
         const reference = document.getElementById('edit-reference').value;
-
-        const expectedDate = expectedDateElement.value ? expectedDateElement.value : null;
 
         const orderData = {
             orderId,
@@ -65,6 +65,7 @@ class EditOrder extends BindingClass {
             purchaseDate,
             shippingService,
             expectedDate,
+            deliveredDate,
             trackingNumber,
             reference,
             userEmail: this.userEmail
@@ -77,6 +78,7 @@ class EditOrder extends BindingClass {
             if (this.reloadOrdersCallback) {
                 this.reloadOrdersCallback();
             }
+            window.dispatchEvent(new Event('refreshOrders'));
         } catch (error) {
             console.error('Error saving order:', error);
         }
@@ -95,6 +97,7 @@ class EditOrder extends BindingClass {
             if (this.reloadOrdersCallback) {
                 this.reloadOrdersCallback();
             }
+            window.dispatchEvent(new Event('refreshOrders'));
         } catch (error) {
             console.error('Error deleting order:', error);
         }
