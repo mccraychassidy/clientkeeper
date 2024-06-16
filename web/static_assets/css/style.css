@@ -1,8 +1,8 @@
 :root {
-    --primary-color: #333333; /* text */
-    --secondary-color: #ffffff; /* card background */
-    --tertiary-color: #121112; /* buttons */
-    --background-color: #000000; /* changed to black */
+    --primary-color: #333333; 
+    --secondary-color: #ffffff; 
+    --tertiary-color: #121112;
+    --background-color: #000000;
     --error-color: #EE3A23;
 }
 
@@ -50,23 +50,42 @@ header.header {
 }
 
 .button {
-    background-color: var(--background-color);
+    display: inline-block;
+    background-color: #000000;
     border: none;
-    color: var(--secondary-color);
+    color: white;
     padding: 10px 30px;
-    font-size: 28px;
-    text-align: center;
-    font-weight: bold;
-    text-decoration: none;
+    font-size: 30px;
     cursor: pointer;
     border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    margin-top: 10px;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.3s;
+    text-align: center;
 }
 
 .button:hover {
     background-color: #00c826;
+    transform: translateY(-3px);
+}
+
+.add-order-button {
+    padding: 10px 50px;
+    font-size: 24px;
+    text-align: center;
+    margin: 20px auto;
+    display: block;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+}
+
+.add-order-button:hover {
+    background-color: #00c826;
+    transform: translateY(-3px);
 }
 
 .main-content {
@@ -146,13 +165,14 @@ table {
 th,
 td {
     padding: 12px;
-    text-align: left;
+    text-align: center;
     border-bottom: 1px solid #ddd;
     color: var(--secondary-color); 
 }
 
 th {
     background-color: #4CAF50;
+    text-align: center;
 }
 
 tr:hover {
@@ -255,17 +275,17 @@ tr:hover {
     display: inline-block;
     padding: 10px 20px;
     margin-top: 20px;
-    background-color: #000000; /* Button color */
+    background-color: #000000; 
     color: white;
     text-decoration: none;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    transition: background-color 0.3s, transform 0.3s; /* Animation */
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 .about-page .content .button:hover {
-    background-color: #00c826; /* Darker button color on hover */
-    transform: translateY(-3px); /* Subtle lift effect on hover */
+    background-color: #00c826; 
+    transform: translateY(-3px); 
 }
 
 .about-page .logo {
@@ -359,4 +379,42 @@ tr:hover {
     color: white;
 }
 
+.orders-table-container h1 {
+    margin-top: -5px;
+    margin-bottom: 20px;
+    color: white;
+    font-size: 70px;
+}   
 
+.orders-table-container {
+    background-color: #2a2a2a;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 1300px;
+    margin: 20px auto;
+}
+
+.orders-table {
+    overflow-x: auto;
+}
+
+.logo-container-current-orders {
+    text-align: center;
+    margin-top: 20px 0;
+}
+
+.logo-current-orders {
+    width: 45px;
+    height: auto;
+}
+
+.logo-text-current-orders {
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-top: 10px;
+    color: white;
+    text-align: center;
+}
