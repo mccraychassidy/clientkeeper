@@ -40,6 +40,15 @@ class ManageClients extends BindingClass {
         }
     }
 
+    formatPhoneNumber(phoneNumber) {
+        const cleaned = ('' + phoneNumber).replace(/\D/g, '');
+        const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+        if (match) {
+            return `(${match[1]}) ${match[2]} - ${match[3]}`;
+        }
+        return phoneNumber;
+    }
+
     renderClientsTable(clients) {
         const clientsList = document.getElementById('clients-list');
         clientsList.innerHTML = '';
@@ -47,12 +56,12 @@ class ManageClients extends BindingClass {
         clients.forEach(client => {
             const row = document.createElement('tr');
             row.innerHTML = `
-                <td>${client.clientId}</td>
                 <td>${client.clientName}</td>
+                <td>${client.clientId}</td>
                 <td>${client.clientEmail}</td>
-                <td>${client.clientPhone}</td>
+                <td>${this.formatPhoneNumber(client.clientPhone)}</td>
                 <td>${client.clientAddress}</td>
-                <td>${client.clientMemberSince}</td>
+                <td>${this.client.formatDate(client.clientMemberSince)}</td>
             `;
             row.addEventListener('click', () => this.editClient.openEditModal(client));
             clientsList.appendChild(row);

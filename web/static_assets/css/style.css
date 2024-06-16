@@ -14,7 +14,7 @@ body.background {
     background-color: var(--background-color);
     margin: 0;
     counter-reset: section;
-    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-family: 'Roboto', Arial, sans-serif;
 }
 
 header.header {
@@ -125,6 +125,11 @@ h1 {
     width: 400px;
     height: auto;
     margin-top: -30px;
+    transition: transform 0.3s;
+}
+
+.logo:hover {
+    transform: rotate(360deg);
 }
 
 .social-media-links {
@@ -137,6 +142,12 @@ h1 {
     width: 60px;
     height: auto;
     margin: 0 10px;
+    transition: transform 0.3s;
+    cursor: pointer;
+}
+
+.social-icon img:hover {
+    transform: translateY(-3px);
 }
 
 .card {
@@ -146,7 +157,7 @@ h1 {
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     width: 90%;
-    max-width: 1200px;
+    max-width: 1400px;
 }
 
 .back-button-container,
@@ -174,11 +185,12 @@ h2 {
 
 .clients-table {
     overflow-x: auto;
+    margin: 0 auto;
 }
 
 table {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto; 
     border-collapse: collapse;
     margin-bottom: 20px;
@@ -193,7 +205,7 @@ td {
 }
 
 th {
-    background-color: #4CAF50;
+    background-color: #2979b3;
     text-align: center;
 }
 
@@ -222,7 +234,7 @@ tr:hover {
 }
 
 .message-display {
-    color: green;
+    color: #00c826;
     text-align: center;
     margin-top: 10px;
 }
@@ -434,7 +446,7 @@ tr:hover {
 }
 
 .demo-page .submit-button:hover {
-    background-color: #009a1f;
+    background-color: #00c826;
     transform: translateY(-3px);
 }
 
@@ -447,6 +459,11 @@ tr:hover {
 .demo-page .logo {
     width: 80px;
     height: auto;
+    transition: transform 0.3s;
+}
+
+.demo-page .logo:hover {
+    transform: rotate(360deg);
 }
 
 .demo-page .logo-text {
@@ -485,10 +502,15 @@ tr:hover {
 .logo-current-orders {
     width: 45px;
     height: auto;
+    transition: transform 0.3s;
+}
+
+.logo-current-orders:hover {
+    transform: rotate(360deg);
 }
 
 .logo-text-current-orders {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', Arial, sans-serif;
     font-size: 20px;
     font-weight: 700;
     margin-top: 10px;
@@ -505,10 +527,15 @@ tr:hover {
 .logo-manage-clients {
     width: 45px;
     height: auto;
+    transition: transform 0.3s;
+}
+
+.logo-manage-clients:hover {
+    transform: rotate(360deg);
 }
 
 .logo-text-manage-clients {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', Arial, sans-serif;
     font-size: 20px;
     font-weight: 700;
     margin-top: 10px;

@@ -56,8 +56,8 @@ class CompletedOrders extends BindingClass {
                     <td>${order.clientName}</td>
                     <td>${order.clientId}</td>
                     <td>${order.orderId}</td>
-                    <td>${order.purchaseDate}</td>
-                    <td>${order.deliveredDate}</td>
+                    <td>${this.client.formatDate(order.purchaseDate)}</td>
+                    <td>${this.client.formatDate(order.deliveredDate)}</td>
                     <td>${order.shippingService}</td>
                     <td>${order.trackingNumber}</td>
                     <td>${order.item}</td>

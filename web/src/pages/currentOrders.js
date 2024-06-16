@@ -47,10 +47,10 @@ class CurrentOrders extends BindingClass {
                 <td>${order.clientName}</td>
                 <td>${order.clientId}</td>
                 <td>${order.orderId}</td>
-                <td>${order.purchaseDate}</td>
+                <td>${this.client.formatDate(order.purchaseDate)}</td>
                 <td>${order.shipped ? '✅' : '❌'}</td>
                 <td>${order.shippingService || ''}</td>
-                <td>${order.expectedDate || ''}</td>
+                <td>${order.expectedDate ? this.client.formatDate(order.expectedDate) : ''}</td>
                 <td>${order.trackingNumber || ''}</td>
                 <td>${order.item}</td>
                 <td>${order.reference || ''}</td>
