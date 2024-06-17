@@ -2,23 +2,28 @@ import axios from "axios";
 import BindingClass from "../util/bindingClass";
 import Authenticator from "./authenticator";
 
-class clientKeeperClient extends BindingClass {
+class ClientKeeperClient extends BindingClass {
 
     constructor(props = {}) {
         super();
 
         /* Methods that need binding. Add to this as methods are created */
 
-        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'createClient', 'getAllClients', 'updateClient', 'deleteClient', 'getUndeliveredOrders', 'createOrder', 'updateOrder', 'getOrder', 'getOrdersByClientId'];
+        const methodsToBind = [
+            'clientLoaded', 'getIdentity', 'login', 'logout', 'createClient',
+             'getAllClients', 'updateClient', 'deleteClient', 'getUndeliveredOrders',
+              'createOrder', 'updateOrder', 'getOrder', 'getOrdersByClientId',
+            'formatDate', 'getDeliveredOrders', 'deleteOrder', 'handleError'];
         this.bindClassMethods(methodsToBind, this);
 
-        this.authenticator = new Authenticator();;
+        this.authenticator = new Authenticator();
         this.props = props;
 
         axios.defaults.baseURL = process.env.API_BASE_URL;
         this.axiosClient = axios;
         this.clientLoaded();
     }
+
     /**
      * Run any functions that are supposed to be called once the client has loaded successfully.
      */
@@ -43,12 +48,12 @@ class clientKeeperClient extends BindingClass {
 
             return await this.authenticator.getCurrentUserInfo();
         } catch (error) {
-            this.handleError(error, errorCallback)
+            this.handleError(error, errorCallback);
         }
     }
 
     async login() {
-       await this.authenticator.login();
+        await this.authenticator.login();
     }
 
     async logout() {
@@ -148,8 +153,6 @@ class clientKeeperClient extends BindingClass {
         }
     }
 
-        
-
     async getUndeliveredOrders(errorCallback) {
         try {
             const token = await this.getTokenOrThrow("You must be logged in to view undelivered orders.");
@@ -219,27 +222,11 @@ class clientKeeperClient extends BindingClass {
                 }
             });
             return response.data;
-            } catch (error) {
-                this.handleError(error, errorCallback);
-            }
-    }
-    
-    async getDeliveredOrders(errorCallback) {
-        try {
-            const token = await this.getTokenOrThrow("You must be logged in to view delivered orders.");
-            const response = await this.axiosClient.get('/orders/delivered', {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
-            console.log('Delivered Orders API response:', response.data);
-            return response.data;
         } catch (error) {
             this.handleError(error, errorCallback);
-            return null;
         }
     }
-
+    
     async getDeliveredOrders(errorCallback) {
         try {
             const token = await this.getTokenOrThrow("You must be logged in to view delivered orders.");
@@ -301,6 +288,20 @@ class clientKeeperClient extends BindingClass {
     }
 
     /**
+     * Formats a date string into MM-DD-YYYY format.
+     * @param {string} dateString The date string to format.
+     * @returns {string} The formatted date string.
+     */
+    formatDate(dateString) {
+        if (!dateString) return '';
+        const date = new Date(dateString);
+        const month = ('0' + (date.getMonth() + 1)).slice(-2); // Add 1 because months are zero-based
+        const day = ('0' + date.getDate()).slice(-2);
+        const year = date.getFullYear();
+        return `${month}-${day}-${year}`;
+    }
+
+    /**
      * Helper method to log the error and run any error functions.
      * @param error The error received from the server.
      * @param errorCallback (Optional) A function to execute if the call fails.
@@ -310,7 +311,7 @@ class clientKeeperClient extends BindingClass {
 
         const errorFromApi = error?.response?.data?.error_message;
         if (errorFromApi) {
-            console.error(errorFromApi)
+            console.error(errorFromApi);
             error.message = errorFromApi;
         }
 
@@ -320,4 +321,4 @@ class clientKeeperClient extends BindingClass {
     }
 }
 
-export default clientKeeperClient;
+export default ClientKeeperClient;

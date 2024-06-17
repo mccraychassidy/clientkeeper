@@ -4,19 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <script type="text/javascript" src="assets/manageClients.js"></script>
-    <script type="text/javascript" src="assets/editClient.js"></script>
+    <script defer src="assets/manageClients.js"></script>
+    <script defer src="assets/editClient.js"></script>
+    <script defer src="assets/addClient.js"></script>
     <title>Manage Clients</title>
 </head>
 
 <body class="background">
     <header class="header" id="secondary-header"></header>
     <div class="card">
-        <a href="index.html">
-            <div class="back-button-container">
-                <button class="back-button">Back</button>
-            </div>
-        </a>
         <h2>Clients</h2>
         <input type="text" id="search" placeholder="Search..." class="search-box">
         <div id="clients-table" class="clients-table">
@@ -24,6 +20,7 @@
                 <thead>
                     <tr>
                         <th>Client</th>
+                        <th>Client ID</th>
                         <th>Email</th>
                         <th>Phone</th>
                         <th>Address</th>
@@ -35,40 +32,77 @@
             </table>
         </div>
         <div class="button-group">
-            <a href="addClient.html" class="button">Add Client</a>
+            <button id="addClientButton" class="button">Add Client</button>
         </div>
+    </div>
+
+    <div class="logo-container-manage-clients">
+        <img src="icons/ClientKeeper-lock-logo.svg" alt="ClientKeeper Logo" class="logo-manage-clients">
+        <p class="logo-text-manage-clients">ClientKeeper</p>
     </div>
 
     <div id="edit-client-modal" class="modal">
         <div class="modal-content">
-            <span class="close-button" id="close-modal">&times;</span>
+            <span class="close-button" id="close-client-modal">&times;</span>
             <h2>Edit Client</h2>
             <form id="edit-client-form">
                 <input type="hidden" id="edit-client-id">
-                <p class="form-field">
+                <div class="form-field">
                     <label for="edit-client-name">Client</label>
                     <input type="text" required id="edit-client-name">
-                </p>
-                <p class="form-field">
+                </div>
+                <div class="form-field">
                     <label for="edit-client-email">Email</label>
                     <input type="email" required id="edit-client-email">
-                </p>
-                <p class="form-field">
+                </div>
+                <div class="form-field">
                     <label for="edit-client-phone">Phone</label>
                     <input type="tel" required id="edit-client-phone">
-                </p>
-                <p class="form-field">
+                </div>
+                <div class="form-field">
                     <label for="edit-client-address">Address</label>
                     <input type="text" required id="edit-client-address">
-                </p>
-                <p class="form-field">
+                </div>
+                <div class="form-field">
                     <label for="edit-client-member-since">Member Since</label>
                     <input type="date" required id="edit-client-member-since">
-                </p>
-                <p class="button-group">
+                </div>
+                <div class="button-group">
                     <button type="button" id="save-client-button" class="button">Save</button>
-                    <button type="button" id="delete-client-button" class="button">Delete</button>
-                </p>
+                    <button type="button" id="delete-client-button" class="delete-button">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="addClientModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeAddClientModal">&times;</span>
+            <h2>Add Client</h2>
+            <form id="addClientForm">
+                <div class="form-field">
+                    <label for="clientName">Client Name:</label>
+                    <input type="text" id="clientName" name="clientName" required>
+                </div>
+                <div class="form-field">
+                    <label for="clientEmail">Client Email:</label>
+                    <input type="email" id="clientEmail" name="clientEmail" required>
+                </div>
+                <div class="form-field">
+                    <label for="clientPhone">Client Phone:</label>
+                    <input type="tel" id="clientPhone" name="clientPhone" required>
+                </div>
+                <div class="form-field">
+                    <label for="clientAddress">Client Address:</label>
+                    <input type="text" id="clientAddress" name="clientAddress" required>
+                </div>
+                <div class="form-field">
+                    <label for="clientMemberSince">Member Since:</label>
+                    <input type="date" id="clientMemberSince" name="clientMemberSince" required>
+                </div>
+                <div class="button-group">
+                    <button type="submit" class="button">Save</button>
+                </div>
             </form>
         </div>
     </div>
