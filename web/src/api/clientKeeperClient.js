@@ -52,14 +52,26 @@ class ClientKeeperClient extends BindingClass {
         }
     }
 
+    /**
+     * Log in the user.
+     */
     async login() {
         await this.authenticator.login();
     }
 
+    /**
+     * Log out the user.
+     */
     async logout() {
         await this.authenticator.logout();
     }
 
+    /**
+     * Get the user token or throw an error if unauthenticated.
+     * @param unauthenticatedErrorMessage The error message to throw if unauthenticated.
+     * @returns The user token.
+     * @throws Error if the user is not logged in.
+     */
     async getTokenOrThrow(unauthenticatedErrorMessage) {
         const isLoggedIn = await this.authenticator.isUserLoggedIn();
         if (!isLoggedIn) {
@@ -89,6 +101,11 @@ class ClientKeeperClient extends BindingClass {
         }
     }
 
+    /**
+     * Retrieves all clients.
+     * @param errorCallback (Optional) A function to execute if the call fails.
+     * @returns A list of clients.
+     */
     async getAllClients(errorCallback) {
         try {
             const token = await this.getTokenOrThrow("You must be logged in to view clients.");
@@ -153,6 +170,11 @@ class ClientKeeperClient extends BindingClass {
         }
     }
 
+    /**
+     * Retrieves all undelivered orders.
+     * @param errorCallback (Optional) A function to execute if the call fails.
+     * @returns A list of undelivered orders.
+     */
     async getUndeliveredOrders(errorCallback) {
         try {
             const token = await this.getTokenOrThrow("You must be logged in to view undelivered orders.");
@@ -169,6 +191,12 @@ class ClientKeeperClient extends BindingClass {
         }
     }
 
+    /**
+     * Creates a new order.
+     * @param orderData The order data to be created.
+     * @param errorCallback (Optional) A function to execute if the call fails.
+     * @returns The created order data.
+     */
     async createOrder(orderData, errorCallback) {
         try {
             const token = await this.getTokenOrThrow("You must be logged in to create an order.");
@@ -227,6 +255,11 @@ class ClientKeeperClient extends BindingClass {
         }
     }
     
+    /**
+     * Retrieves all delivered orders.
+     * @param errorCallback (Optional) A function to execute if the call fails.
+     * @returns A list of delivered orders.
+     */
     async getDeliveredOrders(errorCallback) {
         try {
             const token = await this.getTokenOrThrow("You must be logged in to view delivered orders.");
