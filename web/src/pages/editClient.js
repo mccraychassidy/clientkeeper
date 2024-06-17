@@ -5,7 +5,7 @@ import DataStore from '../util/DataStore';
 class EditClient extends BindingClass {
     constructor(props = {}) {
         super();
-        this.bindClassMethods(['mount', 'openEditModal', 'closeEditModal', 'saveClient', 'deleteClient'], this);
+        this.bindClassMethods(['mount', 'openEditModal', 'closeEditModal', 'saveClient', 'deleteClient', 'resetFormFields', 'resetSaveButton'], this);
         this.client = new ClientKeeperClient();
         this.dataStore = props.dataStore || new DataStore();
         this.manageClients = props.manageClients;
@@ -20,6 +20,9 @@ class EditClient extends BindingClass {
     }
 
     openEditModal(client) {
+        this.resetFormFields();
+        this.resetSaveButton();
+
         document.getElementById('edit-client-id').value = client.clientId;
         document.getElementById('edit-client-name').value = client.clientName;
         document.getElementById('edit-client-email').value = client.clientEmail;
@@ -30,7 +33,24 @@ class EditClient extends BindingClass {
     }
 
     closeEditModal() {
+        this.resetFormFields();
+        this.resetSaveButton();
         document.getElementById('edit-client-modal').style.display = 'none';
+    }
+
+    resetFormFields() {
+        document.getElementById('edit-client-id').value = '';
+        document.getElementById('edit-client-name').value = '';
+        document.getElementById('edit-client-email').value = '';
+        document.getElementById('edit-client-phone').value = '';
+        document.getElementById('edit-client-address').value = '';
+        document.getElementById('edit-client-member-since').value = '';
+    }
+
+    resetSaveButton() {
+        const saveButton = document.getElementById('save-client-button');
+        saveButton.disabled = false;
+        saveButton.textContent = 'Save';
     }
 
     async saveClient() {
@@ -64,6 +84,8 @@ class EditClient extends BindingClass {
             }
         } catch (error) {
             console.error('Error saving client:', error);
+        } finally {
+            this.resetSaveButton();
         }
     }
 
@@ -82,6 +104,9 @@ class EditClient extends BindingClass {
             }
         } catch (error) {
             console.error('Error deleting client:', error);
+        } finally {
+            deleteButton.disabled = false;
+            deleteButton.textContent = 'Delete';
         }
     }
 }

@@ -5,7 +5,7 @@ import DataStore from '../util/DataStore';
 class EditOrder extends BindingClass {
     constructor(props = {}) {
         super();
-        this.bindClassMethods(['mount', 'openEditModal', 'closeEditModal', 'saveOrder', 'deleteOrder'], this);
+        this.bindClassMethods(['mount', 'openEditModal', 'closeEditModal', 'saveOrder', 'deleteOrder', 'resetFormFields', 'resetSaveButton'], this);
         this.client = new ClientKeeperClient();
         this.dataStore = props.dataStore || new DataStore();
         this.reloadOrdersCallback = props.reloadOrdersCallback;
@@ -21,6 +21,9 @@ class EditOrder extends BindingClass {
     }
 
     openEditModal(order) {
+        this.resetFormFields();
+        this.resetSaveButton();
+
         document.getElementById('edit-order-id').value = order.orderId;
         document.getElementById('edit-client-id').value = order.clientId;
         document.getElementById('edit-client-name').value = order.clientName;
@@ -36,7 +39,29 @@ class EditOrder extends BindingClass {
     }
 
     closeEditModal() {
+        this.resetFormFields();
+        this.resetSaveButton();
         document.getElementById('edit-order-modal').style.display = 'none';
+    }
+
+    resetFormFields() {
+        document.getElementById('edit-order-id').value = '';
+        document.getElementById('edit-client-id').value = '';
+        document.getElementById('edit-client-name').value = '';
+        document.getElementById('edit-item').value = '';
+        document.getElementById('edit-shipped').checked = false;
+        document.getElementById('edit-purchase-date').value = '';
+        document.getElementById('edit-shipping-service').value = '';
+        document.getElementById('edit-expected-date').value = '';
+        document.getElementById('edit-delivered-date').value = '';
+        document.getElementById('edit-tracking-number').value = '';
+        document.getElementById('edit-reference').value = '';
+    }
+
+    resetSaveButton() {
+        const saveButton = document.getElementById('save-order-button');
+        saveButton.disabled = false;
+        saveButton.textContent = 'Save';
     }
 
     async saveOrder() {
