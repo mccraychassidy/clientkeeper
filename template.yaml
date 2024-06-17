@@ -239,8 +239,6 @@ Resources:
           Properties:
             Path: /clients
             Method: post
-            Auth:
-              Authorizer: 'NONE'
 
   GetClientLambda:
     Type: AWS::Serverless::Function
@@ -261,8 +259,6 @@ Resources:
           Properties:
             Path: /clients/{clientId}
             Method: get
-            Auth:
-              Authorizer: 'NONE'
 
   GetAllClientsLambda:
     Type: AWS::Serverless::Function
@@ -283,8 +279,6 @@ Resources:
           Properties:
             Path: /clients
             Method: get
-            Auth:
-              Authorizer: 'NONE'
   
   EditClientLambda:
     Type: AWS::Serverless::Function
@@ -305,8 +299,6 @@ Resources:
           Properties:
             Path: /clients/{clientId}
             Method: put
-            Auth:
-              Authorizer: 'NONE'
 
   DeleteClientLambda:
     Type: AWS::Serverless::Function
@@ -327,9 +319,6 @@ Resources:
           Properties:
             Path: /clients
             Method: delete
-            Auth:
-              Authorizer: 'NONE'
-
 
   CreateOrderLambda:
     Type: AWS::Serverless::Function
@@ -350,8 +339,6 @@ Resources:
           Properties:
             Path: /orders
             Method: post
-            Auth:
-              Authorizer: 'NONE'
 
   GetUndeliveredOrdersLambda:
     Type: AWS::Serverless::Function
@@ -372,8 +359,6 @@ Resources:
           Properties:
             Path: /orders/undelivered
             Method: get
-            Auth:
-              Authorizer: 'NONE'
 
   GetOrderLambda:
     Type: AWS::Serverless::Function
@@ -394,9 +379,6 @@ Resources:
           Properties:
             Path: /orders/{orderId}
             Method: get
-            Auth:
-              Authorizer: 'NONE'
-
 
   EditOrderLambda:
     Type: AWS::Serverless::Function
@@ -417,8 +399,6 @@ Resources:
           Properties:
             Path: /orders/{orderId}
             Method: put
-            Auth:
-              Authorizer: 'NONE'
 
   GetDeliveredOrdersLambda:
     Type: AWS::Serverless::Function
@@ -439,8 +419,6 @@ Resources:
           Properties:
             Path: /orders/delivered
             Method: get
-            Auth:
-              Authorizer: 'NONE'
 
   GetOrdersByClientIdLambda:
     Type: AWS::Serverless::Function
@@ -461,8 +439,6 @@ Resources:
           Properties:
             Path: /orders/byClientId/{clientId}
             Method: get
-            Auth:
-              Authorizer: 'NONE'
 
   DeleteOrderLambda:
     Type: AWS::Serverless::Function
@@ -483,8 +459,6 @@ Resources:
           Properties:
             Path: /orders
             Method: delete
-            Auth:
-              Authorizer: 'NONE'
 
   #-----------------------------------------------------
   # DynamoDB Configuration
