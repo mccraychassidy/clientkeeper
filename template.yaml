@@ -359,6 +359,8 @@ Resources:
           Properties:
             Path: /orders/undelivered
             Method: get
+            Auth:
+              Authorizer: CognitoAuthorizer
 
   GetOrderLambda:
     Type: AWS::Serverless::Function
