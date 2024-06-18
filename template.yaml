@@ -129,7 +129,7 @@ Resources:
         Enabled: true
         HttpVersion: http2
         PriceClass: PriceClass_100
-        # List of origins that Cloudfront will connect to
+        # List of origins that Cloud front will connect to
         Origins:
           - Id: s3-website
             DomainName: !Sub "${S3Bucket}.s3.us-east-2.amazonaws.com"
