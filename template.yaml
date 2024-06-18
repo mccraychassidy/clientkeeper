@@ -57,7 +57,7 @@ Resources:
             Priority: 1
       UsernameAttributes:
         - email
-      UsernameConfiguration: 
+      UsernameConfiguration:
         CaseSensitive: false
       AutoVerifiedAttributes:
         - email
@@ -80,15 +80,15 @@ Resources:
       CallbackURLs:
         - http://localhost:8000
         - !If
-            - DeployCloudFront
-            - !Sub "https://${CloudfrontDistribution.DomainName}"
-            - !Ref "AWS::NoValue"
+          - DeployCloudFront
+          - !Sub "https://${CloudfrontDistribution.DomainName}"
+          - !Ref "AWS::NoValue"
       LogoutURLs:
         - http://localhost:8000
         - !If
-            - DeployCloudFront
-            - !Sub "https://${CloudfrontDistribution.DomainName}"
-            - !Ref "AWS::NoValue"
+          - DeployCloudFront
+          - !Sub "https://${CloudfrontDistribution.DomainName}"
+          - !Ref "AWS::NoValue"
       AllowedOAuthFlows:
         - code
         - implicit
@@ -112,15 +112,16 @@ Resources:
   # CloudFront Configuration
   #-----------------------------------------------------
 
-Resources:
   CloudFrontOriginAccessIdentity:
     Type: 'AWS::CloudFront::CloudFrontOriginAccessIdentity'
+    Condition: DeployCloudFront
     Properties:
       CloudFrontOriginAccessIdentityConfig:
         Comment: 'Serverless frontend website'
 
   CloudfrontDistribution:
     Type: "AWS::CloudFront::Distribution"
+    Condition: DeployCloudFront
     Properties:
       DistributionConfig:
         Comment: "Cloudfront distribution for serverless website"
@@ -128,15 +129,19 @@ Resources:
         Enabled: true
         HttpVersion: http2
         PriceClass: PriceClass_100
+        # List of origins that Cloud front will connect to
         Origins:
           - Id: s3-website
             DomainName: !Sub "${S3Bucket}.s3.us-east-2.amazonaws.com"
+            OriginPath: /static
             S3OriginConfig:
+              # Restricting Bucket access through an origin access identity
               OriginAccessIdentity: !Sub 'origin-access-identity/cloudfront/${CloudFrontOriginAccessIdentity}'
           - Id: api-gateway
             DomainName: "y2d0yml4sk.execute-api.us-east-2.amazonaws.com"
             CustomOriginConfig:
               OriginProtocolPolicy: https-only
+        # To connect the CDN to the origins you need to specify behaviours
         DefaultCacheBehavior:
           TargetOriginId: api-gateway
           ViewerProtocolPolicy: redirect-to-https
@@ -168,15 +173,20 @@ Resources:
 
   S3BucketPolicy:
     Type: AWS::S3::BucketPolicy
+    Condition: DeployCloudFront
     Properties:
       Bucket: !Ref S3Bucket
       PolicyDocument:
+        # Restricting access to cloudfront only.
         Statement:
-          - Effect: Allow
+          -
+            Effect: Allow
             Action: 's3:GetObject'
-            Resource: !Sub "arn:aws:s3:::${S3Bucket}/*"
+            Resource:
+              - !Sub "arn:aws:s3:::${S3Bucket}/*"
             Principal:
               AWS: !Sub "arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity ${CloudFrontOriginAccessIdentity}"
+
 
   #-----------------------------------------------------
   # Role/Permissions/Policy Configuration
@@ -189,8 +199,8 @@ Resources:
         - 'arn:aws:iam::aws:policy/service-role/AWSLambdaRole'
         - 'arn:aws:iam::aws:policy/AWSLambdaExecute'
       AssumeRolePolicyDocument:
-        Version: "2012-10-17" 
-        Statement: 
+        Version: "2012-10-17"
+        Statement:
           - Effect: Allow
             Principal:
               Service:
@@ -202,28 +212,28 @@ Resources:
           PolicyDocument:
             Version: '2012-10-17'
             Statement:
-            - Effect: Allow
-              Action:
-                - logs:CreateLogGroup
-                - logs:CreateLogStream
-                - logs:PutLogEvents
-                - cloudwatch:PutMetricData
-              Resource: '*'
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                  - cloudwatch:PutMetricData
+                Resource: '*'
         - PolicyName: 'AccessClientsTable'
           PolicyDocument:
             Version: '2012-10-17'
             Statement:
-            - Effect: Allow
-              Action: dynamodb:*
-              Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/clients"
-                
+              - Effect: Allow
+                Action: dynamodb:*
+                Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/clients"
+
         - PolicyName: 'AccessOrdersTable'
           PolicyDocument:
             Version: '2012-10-17'
             Statement:
-            - Effect: Allow
-              Action: dynamodb:*
-              Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/orders"
+              - Effect: Allow
+                Action: dynamodb:*
+                Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/orders"
 
   #-----------------------------------------------------
   # Lambda Functions Configuration
@@ -509,7 +519,7 @@ Resources:
         WriteCapacityUnits: 5
       GlobalSecondaryIndexes:
         - IndexName: "ClientOrdersIndex"
-          KeySchema: 
+          KeySchema:
             - AttributeName: "clientId"
               KeyType: "HASH"
             - AttributeName: "orderId"
