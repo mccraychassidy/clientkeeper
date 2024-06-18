@@ -138,10 +138,6 @@ Resources:
               # Restricting Bucket access through an origin access identity
               OriginAccessIdentity:
                 Fn::Sub: 'origin-access-identity/cloudfront/${CloudFrontOriginAccessIdentity}'
-          - Id: api-gateway
-            DomainName: "y2d0yml4sk.execute-api.us-east-2.amazonaws.com"
-            CustomOriginConfig:
-              OriginProtocolPolicy: https-only
         # To connect the CDN to the origins you need to specify behaviours
         DefaultCacheBehavior:
           # Compress resources automatically ( gzip )
@@ -151,10 +147,8 @@ Resources:
             - HEAD
             - OPTIONS
           ForwardedValues:
-            QueryString: true
-            Headers:
-              - Authorization
-          TargetOriginId: api-gateway
+            QueryString: false
+          TargetOriginId: s3-website
           ViewerProtocolPolicy : redirect-to-https
           CachePolicyId: 4135ea2d-6df8-44a3-9df3-4b5a84be39ad
 
