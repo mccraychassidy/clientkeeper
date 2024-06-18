@@ -18,19 +18,22 @@ class CurrentOrders extends BindingClass {
     }
 
     async mount() {
+        console.log("Mounting CurrentOrders component");
         await this.secondaryHeader.addHeaderToPage();
         this.client = new ClientKeeperClient();
         window.addEventListener('refreshOrders', this.refreshOrders.bind(this));
 
-        this.loadOrders();
+        await this.loadOrders();
         this.editOrder.mount();
         this.addOrder.mount();
     }
 
     async loadOrders() {
         try {
+            console.log("Loading undelivered orders");
             const response = await this.client.getUndeliveredOrders();
             this.orders = response?.orders || [];
+            console.log("Orders loaded successfully:", this.orders);
             this.renderOrdersTable(this.orders);
         } catch (error) {
             console.error('Error loading orders:', error);
@@ -38,6 +41,7 @@ class CurrentOrders extends BindingClass {
     }
 
     renderOrdersTable(orders) {
+        console.log("Rendering orders table with orders:", orders);
         const ordersTableBody = document.getElementById('ordersTable').getElementsByTagName('tbody')[0];
         ordersTableBody.innerHTML = '';
 
@@ -61,12 +65,14 @@ class CurrentOrders extends BindingClass {
     }
 
     async refreshOrders() {
+        console.log("Refreshing orders");
         await this.loadOrders();
     }
 }
 
 
 const main = async () => {
+    console.log("Initializing CurrentOrders main function");
     const currentOrders = new CurrentOrders();
     currentOrders.mount();
 };
