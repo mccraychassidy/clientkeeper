@@ -80,4 +80,73 @@ public class CreateClientActivityTest {
         assertThrows(InvalidAttributeValueException.class, () -> createClientActivity.handleRequest(request));
         verify(clientDao, never()).saveClient(any(Client.class));
     }
+
+    @Test
+    public void testCreateClientRequest_getters() {
+        // GIVEN
+        String userEmail = "user@example.com";
+        String clientId = "validClientId";
+        String clientName = "Jane Doe";
+        String clientEmail = "janedoe@example.com";
+        String clientPhone = "5786314899";
+        String clientAddress = "123 Main St Nashville, TN 37919";
+        String clientMemberSince = "2024-01-27";
+
+        // WHEN
+        CreateClientRequest request = CreateClientRequest.builder()
+                .withUserEmail(userEmail)
+                .withClientId(clientId)
+                .withClientName(clientName)
+                .withClientEmail(clientEmail)
+                .withClientPhone(clientPhone)
+                .withClientAddress(clientAddress)
+                .withClientMemberSince(clientMemberSince)
+                .build();
+
+        // THEN
+        assertNotNull(request);
+        assertEquals(userEmail, request.getUserEmail());
+        assertEquals(clientId, request.getClientId());
+        assertEquals(clientName, request.getClientName());
+        assertEquals(clientEmail, request.getClientEmail());
+        assertEquals(clientPhone, request.getClientPhone());
+        assertEquals(clientAddress, request.getClientAddress());
+        assertEquals(clientMemberSince, request.getClientMemberSince());
+    }
+
+    @Test
+    public void testCreateClientRequest_toString() {
+        // GIVEN
+        String userEmail = "user@example.com";
+        String clientId = "validClientId";
+        String clientName = "Jane Doe";
+        String clientEmail = "janedoe@example.com";
+        String clientPhone = "5786314899";
+        String clientAddress = "123 Main St Nashville, TN 37919";
+        String clientMemberSince = "2024-01-27";
+
+        // WHEN
+        CreateClientRequest request = CreateClientRequest.builder()
+                .withUserEmail(userEmail)
+                .withClientId(clientId)
+                .withClientName(clientName)
+                .withClientEmail(clientEmail)
+                .withClientPhone(clientPhone)
+                .withClientAddress(clientAddress)
+                .withClientMemberSince(clientMemberSince)
+                .build();
+
+        String expectedToString = "CreateClientRequest{" +
+                "userEmail='" + userEmail + '\'' +
+                ", clientId='" + clientId + '\'' +
+                ", clientName='" + clientName + '\'' +
+                ", clientEmail='" + clientEmail + '\'' +
+                ", clientPhone='" + clientPhone + '\'' +
+                ", clientAddress='" + clientAddress + '\'' +
+                ", clientMemberSince='" + clientMemberSince + '\'' +
+                '}';
+
+        // THEN
+        assertEquals(expectedToString, request.toString());
+    }
 }
