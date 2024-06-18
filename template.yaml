@@ -129,47 +129,28 @@ Resources:
         Enabled: true
         HttpVersion: http2
         PriceClass: PriceClass_100
-        # List of origins that Cloud front will connect to
+        # List of origins that Cloudfront will connect to
         Origins:
           - Id: s3-website
             DomainName: !Sub "${S3Bucket}.s3.us-east-2.amazonaws.com"
+            OriginPath: /static
             S3OriginConfig:
               # Restricting Bucket access through an origin access identity
-              OriginAccessIdentity: !Sub 'origin-access-identity/cloudfront/${CloudFrontOriginAccessIdentity}'
-          - Id: api-gateway
-            DomainName: "y2d0yml4sk.execute-api.us-east-2.amazonaws.com"
-            CustomOriginConfig:
-              OriginProtocolPolicy: https-only
+              OriginAccessIdentity:
+                Fn::Sub: 'origin-access-identity/cloudfront/${CloudFrontOriginAccessIdentity}'
         # To connect the CDN to the origins you need to specify behaviours
         DefaultCacheBehavior:
-          TargetOriginId: api-gateway
-          ViewerProtocolPolicy: redirect-to-https
+          # Compress resources automatically ( gzip )
+          Compress: 'true'
           AllowedMethods:
             - GET
             - HEAD
             - OPTIONS
-            - PUT
-            - POST
-            - DELETE
-            - PATCH
           ForwardedValues:
-            QueryString: true
-            Headers:
-              - Authorization
-              - Host
-          Compress: true
+            QueryString: false
+          TargetOriginId: s3-website
+          ViewerProtocolPolicy : redirect-to-https
           CachePolicyId: 4135ea2d-6df8-44a3-9df3-4b5a84be39ad
-        CacheBehaviors:
-          - PathPattern: "/static/*"
-            TargetOriginId: s3-website
-            ViewerProtocolPolicy: redirect-to-https
-            AllowedMethods:
-              - GET
-              - HEAD
-              - OPTIONS
-            ForwardedValues:
-              QueryString: false
-            Compress: true
 
   S3BucketPolicy:
     Type: AWS::S3::BucketPolicy
@@ -179,12 +160,13 @@ Resources:
       PolicyDocument:
         # Restricting access to cloudfront only.
         Statement:
-          Effect: Allow
-          Action: 's3:GetObject'
-          Resource:
-            - !Sub "arn:aws:s3:::${S3Bucket}/*"
-          Principal:
-            AWS: !Sub "arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity ${CloudFrontOriginAccessIdentity}"
+          -
+            Effect: Allow
+            Action: 's3:GetObject'
+            Resource:
+              - !Sub "arn:aws:s3:::${S3Bucket}/*"
+            Principal:
+              AWS: !Sub "arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity ${CloudFrontOriginAccessIdentity}"
 
 
   #-----------------------------------------------------
@@ -297,7 +279,7 @@ Resources:
           Properties:
             Path: /clients
             Method: get
-  
+
   EditClientLambda:
     Type: AWS::Serverless::Function
     Properties:
@@ -558,4 +540,3 @@ Outputs:
     Description: "The URL of the deployed front-end application (COGNITO_REDIRECT_SIGNOUT)."
     Value: !Sub "https://${CloudfrontDistribution.DomainName}"
     Condition: DeployCloudFront
-
