@@ -28,6 +28,7 @@ class ClientKeeperClient extends BindingClass {
      * Run any functions that are supposed to be called once the client has loaded successfully.
      */
     clientLoaded() {
+        console.log("Client loaded successfully");
         if (this.props.hasOwnProperty("onReady")) {
             this.props.onReady(this);
         }
@@ -40,14 +41,17 @@ class ClientKeeperClient extends BindingClass {
      */
     async getIdentity(errorCallback) {
         try {
+            console.log("Getting identity of the current user");
             const isLoggedIn = await this.authenticator.isUserLoggedIn();
 
             if (!isLoggedIn) {
+                console.log("User is not logged in");
                 return undefined;
             }
 
             return await this.authenticator.getCurrentUserInfo();
         } catch (error) {
+            console.error("Error getting identity:", error);
             this.handleError(error, errorCallback);
         }
     }
@@ -56,6 +60,7 @@ class ClientKeeperClient extends BindingClass {
      * Log in the user.
      */
     async login() {
+        console.log("Logging in the user");
         await this.authenticator.login();
     }
 
@@ -63,6 +68,7 @@ class ClientKeeperClient extends BindingClass {
      * Log out the user.
      */
     async logout() {
+        console.log("Logging out the user");
         await this.authenticator.logout();
     }
 
@@ -75,6 +81,7 @@ class ClientKeeperClient extends BindingClass {
     async getTokenOrThrow(unauthenticatedErrorMessage) {
         const isLoggedIn = await this.authenticator.isUserLoggedIn();
         if (!isLoggedIn) {
+            console.log("User is not logged in. Throwing error:", unauthenticatedErrorMessage);
             throw new Error(unauthenticatedErrorMessage);
         }
 
@@ -89,14 +96,17 @@ class ClientKeeperClient extends BindingClass {
      */
     async createClient(clientData, errorCallback) {
         try {
+            console.log("Creating a new client with data:", clientData);
             const token = await this.getTokenOrThrow("You must be logged in to create a client.");
             const response = await this.axiosClient.post("/clients", clientData, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             });
+            console.log("Client created successfully:", response.data);
             return response.data;
         } catch (error) {
+            console.error("Error creating client:", error);
             this.handleError(error, errorCallback);
         }
     }
@@ -177,6 +187,7 @@ class ClientKeeperClient extends BindingClass {
      */
     async getUndeliveredOrders(errorCallback) {
         try {
+            console.log("Retrieving undelivered orders");
             const token = await this.getTokenOrThrow("You must be logged in to view undelivered orders.");
             const response = await this.axiosClient.get('/orders/undelivered', {
                 headers: {
@@ -186,6 +197,7 @@ class ClientKeeperClient extends BindingClass {
             console.log('Undelivered Orders API response:', response.data);
             return response.data;
         } catch (error) {
+            console.error("Error retrieving undelivered orders:", error);
             this.handleError(error, errorCallback);
             return null;
         }
@@ -199,14 +211,17 @@ class ClientKeeperClient extends BindingClass {
      */
     async createOrder(orderData, errorCallback) {
         try {
+            console.log("Creating a new order with data:", orderData);
             const token = await this.getTokenOrThrow("You must be logged in to create an order.");
             const response = await this.axiosClient.post("/orders", orderData, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             });
+            console.log("Order created successfully:", response.data);
             return response.data;
         } catch (error) {
+            console.error("Error creating order:", error);
             this.handleError(error, errorCallback);
         }
     }
@@ -340,7 +355,7 @@ class ClientKeeperClient extends BindingClass {
      * @param errorCallback (Optional) A function to execute if the call fails.
      */
     handleError(error, errorCallback) {
-        console.error('Detailed error:', error.response.data);
+        console.error('Detailed error:', error.response ? error.response.data : error.message);
         const errorFromApi = error?.response?.data?.error_message;
         if (errorFromApi) {
             console.error(errorFromApi);
