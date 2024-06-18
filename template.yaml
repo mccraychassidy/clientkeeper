@@ -133,7 +133,6 @@ Resources:
         Origins:
           - Id: s3-website
             DomainName: !Sub "${S3Bucket}.s3.us-east-2.amazonaws.com"
-            OriginPath: /static
             S3OriginConfig:
               # Restricting Bucket access through an origin access identity
               OriginAccessIdentity: !Sub 'origin-access-identity/cloudfront/${CloudFrontOriginAccessIdentity}'
@@ -152,6 +151,7 @@ Resources:
             - PUT
             - POST
             - DELETE
+            - PATCH
           ForwardedValues:
             QueryString: true
             Headers:
@@ -179,13 +179,12 @@ Resources:
       PolicyDocument:
         # Restricting access to cloudfront only.
         Statement:
-          -
-            Effect: Allow
-            Action: 's3:GetObject'
-            Resource:
-              - !Sub "arn:aws:s3:::${S3Bucket}/*"
-            Principal:
-              AWS: !Sub "arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity ${CloudFrontOriginAccessIdentity}"
+          Effect: Allow
+          Action: 's3:GetObject'
+          Resource:
+            - !Sub "arn:aws:s3:::${S3Bucket}/*"
+          Principal:
+            AWS: !Sub "arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity ${CloudFrontOriginAccessIdentity}"
 
 
   #-----------------------------------------------------
