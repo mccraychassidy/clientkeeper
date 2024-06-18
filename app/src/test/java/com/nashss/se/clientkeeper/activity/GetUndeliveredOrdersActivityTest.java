@@ -100,4 +100,112 @@ public class GetUndeliveredOrdersActivityTest {
         assertTrue(result.getOrders().isEmpty());
         verify(orderDao).getOrdersWithoutDeliveredDate("user@example.com");
     }
+
+    @Test
+    public void handleRequest_withOrderHavingNullDates_returnsCorrectOrderModel() {
+        // GIVEN
+        GetUndeliveredOrdersRequest request = GetUndeliveredOrdersRequest.builder()
+                .withUserEmail("user@example.com")
+                .build();
+
+        Order order = new Order();
+        order.setUserEmail("user@example.com");
+        order.setOrderId("order1");
+        order.setClientId("client1");
+        order.setClientName("Client One");
+        order.setItem("Item1");
+        order.setShipped(false);
+        order.setPurchaseDate(LocalDate.of(2024, 6, 1));
+        order.setExpectedDate(null);
+        order.setDeliveredDate(null);
+        order.setTrackingNumber("1234567890");
+        order.setReference("REF12345");
+
+        when(orderDao.getOrdersWithoutDeliveredDate("user@example.com")).thenReturn(List.of(order));
+
+        // WHEN
+        GetUndeliveredOrdersResult result = getUndeliveredOrdersActivity.handleRequest(request);
+
+        // THEN
+        assertNotNull(result);
+        assertNotNull(result.getOrders());
+        assertEquals(1, result.getOrders().size());
+
+        OrderModel orderModel = result.getOrders().get(0);
+        assertNull(orderModel.getExpectedDate());
+        assertNull(orderModel.getDeliveredDate());
+        verify(orderDao).getOrdersWithoutDeliveredDate("user@example.com");
+    }
+
+    @Test
+    public void handleRequest_withOrderHavingOnlyExpectedDate_returnsCorrectOrderModel() {
+        // GIVEN
+        GetUndeliveredOrdersRequest request = GetUndeliveredOrdersRequest.builder()
+                .withUserEmail("user@example.com")
+                .build();
+
+        Order order = new Order();
+        order.setUserEmail("user@example.com");
+        order.setOrderId("order1");
+        order.setClientId("client1");
+        order.setClientName("Client One");
+        order.setItem("Item1");
+        order.setShipped(false);
+        order.setPurchaseDate(LocalDate.of(2024, 6, 1));
+        order.setExpectedDate(LocalDate.of(2024, 6, 10));
+        order.setDeliveredDate(null);
+        order.setTrackingNumber("1234567890");
+        order.setReference("REF12345");
+
+        when(orderDao.getOrdersWithoutDeliveredDate("user@example.com")).thenReturn(List.of(order));
+
+        // WHEN
+        GetUndeliveredOrdersResult result = getUndeliveredOrdersActivity.handleRequest(request);
+
+        // THEN
+        assertNotNull(result);
+        assertNotNull(result.getOrders());
+        assertEquals(1, result.getOrders().size());
+
+        OrderModel orderModel = result.getOrders().get(0);
+        assertEquals("2024-06-10", orderModel.getExpectedDate());
+        assertNull(orderModel.getDeliveredDate());
+        verify(orderDao).getOrdersWithoutDeliveredDate("user@example.com");
+    }
+
+    @Test
+    public void handleRequest_withOrderHavingOnlyDeliveredDate_returnsCorrectOrderModel() {
+        // GIVEN
+        GetUndeliveredOrdersRequest request = GetUndeliveredOrdersRequest.builder()
+                .withUserEmail("user@example.com")
+                .build();
+
+        Order order = new Order();
+        order.setUserEmail("user@example.com");
+        order.setOrderId("order1");
+        order.setClientId("client1");
+        order.setClientName("Client One");
+        order.setItem("Item1");
+        order.setShipped(false);
+        order.setPurchaseDate(LocalDate.of(2024, 6, 1));
+        order.setExpectedDate(null);
+        order.setDeliveredDate(LocalDate.of(2024, 6, 15));
+        order.setTrackingNumber("1234567890");
+        order.setReference("REF12345");
+
+        when(orderDao.getOrdersWithoutDeliveredDate("user@example.com")).thenReturn(List.of(order));
+
+        // WHEN
+        GetUndeliveredOrdersResult result = getUndeliveredOrdersActivity.handleRequest(request);
+
+        // THEN
+        assertNotNull(result);
+        assertNotNull(result.getOrders());
+        assertEquals(1, result.getOrders().size());
+
+        OrderModel orderModel = result.getOrders().get(0);
+        assertNull(orderModel.getExpectedDate());
+        assertEquals("2024-06-15", orderModel.getDeliveredDate());
+        verify(orderDao).getOrdersWithoutDeliveredDate("user@example.com");
+    }
 }

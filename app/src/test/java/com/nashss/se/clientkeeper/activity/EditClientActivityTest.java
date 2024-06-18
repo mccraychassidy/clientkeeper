@@ -86,4 +86,25 @@ public class EditClientActivityTest {
         verify(clientDao).getClient("user@example.com", "invalidClientId");
         verify(clientDao, never()).saveClient(any(Client.class));
     }
+
+    @Test
+    public void handleRequest_withNonExistentClient_throwsClientNotFoundException() {
+        // GIVEN
+        EditClientRequest request = EditClientRequest.builder()
+                .withUserEmail("user@example.com")
+                .withClientId("nonExistentClientId")
+                .withClientName("Jane Doe Updated")
+                .withClientEmail("janedoe_updated@example.com")
+                .withClientPhone("5786314899")
+                .withClientAddress("123 Main St Nashville, TN 37919")
+                .withClientMemberSince("2024-01-27")
+                .build();
+
+        when(clientDao.getClient("user@example.com", "nonExistentClientId")).thenReturn(null);
+
+        // WHEN + THEN
+        assertThrows(ClientNotFoundException.class, () -> editClientActivity.handleRequest(request));
+        verify(clientDao).getClient("user@example.com", "nonExistentClientId");
+        verify(clientDao, never()).saveClient(any(Client.class));
+    }
 }

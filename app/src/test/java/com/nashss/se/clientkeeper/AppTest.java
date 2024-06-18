@@ -11,4 +11,19 @@ class AppTest {
         App classUnderTest = new App();
         assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
     }
+
+    @Test
+    void appGreetingMessageIsCorrect() {
+        App classUnderTest = new App();
+        assertEquals("Hello World!", classUnderTest.getGreeting(), "Greeting should be 'Hello World!'");
+    }
+
+    @Test
+    void mainMethodExecutesWithoutException() {
+        try {
+            App.main(new String[]{});
+        } catch (Exception e) {
+            fail("Main method should not throw an exception");
+        }
+    }
 }

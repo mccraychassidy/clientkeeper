@@ -95,4 +95,29 @@ public class CreateOrderActivityTest {
         assertThrows(InvalidAttributeValueException.class, () -> createOrderActivity.handleRequest(request));
         verify(orderDao, never()).saveOrder(any(Order.class));
     }
+
+    @Test
+    public void toString_withAllAttributes_returnsCorrectString() {
+        // GIVEN
+        CreateOrderRequest request = CreateOrderRequest.builder()
+                .withUserEmail("user@example.com")
+                .withOrderId("orderId123")
+                .withClientId("clientId456")
+                .withClientName("Client Name")
+                .withItem("Sample Item")
+                .withShipped(true)
+                .withPurchaseDate("2024-06-01")
+                .withShippingService("FedEx")
+                .withExpectedDate("2024-06-10")
+                .withDeliveredDate("2024-06-12")
+                .withTrackingNumber("tracking123")
+                .withReference("REF123")
+                .build();
+
+        // WHEN
+        String result = request.toString();
+
+        // THEN
+        assertEquals("CreateOrderRequest{userEmail='user@example.com', orderId='orderId123', clientId='clientId456', clientName='Client Name', item='Sample Item', shipped=true, purchaseDate=2024-06-01, shippingService='FedEx', expectedDate=2024-06-10, deliveredDate=2024-06-12, trackingNumber='tracking123', reference='REF123'}", result);
+    }
 }

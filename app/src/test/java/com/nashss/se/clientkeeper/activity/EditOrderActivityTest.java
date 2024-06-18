@@ -101,4 +101,30 @@ public class EditOrderActivityTest {
         verify(orderDao).getOrder("user@example.com", "invalidOrderId");
         verify(orderDao, never()).saveOrder(any(Order.class));
     }
+
+    @Test
+    public void handleRequest_withNonExistentOrder_throwsOrderNotFoundException() {
+        // GIVEN
+        EditOrderRequest request = EditOrderRequest.builder()
+                .withUserEmail("user@example.com")
+                .withOrderId("nonExistentOrderId")
+                .withClientId("validClientId")
+                .withClientName("John Doe Updated")
+                .withItem("Updated Item")
+                .withShipped(true)
+                .withPurchaseDate("2024-01-01")
+                .withShippingService("Updated Shipping Service")
+                .withExpectedDate("2024-01-15")
+                .withDeliveredDate("2024-01-20")
+                .withTrackingNumber("Updated Tracking Number")
+                .withReference("Updated Reference")
+                .build();
+
+        when(orderDao.getOrder("user@example.com", "nonExistentOrderId")).thenReturn(null);
+
+        // WHEN + THEN
+        assertThrows(OrderNotFoundException.class, () -> editOrderActivity.handleRequest(request));
+        verify(orderDao).getOrder("user@example.com", "nonExistentOrderId");
+        verify(orderDao, never()).saveOrder(any(Order.class));
+    }
 }
