@@ -1,6 +1,8 @@
 package com.nashss.se.clientkeeper.dynamodb;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.nashss.se.clientkeeper.dynamodb.models.Order;
 import com.nashss.se.clientkeeper.exceptions.InvalidAttributeValueException;
 import com.nashss.se.clientkeeper.exceptions.OrderNotFoundException;
@@ -10,6 +12,8 @@ import org.mockito.Mock;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
@@ -61,7 +65,7 @@ public class OrderDaoTest {
         assertThrows(OrderNotFoundException.class, () -> orderDao.getOrder(userEmail, orderId));
         verify(dynamoDBMapper).load(Order.class, userEmail, orderId);
     }
-
+    
     @Test
     public void saveOrder_withValidOrder_savesOrder() {
         // GIVEN
