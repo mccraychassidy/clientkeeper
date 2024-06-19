@@ -30,7 +30,7 @@ class ManageClients extends BindingClass {
         try {
             const allClients = await this.client.getAllClients();
             if (allClients && allClients.clients) {
-                this.clients = allClients.clients;
+                this.clients = allClients;
                 this.renderClientsTable(this.clients);
             } else {
                 console.error('No clients found or API response is malformed');
