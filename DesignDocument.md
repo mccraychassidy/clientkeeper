@@ -151,9 +151,9 @@ ClientKeeper. Returns the new client.
 
 ## 6.5 Get All Clients Endpoint 
 * Accepts `GET` requests to `/clients`
-* Returns a list of clients for the user. 
+* Returns a list of clients for the user.
 
-## 6.6. Update Client Endpoint 
+## 6.6. Edit Client Endpoint 
 
 * Accepts `PUT` requests to `/clients/:clientId`
 * Accepts data to update a client's information and returns the updated client. 
@@ -181,7 +181,7 @@ ClientKeeper. Returns the new client.
 * Accepts a `orderId` and returns the order.
   * If the given `orderId` is not found will throw a `OrderNotFoundException`.
 
-## 6.10. Update Order Endpoint
+## 6.10. Edit Order Endpoint
 
 * Accepts `PUT` requests to `/orders/:orderId`
 * Accepts data to update an orders information and returns the updated order.
@@ -193,6 +193,22 @@ ClientKeeper. Returns the new client.
 * Accepts `DELETE` requests to `/orders/:orderId`
 * Accepts `orderId` and deletes.
   * If the given `orderId` is not found will throw a `ClientNotFoundException`.
+
+## 6.12. Get Undelivered Orders Endpoint 
+
+* Accepts `GET` requests to `/orders/undelivered`
+* Accepts an empty `delivered date` and returns orders. 
+
+## 6.13. Get Delivered Orders Endpoint 
+
+* Accepts `GET` requests to `/orders/delivered`
+* Accepts `delivered date` and returns orders. 
+
+## 6.14. Get Orders By Client Id Endpoint 
+
+* Accepts `GET` requests to `/orders/byClientId/{clientId}`
+* Accepts a clientId as a path parameter and returns a list of orders associated with that client ID.
+* If the given clientId is not found, it will return an empty list.
   
 # 7. Tables
 
@@ -228,7 +244,6 @@ reference // string
 
 ```
 clientId // partition key, string
-orderId // sort key, string
 ```
 
 - `ClientOrdersIndex` includes ALL attributes from the `orders` table
