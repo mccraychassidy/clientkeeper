@@ -185,7 +185,6 @@ class ClientKeeperClient extends BindingClass {
         try {
             console.log("Retrieving undelivered orders");
             const token = await this.getTokenOrThrow("You must be logged in to view undelivered orders.");
-            console.log(`Using token: ${token}`);
             const response = await this.axiosClient.get('/orders/undelivered', {
                 headers: {
                     Authorization: `Bearer ${token}`
