@@ -79,4 +79,23 @@ public class GetAllClientsActivityTest {
         assertTrue(result.getClients().isEmpty());
         verify(clientDao).getAllClients("user@example.com");
     }
+
+    @Test
+    public void handleRequest_withNullClients_returnsEmptyList() {
+        // GIVEN
+        GetAllClientsRequest request = GetAllClientsRequest.builder()
+                .withUserEmail("user@example.com")
+                .build();
+
+        when(clientDao.getAllClients("user@example.com")).thenReturn(null);
+
+        // WHEN
+        GetAllClientsResult result = getAllClientsActivity.handleRequest(request);
+
+        // THEN
+        assertNotNull(result);
+        assertNotNull(result.getClients());
+        assertTrue(result.getClients().isEmpty());
+        verify(clientDao).getAllClients("user@example.com");
+    }
 }
