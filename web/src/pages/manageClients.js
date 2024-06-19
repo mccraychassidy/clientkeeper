@@ -33,10 +33,13 @@ class ManageClients extends BindingClass {
                 this.clients = allClients.clients;
                 this.renderClientsTable(this.clients);
             } else {
-                console.error('No clients found or API response is malformed');
+                this.clients = [];
+                this.renderClientsTable(this.clients);
             }
         } catch (error) {
             console.error('Error fetching clients:', error);
+            this.clients = [];
+            this.renderClientsTable(this.clients);
         }
     }
 

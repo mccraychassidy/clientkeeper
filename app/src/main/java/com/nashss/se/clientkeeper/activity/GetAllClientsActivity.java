@@ -44,10 +44,6 @@ public class GetAllClientsActivity {
 
         List<Client> clients = clientDao.getAllClients(request.getUserEmail());
 
-        if (clients.isEmpty()) {
-            throw new ClientNotFoundException("No clients found for userEmail: " + request.getUserEmail());
-        }
-
         List<ClientModel> clientModels = clients.stream().map(client ->
                 ClientModel.builder()
                         .withUserEmail(client.getUserEmail())

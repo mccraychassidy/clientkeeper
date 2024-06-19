@@ -62,7 +62,7 @@ public class GetAllClientsActivityTest {
     }
 
     @Test
-    public void handleRequest_withNoClients_throwsClientNotFoundException() {
+    public void handleRequest_withNoClients_returnsEmptyList() {
         // GIVEN
         GetAllClientsRequest request = GetAllClientsRequest.builder()
                 .withUserEmail("user@example.com")
@@ -70,8 +70,13 @@ public class GetAllClientsActivityTest {
 
         when(clientDao.getAllClients("user@example.com")).thenReturn(Collections.emptyList());
 
-        // WHEN + THEN
-        assertThrows(ClientNotFoundException.class, () -> getAllClientsActivity.handleRequest(request));
+        // WHEN
+        GetAllClientsResult result = getAllClientsActivity.handleRequest(request);
+
+        // THEN
+        assertNotNull(result);
+        assertNotNull(result.getClients());
+        assertTrue(result.getClients().isEmpty());
         verify(clientDao).getAllClients("user@example.com");
     }
 }
