@@ -119,11 +119,7 @@ class ClientKeeperClient extends BindingClass {
     async getAllClients(errorCallback) {
         try {
             const token = await this.getTokenOrThrow("You must be logged in to view clients.");
-            const userInfo = await this.getIdentity();
-            if (!userInfo || !userInfo.email) {
-                throw new Error("Unable to retrieve user information.");
-            }
-            const response = await this.axiosClient.get(`/clients?email=${userInfo.email}`, {
+            const response = await this.axiosClient.get('/clients', {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -132,7 +128,7 @@ class ClientKeeperClient extends BindingClass {
             return response.data;
         } catch (error) {
             this.handleError(error, errorCallback);
-            return null;
+            return { clients: [] };
         }
     }
 

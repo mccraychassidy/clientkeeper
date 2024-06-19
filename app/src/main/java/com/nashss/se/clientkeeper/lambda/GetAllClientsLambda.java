@@ -11,15 +11,11 @@ public class GetAllClientsLambda extends LambdaActivityRunner<GetAllClientsReque
     @Override
     public LambdaResponse handleRequest(AuthenticatedLambdaRequest<GetAllClientsRequest> input, Context context) {
         return super.runActivity(
-            () -> input.fromQuery(query -> {
-                String email = query.get("email");
-                if (email == null || email.isEmpty()) {
-                    throw new IllegalArgumentException("Email query parameter is required");
-                }
-                return GetAllClientsRequest.builder()
-                        .withUserEmail(email)
-                        .build();
-            }),
+            () -> input.fromUserClaims(claims ->
+                GetAllClientsRequest.builder()
+                        .withUserEmail(claims.get("email"))
+                        .build()
+            ),
             (request, serviceComponent) ->
                     serviceComponent.provideGetAllClientsActivity().handleRequest(request)
         );
