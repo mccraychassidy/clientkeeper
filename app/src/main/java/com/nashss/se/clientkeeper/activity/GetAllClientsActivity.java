@@ -11,6 +11,7 @@ import com.nashss.se.clientkeeper.models.ClientModel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
@@ -43,6 +44,10 @@ public class GetAllClientsActivity {
         log.info("Received GetAllClientsRequest for userEmail: {}", request.getUserEmail());
 
         List<Client> clients = clientDao.getAllClients(request.getUserEmail());
+
+        if (clients == null) {
+            clients = Collections.emptyList();
+        }
 
         List<ClientModel> clientModels = clients.stream().map(client ->
                 ClientModel.builder()
