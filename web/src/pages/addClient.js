@@ -31,6 +31,16 @@ class AddClient extends BindingClass {
         document.getElementById('addClientModal').style.display = 'none';
     }
 
+    resetAddButton() {
+        const addButton = document.querySelector('#addClientForm .button[type="submit"]');
+        addButton.disabled = false;
+        addButton.textContent = 'Add Client';
+    }
+
+    resetFormFields() {
+        document.getElementById('addClientForm').reset();
+    }
+
     async addClient(event) {
         event.preventDefault();
 
@@ -54,8 +64,8 @@ class AddClient extends BindingClass {
         } catch (error) {
             console.error('Error creating client:', error);
         } finally {
-            saveButton.disabled = false;
-            saveButton.textContent = 'Save';
+            this.resetAddButton();
+            this.resetFormFields();
         }
     }
 }

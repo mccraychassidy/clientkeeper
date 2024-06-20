@@ -10,7 +10,7 @@
     <div class="demo-page">
         <div class="demo-content">
             <h1>Request A Demo</h1>
-            <form class="demo-form">
+            <form class="demo-form" action="mailto:clientkeepercontact@gmail.com" method="post" enctype="text/plain">
                 <div class="form-field">
                     <input type="text" id="name" name="name" placeholder="Name" required>
                 </div>
@@ -23,8 +23,9 @@
                 <div class="form-field">
                     <input type="tel" id="phone" name="phone" placeholder="Phone" required>
                 </div>
-                <a href="index.html" class="submit-button">Submit Request</a>
+                <button type="submit" class="submit-button">Submit Request</button>
             </form>
+            <button type="button" class="home-button" onclick="window.location.href='index.html'">Back to Home</button>
         </div>
         <div class="logo-container">
             <img src="icons/ClientKeeper-lock-logo.svg" alt="ClientKeeper Logo" class="logo">

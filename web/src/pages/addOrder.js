@@ -5,7 +5,7 @@ import DataStore from '../util/DataStore';
 class AddOrder extends BindingClass {
     constructor(props = {}) {
         super();
-        this.bindClassMethods(['mount', 'openAddOrderModal', 'closeAddOrderModal', 'addOrder'], this);
+        this.bindClassMethods(['mount', 'openAddOrderModal', 'closeAddOrderModal', 'addOrder', 'resetAddButton', 'resetFormFields'], this);
         this.client = new ClientKeeperClient();
         this.dataStore = props.dataStore || new DataStore();
         this.currentOrders = props.currentOrders;
@@ -29,6 +29,16 @@ class AddOrder extends BindingClass {
 
     closeAddOrderModal() {
         document.getElementById('addOrderModal').style.display = 'none';
+    }
+
+    resetAddButton() {
+        const addButton = document.querySelector('#addOrderForm .button[type="submit"]');
+        addButton.disabled = false;
+        addButton.textContent = 'Add Order';
+    }
+
+    resetFormFields() {
+        document.getElementById('addOrderForm').reset();
     }
 
     async addOrder(event) {
@@ -57,6 +67,9 @@ class AddOrder extends BindingClass {
             this.currentOrders.loadOrders();
         } catch (error) {
             console.error('Error creating order:', error);
+        } finally {
+            this.resetAddButton();
+            this.resetFormFields();
         }
     }
 }
