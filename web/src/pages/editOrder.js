@@ -64,6 +64,12 @@ class EditOrder extends BindingClass {
         saveButton.textContent = 'Save';
     }
 
+    resetDeleteButton() {
+        const deleteButton = document.getElementById('delete-order-button');
+        deleteButton.disabled = false;
+        deleteButton.textContent = 'Delete';
+    }
+
     async saveOrder() {
         const saveButton = document.getElementById('save-order-button');
         saveButton.disabled = true;

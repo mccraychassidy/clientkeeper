@@ -105,8 +105,8 @@ class EditClient extends BindingClass {
         } catch (error) {
             console.error('Error deleting client:', error);
         } finally {
-            deleteButton.disabled = false;
-            deleteButton.textContent = 'Delete';
+            this.resetSaveButton();
+            this.resetFormFields();
         }
     }
 }

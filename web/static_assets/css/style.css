@@ -17,6 +17,15 @@ body.background {
     font-family: 'Roboto', Arial, sans-serif;
 }
 
+.modal .form-field input:required:invalid {
+    border: 2px solid var(--error-color);
+}
+
+.modal .form-field input:required:focus {
+    outline: none;
+    border-color: var(--error-color);
+}
+
 header.header {
     display: flex;
     justify-content: space-between;
